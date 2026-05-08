@@ -78,7 +78,8 @@ Generate the static report site:
 cargo run -- report --runs runs --out site
 ```
 
-Open `site/index.html` in a browser to inspect the generated report.
+Open `site/index.html` in a browser to inspect the generated report. The
+repository root `index.html` redirects there for GitHub Pages publishing.
 
 ## Commands
 
