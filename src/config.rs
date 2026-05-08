@@ -1,7 +1,7 @@
 use std::{
     collections::{BTreeMap, BTreeSet},
     fs,
-    path::{Path, PathBuf},
+    path::{Component, Path, PathBuf},
 };
 
 use anyhow::{Context, Result, bail};
@@ -59,6 +59,28 @@ pub struct LoadedSuite {
     pub config: SuiteConfig,
 }
 
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct CompilersConfig {
+    pub benchmark_id: String,
+    #[serde(default, alias = "compiler")]
+    pub compilers: Vec<CompilerConfig>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct CompilerConfig {
+    #[serde(alias = "compiler_id")]
+    pub id: String,
+    #[serde(alias = "compiler")]
+    pub path: PathBuf,
+}
+
+#[derive(Debug, Clone)]
+pub struct LoadedCompilers {
+    pub path: PathBuf,
+    pub benchmark_id: String,
+    pub compilers: Vec<CompilerConfig>,
+}
+
 pub fn load_suite(path: &Path) -> Result<LoadedSuite> {
     let raw =
         fs::read_to_string(path).with_context(|| format!("failed to read {}", path.display()))?;
@@ -86,6 +108,24 @@ impl LoadedSuite {
     pub fn fixture_path(&self, tx: &TransactionConfig) -> PathBuf {
         util::resolve_relative(&self.path, &tx.fixture)
     }
+}
+
+pub fn load_compilers(path: &Path) -> Result<LoadedCompilers> {
+    let raw =
+        fs::read_to_string(path).with_context(|| format!("failed to read {}", path.display()))?;
+    let mut config: CompilersConfig =
+        toml::from_str(&raw).with_context(|| format!("failed to parse {}", path.display()))?;
+    validate_compilers_config(&config)?;
+
+    for compiler in &mut config.compilers {
+        compiler.path = resolve_compiler_path(path, &compiler.path);
+    }
+
+    Ok(LoadedCompilers {
+        path: path.to_path_buf(),
+        benchmark_id: config.benchmark_id,
+        compilers: config.compilers,
+    })
 }
 
 pub fn validate_suite(path: &Path) -> Result<String> {
@@ -223,6 +263,63 @@ fn validate_config_shape(suite: &LoadedSuite, messages: &mut Vec<String>) -> Res
     Ok(())
 }
 
+fn validate_compilers_config(config: &CompilersConfig) -> Result<()> {
+    if config.benchmark_id.trim().is_empty() {
+        bail!("compilers config has an empty benchmark_id");
+    }
+    if config.compilers.is_empty() {
+        bail!("compilers config has no compilers");
+    }
+
+    let mut ids = BTreeSet::new();
+    for compiler in &config.compilers {
+        if compiler.id.trim().is_empty() {
+            bail!("compiler entry has an empty id");
+        }
+        if compiler.path.as_os_str().is_empty() {
+            bail!("compiler `{}` has an empty path", compiler.id);
+        }
+        if !ids.insert(compiler.id.clone()) {
+            bail!("duplicate compiler id `{}`", compiler.id);
+        }
+    }
+
+    if !ids.contains(&config.benchmark_id) {
+        bail!(
+            "benchmark_id `{}` does not match any compiler id",
+            config.benchmark_id
+        );
+    }
+
+    Ok(())
+}
+
+fn resolve_compiler_path(config_path: &Path, path: &Path) -> PathBuf {
+    if let Some(expanded) = expand_home(path) {
+        return expanded;
+    }
+    if path.is_absolute() || is_bare_command(path) {
+        path.to_path_buf()
+    } else {
+        util::resolve_relative(config_path, path)
+    }
+}
+
+fn expand_home(path: &Path) -> Option<PathBuf> {
+    let raw = path.to_str()?;
+    let home = std::env::var_os("HOME").map(PathBuf::from)?;
+    if raw == "~" {
+        Some(home)
+    } else {
+        raw.strip_prefix("~/").map(|suffix| home.join(suffix))
+    }
+}
+
+fn is_bare_command(path: &Path) -> bool {
+    let mut components = path.components();
+    matches!(components.next(), Some(Component::Normal(_))) && components.next().is_none()
+}
+
 pub fn init_suite(suite_dir: &Path) -> Result<()> {
     fs::create_dir_all(suite_dir.join("contracts"))?;
     fs::create_dir_all(suite_dir.join("fixtures"))?;
@@ -310,4 +407,78 @@ contract Vault {
 
     println!("initialized {}", suite_dir.display());
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn load_compilers_resolves_paths_and_validates_benchmark() -> Result<()> {
+        let root = unique_test_root("compilers-config");
+        let _ = fs::remove_dir_all(&root);
+        fs::create_dir_all(root.join("configs"))?;
+        let path = root.join("configs").join("compilers.toml");
+        fs::write(
+            &path,
+            r#"benchmark_id = "baseline"
+
+[[compilers]]
+id = "baseline"
+path = "../bin/solc-baseline"
+
+[[compilers]]
+id = "candidate"
+path = "solc-candidate"
+"#,
+        )?;
+
+        let loaded = load_compilers(&path)?;
+
+        assert_eq!(loaded.benchmark_id, "baseline");
+        assert_eq!(loaded.path, path);
+        assert_eq!(
+            loaded.compilers[0].path,
+            root.join("configs").join("../bin/solc-baseline")
+        );
+        assert_eq!(loaded.compilers[1].path, PathBuf::from("solc-candidate"));
+
+        fs::remove_dir_all(root)?;
+        Ok(())
+    }
+
+    #[test]
+    fn load_compilers_requires_benchmark_compiler() -> Result<()> {
+        let root = unique_test_root("compilers-config-missing-benchmark");
+        let _ = fs::remove_dir_all(&root);
+        fs::create_dir_all(&root)?;
+        let path = root.join("compilers.toml");
+        fs::write(
+            &path,
+            r#"benchmark_id = "baseline"
+
+[[compilers]]
+id = "candidate"
+path = "solc"
+"#,
+        )?;
+
+        let error = load_compilers(&path).expect_err("benchmark compiler should be required");
+        let rendered = format!("{error:?}");
+        assert!(
+            rendered.contains("benchmark_id `baseline` does not match any compiler id"),
+            "{rendered}"
+        );
+
+        fs::remove_dir_all(root)?;
+        Ok(())
+    }
+
+    fn unique_test_root(name: &str) -> PathBuf {
+        let nanos = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .expect("system clock should be after unix epoch")
+            .as_nanos();
+        std::env::temp_dir().join(format!("purplebench-{name}-{}-{nanos}", std::process::id()))
+    }
 }

@@ -1,6 +1,6 @@
 use std::path::PathBuf;
 
-use anyhow::Result;
+use anyhow::{Context, Result, bail};
 use clap::{Args, Parser, Subcommand};
 
 use crate::{capture, config, diff, pipeline, report};
@@ -54,9 +54,11 @@ pub struct RunArgs {
     #[arg(long, default_value = "suite/purplebench.toml")]
     pub suite: PathBuf,
     #[arg(long)]
-    pub compiler: PathBuf,
+    pub compiler: Option<PathBuf>,
     #[arg(long)]
-    pub compiler_id: String,
+    pub compiler_id: Option<String>,
+    #[arg(long)]
+    pub compilers: Option<PathBuf>,
     #[arg(long)]
     pub baseline: Option<PathBuf>,
     #[arg(long, default_value = "runs")]
@@ -98,18 +100,7 @@ pub fn run(cli: Cli) -> Result<()> {
             println!("{report}");
             Ok(())
         }
-        Command::Run(args) => pipeline::run(pipeline::RunOptions {
-            suite_path: args.suite,
-            compiler_path: args.compiler,
-            compiler_id: args.compiler_id,
-            baseline: args.baseline,
-            runs_dir: args.runs_dir,
-            compile_jobs: args.compile_jobs,
-            sim_jobs: args.sim_jobs,
-        })
-        .map(|run_dir| {
-            println!("{}", run_dir.display());
-        }),
+        Command::Run(args) => run_benchmarks(args),
         Command::Diff(args) => {
             let text = diff::write_diff_for_run(&args.run, &args.baseline)?;
             println!("{text}");
@@ -117,4 +108,52 @@ pub fn run(cli: Cli) -> Result<()> {
         }
         Command::Report(args) => report::generate(&args.runs, &args.out),
     }
+}
+
+fn run_benchmarks(args: RunArgs) -> Result<()> {
+    if let Some(compilers_path) = args.compilers {
+        if args.compiler.is_some() || args.compiler_id.is_some() || args.baseline.is_some() {
+            bail!("--compilers cannot be combined with --compiler, --compiler-id, or --baseline");
+        }
+
+        let compilers = config::load_compilers(&compilers_path)?;
+        let run_dirs = pipeline::run_many(pipeline::BatchRunOptions {
+            suite_path: args.suite,
+            compilers_path: compilers.path,
+            benchmark_id: compilers.benchmark_id,
+            compilers: compilers
+                .compilers
+                .into_iter()
+                .map(|compiler| pipeline::CompilerRunOptions {
+                    compiler_path: compiler.path,
+                    compiler_id: compiler.id,
+                })
+                .collect(),
+            runs_dir: args.runs_dir,
+            compile_jobs: args.compile_jobs,
+            sim_jobs: args.sim_jobs,
+        })?;
+        for run_dir in run_dirs {
+            println!("{}", run_dir.display());
+        }
+        return Ok(());
+    }
+
+    let compiler = args
+        .compiler
+        .context("--compiler is required unless --compilers is used")?;
+    let compiler_id = args
+        .compiler_id
+        .context("--compiler-id is required unless --compilers is used")?;
+    let run_dir = pipeline::run(pipeline::RunOptions {
+        suite_path: args.suite,
+        compiler_path: compiler,
+        compiler_id,
+        baseline: args.baseline,
+        runs_dir: args.runs_dir,
+        compile_jobs: args.compile_jobs,
+        sim_jobs: args.sim_jobs,
+    })?;
+    println!("{}", run_dir.display());
+    Ok(())
 }

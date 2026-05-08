@@ -1,4 +1,5 @@
 use std::{
+    collections::{BTreeMap, BTreeSet},
     fs::{self, File},
     io::Write,
     path::{Path, PathBuf},
@@ -29,6 +30,49 @@ pub struct RunOptions {
 }
 
 #[derive(Debug, Clone)]
+pub struct CompilerRunOptions {
+    pub compiler_path: PathBuf,
+    pub compiler_id: String,
+}
+
+#[derive(Debug, Clone)]
+pub struct BatchRunOptions {
+    pub suite_path: PathBuf,
+    pub compilers_path: PathBuf,
+    pub benchmark_id: String,
+    pub compilers: Vec<CompilerRunOptions>,
+    pub runs_dir: PathBuf,
+    pub compile_jobs: Option<usize>,
+    pub sim_jobs: Option<usize>,
+}
+
+#[derive(Debug, Clone)]
+struct BatchOptions {
+    suite_path: PathBuf,
+    compilers_path: Option<PathBuf>,
+    compilers: Vec<CompilerRunOptions>,
+    baseline: BaselineSelection,
+    runs_dir: PathBuf,
+    compile_jobs: Option<usize>,
+    sim_jobs: Option<usize>,
+}
+
+#[derive(Debug, Clone)]
+enum BaselineSelection {
+    None,
+    External(PathBuf),
+    BenchmarkCompiler(String),
+}
+
+#[derive(Debug, Clone)]
+struct PreparedCompiler {
+    compiler_id: String,
+    compiler_path: PathBuf,
+    run_id: String,
+    run_dir: PathBuf,
+}
+
+#[derive(Debug, Clone)]
 struct SimJob {
     run_id: String,
     compiler_id: String,
@@ -40,14 +84,48 @@ struct SimJob {
 }
 
 pub fn run(options: RunOptions) -> Result<PathBuf> {
+    let baseline = options
+        .baseline
+        .clone()
+        .map(BaselineSelection::External)
+        .unwrap_or(BaselineSelection::None);
+    let mut run_dirs = run_batch(BatchOptions {
+        suite_path: options.suite_path,
+        compilers_path: None,
+        compilers: vec![CompilerRunOptions {
+            compiler_path: options.compiler_path,
+            compiler_id: options.compiler_id,
+        }],
+        baseline,
+        runs_dir: options.runs_dir,
+        compile_jobs: options.compile_jobs,
+        sim_jobs: options.sim_jobs,
+    })?;
+    Ok(run_dirs
+        .pop()
+        .expect("single-compiler run should produce one run directory"))
+}
+
+pub fn run_many(options: BatchRunOptions) -> Result<Vec<PathBuf>> {
+    run_batch(BatchOptions {
+        suite_path: options.suite_path,
+        compilers_path: Some(options.compilers_path),
+        compilers: options.compilers,
+        baseline: BaselineSelection::BenchmarkCompiler(options.benchmark_id),
+        runs_dir: options.runs_dir,
+        compile_jobs: options.compile_jobs,
+        sim_jobs: options.sim_jobs,
+    })
+}
+
+fn run_batch(options: BatchOptions) -> Result<Vec<PathBuf>> {
     let validation = config::validate_suite(&options.suite_path)?;
     eprintln!("{validation}");
 
     let suite = config::load_suite(&options.suite_path)?;
-    let run_id = run_id_for_compiler(&options.compiler_id);
-    let run_dir = options.runs_dir.join(&run_id);
+    let compilers = prepare_compilers(&options)?;
 
-    let compile_jobs = build_compile_jobs(&options, &suite, &run_id);
+    let compile_jobs = build_compile_jobs(&options, &suite, &compilers);
     let compile_pool = ThreadPoolBuilder::new()
         .num_threads(options.compile_jobs.unwrap_or_else(default_jobs))
         .build()?;
@@ -58,84 +136,207 @@ pub fn run(options: RunOptions) -> Result<PathBuf> {
             .collect::<Result<Vec<_>>>()
     })?;
 
-    let mut result_set = results::ResultSet::default();
-    for outcome in &compile_outcomes {
-        result_set.compilations.push(outcome.row.clone());
-    }
-
     let sim_jobs = build_sim_jobs(&suite, &compile_outcomes)?;
     let sim_pool = ThreadPoolBuilder::new()
         .num_threads(options.sim_jobs.unwrap_or_else(default_jobs))
         .build()?;
     let sim_outputs = sim_pool.install(|| sim_jobs.par_iter().map(run_sim_job).collect::<Vec<_>>());
 
-    for sim in sim_outputs {
-        result_set.transactions.push(sim.transaction);
-        result_set.storage_checks.extend(sim.storage_checks);
-        result_set.failures.extend(sim.failures);
-    }
-
-    let baseline_results = options
-        .baseline
-        .as_ref()
-        .map(|baseline| results::read_all(baseline))
-        .transpose()?;
-    if let Some(baseline) = &baseline_results {
-        apply_baseline(&mut result_set.transactions, &baseline.transactions);
-    }
-
+    let mut result_sets = collect_result_sets(&compilers, &compile_outcomes, sim_outputs);
+    let baseline_results = baseline_results(&options.baseline, &compilers, &result_sets)?;
     let profiles = suite
         .config
         .optimization_profiles
         .iter()
         .map(|profile| profile.id.clone())
         .collect::<Vec<_>>();
-    result_set.summary = results::build_summary(
-        &run_id,
-        &options.compiler_id,
-        &result_set.compilations,
-        &result_set.transactions,
-        &result_set.storage_checks,
-        &profiles,
-    );
+    let mut diffs = BTreeMap::new();
 
-    let diff_text = baseline_results
-        .as_ref()
-        .map(|baseline| diff::diff_result_sets(&result_set, baseline));
+    for compiler in &compilers {
+        let result_set = result_sets
+            .get_mut(&compiler.run_id)
+            .expect("prepared compiler should have a result set");
+        let should_diff = should_diff_compiler(&options.baseline, &compiler.compiler_id);
+        if should_diff {
+            if let Some(baseline) = &baseline_results {
+                apply_baseline(&mut result_set.transactions, &baseline.transactions);
+                diffs.insert(
+                    compiler.run_id.clone(),
+                    diff::diff_result_sets(result_set, baseline),
+                );
+            }
+        }
+        result_set.summary = results::build_summary(
+            &compiler.run_id,
+            &compiler.compiler_id,
+            &result_set.compilations,
+            &result_set.transactions,
+            &result_set.storage_checks,
+            &profiles,
+        );
+    }
 
-    prepare_run_output_dir(&options.runs_dir, &run_dir, &options.compiler_id)?;
-    write_meta(&run_dir, &run_id, &options, &suite)?;
+    for compiler in &compilers {
+        prepare_run_output_dir(&options.runs_dir, &compiler.run_dir, &compiler.compiler_id)?;
+    }
+    for compiler in &compilers {
+        write_meta(&compiler.run_dir, compiler, &options, &suite)?;
+    }
     for outcome in &compile_outcomes {
         compiler::write_artifacts(outcome)?;
     }
-    write_journal(&run_dir, &result_set)?;
-    results::write_all(&run_dir, &mut result_set)?;
-
-    if let Some(text) = diff_text {
-        fs::write(run_dir.join("diff.txt"), text)?;
+    for compiler in &compilers {
+        let result_set = result_sets
+            .get_mut(&compiler.run_id)
+            .expect("prepared compiler should have a result set");
+        write_journal(&compiler.run_dir, result_set)?;
+        results::write_all(&compiler.run_dir, result_set)?;
+        if let Some(text) = diffs.get(&compiler.run_id) {
+            fs::write(compiler.run_dir.join("diff.txt"), text)?;
+        }
     }
 
-    fail_on_run_failures(&run_dir, &result_set)?;
+    for compiler in &compilers {
+        let result_set = result_sets
+            .get(&compiler.run_id)
+            .expect("prepared compiler should have a result set");
+        fail_on_run_failures(&compiler.run_dir, result_set)?;
+    }
 
-    Ok(run_dir)
+    Ok(compilers
+        .into_iter()
+        .map(|compiler| compiler.run_dir)
+        .collect())
 }
 
-fn build_compile_jobs(options: &RunOptions, suite: &LoadedSuite, run_id: &str) -> Vec<CompileJob> {
+fn prepare_compilers(options: &BatchOptions) -> Result<Vec<PreparedCompiler>> {
+    if options.compilers.is_empty() {
+        bail!("no compilers configured");
+    }
+
+    let mut compiler_ids = BTreeSet::new();
+    let mut run_ids = BTreeSet::new();
+    let mut prepared = Vec::new();
+
+    for compiler in &options.compilers {
+        if compiler.compiler_id.trim().is_empty() {
+            bail!("compiler entry has an empty id");
+        }
+        if compiler.compiler_path.as_os_str().is_empty() {
+            bail!("compiler `{}` has an empty path", compiler.compiler_id);
+        }
+        if !compiler_ids.insert(compiler.compiler_id.clone()) {
+            bail!("duplicate compiler id `{}`", compiler.compiler_id);
+        }
+
+        let run_id = run_id_for_compiler(&compiler.compiler_id);
+        if !run_ids.insert(run_id.clone()) {
+            bail!(
+                "compiler id `{}` sanitizes to duplicate run id `{run_id}`",
+                compiler.compiler_id
+            );
+        }
+
+        prepared.push(PreparedCompiler {
+            compiler_id: compiler.compiler_id.clone(),
+            compiler_path: compiler.compiler_path.clone(),
+            run_dir: options.runs_dir.join(&run_id),
+            run_id,
+        });
+    }
+
+    if let BaselineSelection::BenchmarkCompiler(benchmark_id) = &options.baseline {
+        if !compiler_ids.contains(benchmark_id) {
+            bail!("benchmark_id `{benchmark_id}` does not match any compiler id");
+        }
+    }
+
+    Ok(prepared)
+}
+
+fn build_compile_jobs(
+    options: &BatchOptions,
+    suite: &LoadedSuite,
+    compilers: &[PreparedCompiler],
+) -> Vec<CompileJob> {
     let mut jobs = Vec::new();
-    for contract in &suite.config.contracts {
-        for profile in &suite.config.optimization_profiles {
-            jobs.push(CompileJob {
-                run_id: run_id.to_string(),
-                compiler_id: options.compiler_id.clone(),
-                compiler_path: options.compiler_path.clone(),
-                run_dir: options.runs_dir.join(run_id),
-                contract: contract.clone(),
-                profile: profile.clone(),
-                suite: suite.clone(),
-            });
+    for compiler in compilers {
+        for contract in &suite.config.contracts {
+            for profile in &suite.config.optimization_profiles {
+                jobs.push(CompileJob {
+                    run_id: compiler.run_id.clone(),
+                    compiler_id: compiler.compiler_id.clone(),
+                    compiler_path: compiler.compiler_path.clone(),
+                    run_dir: options.runs_dir.join(&compiler.run_id),
+                    contract: contract.clone(),
+                    profile: profile.clone(),
+                    suite: suite.clone(),
+                });
+            }
         }
     }
     jobs
+}
+
+fn collect_result_sets(
+    compilers: &[PreparedCompiler],
+    compile_outcomes: &[compiler::CompileOutcome],
+    sim_outputs: Vec<revm_runner::SimulationOutput>,
+) -> BTreeMap<String, results::ResultSet> {
+    let mut result_sets = compilers
+        .iter()
+        .map(|compiler| (compiler.run_id.clone(), results::ResultSet::default()))
+        .collect::<BTreeMap<_, _>>();
+
+    for outcome in compile_outcomes {
+        result_sets
+            .entry(outcome.row.run_id.clone())
+            .or_default()
+            .compilations
+            .push(outcome.row.clone());
+    }
+
+    for sim in sim_outputs {
+        let run_id = sim.transaction.run_id.clone();
+        let result_set = result_sets.entry(run_id).or_default();
+        result_set.transactions.push(sim.transaction);
+        result_set.storage_checks.extend(sim.storage_checks);
+        result_set.failures.extend(sim.failures);
+    }
+
+    result_sets
+}
+
+fn baseline_results(
+    baseline: &BaselineSelection,
+    compilers: &[PreparedCompiler],
+    result_sets: &BTreeMap<String, results::ResultSet>,
+) -> Result<Option<results::ResultSet>> {
+    match baseline {
+        BaselineSelection::None => Ok(None),
+        BaselineSelection::External(path) => results::read_all(path).map(Some),
+        BaselineSelection::BenchmarkCompiler(benchmark_id) => {
+            let baseline = compilers
+                .iter()
+                .find(|compiler| &compiler.compiler_id == benchmark_id)
+                .ok_or_else(|| anyhow::anyhow!("benchmark_id `{benchmark_id}` was not run"))?;
+            result_sets
+                .get(&baseline.run_id)
+                .cloned()
+                .map(Some)
+                .ok_or_else(|| {
+                    anyhow::anyhow!("benchmark run `{}` has no results", baseline.run_id)
+                })
+        }
+    }
+}
+
+fn should_diff_compiler(baseline: &BaselineSelection, compiler_id: &str) -> bool {
+    match baseline {
+        BaselineSelection::None => false,
+        BaselineSelection::External(_) => true,
+        BaselineSelection::BenchmarkCompiler(benchmark_id) => benchmark_id != compiler_id,
+    }
 }
 
 fn build_sim_jobs(
@@ -239,20 +440,26 @@ fn apply_baseline(rows: &mut [results::TransactionRow], baseline_rows: &[results
 
 fn write_meta(
     run_dir: &Path,
-    run_id: &str,
-    options: &RunOptions,
+    compiler: &PreparedCompiler,
+    options: &BatchOptions,
     suite: &LoadedSuite,
 ) -> Result<()> {
-    let meta = json!({
-        "run_id": run_id,
-        "compiler_id": options.compiler_id,
-        "compiler": options.compiler_path,
+    let mut meta = json!({
+        "run_id": compiler.run_id,
+        "compiler_id": compiler.compiler_id,
+        "compiler": compiler.compiler_path,
         "suite": options.suite_path,
         "suite_name": suite.config.suite.name,
         "chain_id": suite.config.suite.chain_id,
         "evm_spec": suite.config.suite.evm_spec,
         "created_at": Utc::now().to_rfc3339(),
     });
+    if let BaselineSelection::BenchmarkCompiler(benchmark_id) = &options.baseline {
+        meta["benchmark_id"] = json!(benchmark_id);
+    }
+    if let Some(path) = &options.compilers_path {
+        meta["compilers"] = json!(path);
+    }
     fs::write(
         run_dir.join("meta.json"),
         format!("{}\n", serde_json::to_string_pretty(&meta)?),
@@ -708,6 +915,211 @@ fixture = "fixtures/store.json"
 
         fs::remove_dir_all(root)?;
         Ok(())
+    }
+
+    #[test]
+    #[cfg(unix)]
+    fn run_many_writes_diffs_for_non_benchmark_compilers() -> Result<()> {
+        let root = unique_test_root("pipeline-run-many");
+        let _ = fs::remove_dir_all(&root);
+
+        let address = "0x1111111111111111111111111111111111111111";
+        let suite_path = write_store_suite(&root, address)?;
+        let baseline_compiler = write_fake_compiler(&root, "solc-baseline", address, "6001600055")?;
+        let candidate_compiler =
+            write_fake_compiler(&root, "solc-candidate", address, "5b6001600055")?;
+
+        let runs_dir = root.join("runs");
+        let run_dirs = run_many(BatchRunOptions {
+            suite_path,
+            compilers_path: root.join("compilers.toml"),
+            benchmark_id: "baseline".to_string(),
+            compilers: vec![
+                CompilerRunOptions {
+                    compiler_path: baseline_compiler,
+                    compiler_id: "baseline".to_string(),
+                },
+                CompilerRunOptions {
+                    compiler_path: candidate_compiler,
+                    compiler_id: "candidate".to_string(),
+                },
+            ],
+            runs_dir: runs_dir.clone(),
+            compile_jobs: Some(2),
+            sim_jobs: Some(2),
+        })?;
+
+        let baseline_dir = runs_dir.join("baseline");
+        let candidate_dir = runs_dir.join("candidate");
+        assert_eq!(run_dirs, vec![baseline_dir.clone(), candidate_dir.clone()]);
+        assert!(!baseline_dir.join("diff.txt").exists());
+
+        let diff = fs::read_to_string(candidate_dir.join("diff.txt"))?;
+        assert!(diff.contains("RUNTIME BYTECODE SIZE"), "{diff}");
+        assert!(diff.contains("+1 B"), "{diff}");
+
+        let candidate = results::read_all(&candidate_dir)?;
+        assert!(candidate.failures.is_empty());
+        assert_eq!(candidate.transactions.len(), 1);
+        assert!(candidate.transactions[0].baseline_gas_used.is_some());
+        assert!(candidate.transactions[0].gas_delta.is_some());
+
+        let meta = fs::read_to_string(candidate_dir.join("meta.json"))?;
+        assert!(meta.contains(r#""benchmark_id": "baseline""#), "{meta}");
+        assert!(meta.contains(r#""compilers":"#), "{meta}");
+
+        fs::remove_dir_all(root)?;
+        Ok(())
+    }
+
+    #[cfg(unix)]
+    fn write_store_suite(root: &Path, address: &str) -> Result<PathBuf> {
+        let suite_dir = root.join("suite");
+        let contracts_dir = suite_dir.join("contracts");
+        let fixtures_dir = suite_dir.join("fixtures");
+        fs::create_dir_all(&contracts_dir)?;
+        fs::create_dir_all(&fixtures_dir)?;
+
+        fs::write(
+            suite_dir.join("purplebench.toml"),
+            format!(
+                r#"[suite]
+name = "test"
+chain_id = 1
+evm_spec = "cancun"
+
+[[optimization_profiles]]
+id = "default"
+optimizer = false
+via_ir = false
+runs = 0
+
+[[contracts]]
+address = "{address}"
+source = "contracts/{address}.sol"
+contract_name = "Store"
+
+[[transactions]]
+id = "store"
+contract = "{address}"
+fixture = "fixtures/store.json"
+"#
+            ),
+        )?;
+        fs::write(
+            contracts_dir.join(format!("{address}.sol")),
+            "contract Store {}",
+        )?;
+
+        let caller = "0x2222222222222222222222222222222222222222";
+        let coinbase = "0x0000000000000000000000000000000000000000";
+        crate::fixtures::write_fixture(
+            &fixtures_dir.join("store.json"),
+            &crate::fixtures::Fixture {
+                id: "store".to_string(),
+                chain_id: 1,
+                evm_spec: "cancun".to_string(),
+                contract: address.to_string(),
+                block: crate::fixtures::BlockFixture {
+                    number: "0x1".to_string(),
+                    timestamp: "0x1".to_string(),
+                    base_fee_per_gas: "0x0".to_string(),
+                    gas_limit: "0x1000000".to_string(),
+                    coinbase: coinbase.to_string(),
+                    prevrandao: Some(
+                        "0x0000000000000000000000000000000000000000000000000000000000000000"
+                            .to_string(),
+                    ),
+                },
+                tx: crate::fixtures::TxFixture {
+                    from: caller.to_string(),
+                    to: Some(address.to_string()),
+                    value: "0x0".to_string(),
+                    data: "0x".to_string(),
+                    gas_limit: "0x186a0".to_string(),
+                    gas_price: Some("0x0".to_string()),
+                    max_fee_per_gas: None,
+                    max_priority_fee_per_gas: None,
+                    nonce: Some("0x0".to_string()),
+                    access_list: Vec::new(),
+                },
+                block_hashes: BTreeMap::new(),
+                accounts: BTreeMap::from([
+                    (
+                        address.to_string(),
+                        crate::fixtures::AccountFixture {
+                            nonce: "0x1".to_string(),
+                            balance: "0x0".to_string(),
+                            code: "0x6001600055".to_string(),
+                            storage: BTreeMap::from([("0x0".to_string(), "0x0".to_string())]),
+                        },
+                    ),
+                    (
+                        caller.to_string(),
+                        crate::fixtures::AccountFixture {
+                            nonce: "0x0".to_string(),
+                            balance: "0xffffffffffffffff".to_string(),
+                            code: "0x".to_string(),
+                            storage: BTreeMap::new(),
+                        },
+                    ),
+                    (
+                        coinbase.to_string(),
+                        crate::fixtures::AccountFixture {
+                            nonce: "0x0".to_string(),
+                            balance: "0x0".to_string(),
+                            code: "0x".to_string(),
+                            storage: BTreeMap::new(),
+                        },
+                    ),
+                ]),
+                expected: crate::fixtures::ExpectedFixture {
+                    success: true,
+                    revert_data_hash: None,
+                    logs_hash: None,
+                    storage_after: BTreeMap::from([(
+                        address.to_string(),
+                        BTreeMap::from([("0x0".to_string(), "0x1".to_string())]),
+                    )]),
+                },
+            },
+        )?;
+
+        Ok(suite_dir.join("purplebench.toml"))
+    }
+
+    #[cfg(unix)]
+    fn write_fake_compiler(
+        root: &Path,
+        name: &str,
+        address: &str,
+        runtime: &str,
+    ) -> Result<PathBuf> {
+        let compiler_output = serde_json::json!({
+            "contracts": {
+                format!("{address}.sol"): {
+                    "Store": {
+                        "evm": {
+                            "deployedBytecode": {
+                                "object": runtime
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        let compiler_path = root.join(name);
+        fs::write(
+            &compiler_path,
+            format!(
+                "#!/bin/sh\ncat >/dev/null\nprintf '%s\\n' '{}'\n",
+                serde_json::to_string(&compiler_output)?
+            ),
+        )?;
+        let mut permissions = fs::metadata(&compiler_path)?.permissions();
+        permissions.set_mode(0o755);
+        fs::set_permissions(&compiler_path, permissions)?;
+        Ok(compiler_path)
     }
 
     fn unique_test_root(name: &str) -> PathBuf {
