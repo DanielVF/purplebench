@@ -116,6 +116,10 @@ locally. Transactions that depend on earlier transactions from the same block
 may not capture cleanly. If the transaction cannot be replayed successfully, no
 fixture is written.
 
+Capture and offline replay preserve sender account code and disable the local
+EIP-3607 transaction-validity check, so fixtures can benchmark transactions
+whose `from` address has deployed code.
+
 ### `purplebench validate`
 
 Validates suite structure and replays every fixture locally.
@@ -149,15 +153,26 @@ cargo run -- run \
   --sim-jobs 8
 ```
 
-`--compiler-id` is used as the run directory name after sanitization. If that
-directory already exists, Purplebench appends a UTC timestamp.
+`--compiler-id` is used as the run directory name after sanitization. Each
+compiler id is kept once under `--runs-dir`; a later successful run for the same
+compiler id replaces the previous run output.
 
-Use `--baseline runs/<baseline>` to add gas deltas to transaction CSV rows and
-write `diff.txt` into the new run directory.
+Compilation is all-or-nothing. If any contract/profile pair fails to compile,
+Purplebench prints the compiler message to stderr, exits with an error, and
+does not create a run directory or record result rows for that attempt.
+
+If replay records any simulation or storage correctness failure, Purplebench
+writes the run directory, reports the failures CSV path, and exits with an
+error. Gas deltas alone do not make `run` fail.
+
+Use `--baseline runs/<baseline>` to add gas deltas to transaction CSV rows,
+write `diff.txt` into the new run directory, and make the baseline diff
+available in generated HTML report tables.
 
 ### `purplebench diff`
 
-Prints a concise textual comparison between two run directories.
+Prints a concise textual comparison between two run directories and writes the
+same comparison to `<run>/diff.txt`.
 
 ```sh
 cargo run -- diff --run runs/solc-candidate --baseline runs/solc-main
@@ -168,7 +183,8 @@ runtime bytecode size changes.
 
 ### `purplebench report`
 
-Builds a static HTML report from run CSV files.
+Builds a static HTML report from run CSV files and any run-local `diff.txt`
+files.
 
 ```sh
 cargo run -- report --runs runs --out site
@@ -177,6 +193,18 @@ cargo run -- report --runs runs --out site
 The report includes a run index, compiler/run detail pages, transaction tables,
 storage mismatch tables when needed, and bytecode visualization pages for
 successful compilations.
+If a run directory contains `diff.txt`, the run index links to the detail table
+that contains the parsed baseline diffs and shows per-profile summed runtime
+size deltas, size percentages, and gas deltas. Compiler/run detail pages show
+runtime size deltas in the compilation table and gas deltas in the transaction
+table, with absolute changes shown as signed integers and percentage changes
+rendered to two decimal places.
+The run index sorts summary rows by profile, then compiler, and colors chart
+points by compiler.
+Compiler/run detail pages show contract names in compilation tables; hover the
+name to see the contract address.
+Compiler/run detail transaction tables sort rows by transaction id, then
+optimization profile.
 
 ## Suite Configuration
 
@@ -204,6 +232,11 @@ runs = 200
 address = "0x1111111111111111111111111111111111111111"
 source = "contracts/0x1111111111111111111111111111111111111111.sol"
 contract_name = "Vault"
+
+# Optional. Values patch Solidity immutables into deployed bytecode before
+# replay. Keys may use the Solidity variable name or snake_case.
+[contracts.immutables]
+owner = "0x2222222222222222222222222222222222222222"
 
 [[transactions]]
 id = "deposit"
@@ -248,6 +281,32 @@ Purplebench compiles through Solidity standard JSON and reads
 `evm.deployedBytecode.object` from the configured `contract_name`. Runtime size
 is measured from the exact deployed bytecode returned by the compiler,
 including metadata.
+
+If a contract has constructor-set Solidity immutables and the runtime is being
+substituted directly into an existing fixture, add a `[contracts.immutables]`
+table under that contract. Purplebench reads solc
+`evm.deployedBytecode.immutableReferences`, matches keys against immutable
+variable names, patches every emitted reference, and writes the patched runtime
+to `runtime.hex`. Keys may be exact Solidity names such as `tickSpacing` or
+snake-case aliases such as `tick_spacing`.
+
+Example for the mainnet Uniswap V3 USDC/WETH 0.05% pool:
+
+```toml
+[[contracts]]
+address = "0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640"
+source = "contracts/0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640.sol"
+contract_name = "UniswapV3Pool"
+
+[contracts.immutables]
+original = "0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640"
+factory = "0x1f98431c8ad98523631ae4a59f267346ea31f984"
+token0 = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
+token1 = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+fee = "0x1f4"
+tick_spacing = "0x0a"
+max_liquidity_per_tick = "0x5e8b2285f864419ac400be907196"
+```
 
 ### Transactions
 
@@ -342,7 +401,7 @@ Each run directory contains:
 runs/<run-id>/
   meta.json
   journal.jsonl
-  diff.txt                 # only when --baseline is provided
+  diff.txt                 # when --baseline is provided or diff has been run
   artifacts/
     <contract>/<profile>/
       runtime.hex
@@ -358,19 +417,25 @@ runs/<run-id>/
 
 CSV files are sorted for stable diffs.
 
-`compilations.csv` records compiler success, runtime bytecode size, runtime
-hash, artifact path, duration, and compiler errors.
+`compilations.csv` records successful compiler outputs, runtime bytecode size,
+runtime hash, artifact path, and duration. Compile failures abort the run before
+CSV or artifact output is written.
 
 `transactions.csv` records replay success, gas used, optional baseline gas,
 gas delta, status/logs/revert/storage checks, duration, and errors.
 
 `storage_checks.csv` records each expected storage slot comparison.
 
+`compiler-meta.json` includes an `immutable_patches` array when a contract
+configuration patched Solidity immutables into the compiled runtime.
+
 `summary.csv` aggregates runtime size, gas, transaction count, and failure
 counts by profile.
 
-`failures.csv` records compile, simulation, and storage failures in a compact
-machine-readable shape.
+`failures.csv` records simulation and storage failures in a compact
+machine-readable shape. When it is non-empty, `run` exits with an error after
+writing the run output. Compile failures are reported directly on the command
+line and are not recorded in run output.
 
 ## Development
 

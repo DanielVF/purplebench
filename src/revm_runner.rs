@@ -202,6 +202,7 @@ pub fn simulate(fixture: &Fixture, input: SimulationInput<'_>) -> Result<Simulat
         .modify_cfg_chained(|cfg| {
             cfg.set_spec_and_mainnet_gas_params(spec);
             cfg.chain_id = fixture.chain_id;
+            cfg.disable_eip3607 = true;
         })
         .with_block(block)
         .with_db(db);
@@ -531,7 +532,7 @@ mod tests {
     use crate::fixtures::{BlockFixture, ExpectedFixture, TxFixture};
 
     #[test]
-    fn fixture_replay_checks_storage() {
+    fn fixture_replay_allows_contract_sender_and_checks_storage() {
         let target = "0x1111111111111111111111111111111111111111".to_string();
         let caller = "0x2222222222222222222222222222222222222222".to_string();
         let mut accounts = BTreeMap::new();
@@ -549,7 +550,7 @@ mod tests {
             AccountFixture {
                 nonce: "0x0".to_string(),
                 balance: "0xffffffffffffffff".to_string(),
-                code: "0x".to_string(),
+                code: "0x00".to_string(),
                 storage: BTreeMap::new(),
             },
         );

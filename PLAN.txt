@@ -398,8 +398,11 @@ Use a streaming pipeline:
 
 ```text
 compile workers
-  -> write runtime bytecode artifact
-  -> send compiled artifact to simulation queue
+  -> produce runtime bytecode artifact in memory
+
+compile gate
+  -> on compiler error, print the compiler message and exit before writing run output
+  -> after all compiles succeed, write runtime bytecode artifacts
 
 simulation workers
   -> run all matching transaction fixtures
@@ -415,7 +418,7 @@ Implementation details:
 - Use `rayon` or `tokio` plus blocking worker pools. Prefer the simpler model
   unless async is needed for process management.
 - Bound compiler parallelism separately from simulation parallelism.
-- Start simulations as soon as a compile artifact is available.
+- Do not record partial run data for compiler errors.
 - Keep final CSV deterministic by sorting rows before final write.
 - Write a journal during the run so partial failures can be inspected.
 - Never mutate shared fixture state across simulations.
@@ -437,6 +440,10 @@ runs/
       failures.csv
     diff.txt
 ```
+
+Compiler errors are terminal for `purplebench run`: print the compiler message
+to the command line and exit before writing the run directory, artifacts, CSV
+files, or journal entries.
 
 `compilations.csv`:
 
@@ -488,8 +495,7 @@ Diff behavior:
 - Report runtime bytecode size deltas and percentage changes.
 - Report gas deltas and percentage changes.
 - Report correctness failures separately from gas movement.
-- Report missing rows, new rows, compile failures, simulation failures, and
-  storage mismatches.
+- Report missing rows, new rows, simulation failures, and storage mismatches.
 - A gas increase or decrease is not a failure by itself.
 - A storage mismatch is a correctness failure.
 
@@ -765,4 +771,3 @@ Reports:
 - CSV is the canonical output.
 - HTML is generated from CSV.
 - Text diff is generated for development-loop and agent use.
-

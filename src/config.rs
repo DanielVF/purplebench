@@ -1,5 +1,5 @@
 use std::{
-    collections::BTreeSet,
+    collections::{BTreeMap, BTreeSet},
     fs,
     path::{Path, PathBuf},
 };
@@ -42,6 +42,8 @@ pub struct ContractConfig {
     pub address: String,
     pub source: PathBuf,
     pub contract_name: String,
+    #[serde(default)]
+    pub immutables: BTreeMap<String, String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -189,6 +191,17 @@ fn validate_config_shape(suite: &LoadedSuite, messages: &mut Vec<String>) -> Res
                 "contract source {} contains imports but suite.allow_local_imports is false",
                 source_path.display()
             );
+        }
+        for (name, value) in &contract.immutables {
+            if name.trim().is_empty() {
+                bail!("contract {} has an empty immutable name", contract.address);
+            }
+            util::parse_u256(value).with_context(|| {
+                format!(
+                    "contract {} immutable `{name}` has invalid value `{value}`",
+                    contract.address
+                )
+            })?;
         }
         messages.push(format!("found source {}", source_path.display()));
     }

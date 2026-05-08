@@ -1,0 +1,115 @@
+[suite]
+name = "mainnet"
+chain_id = 1
+evm_spec = "prague"
+
+[[optimization_profiles]]
+id = "default"
+optimizer = false
+via_ir = false
+runs = 0
+
+[[optimization_profiles]]
+id = "optimized"
+optimizer = true
+via_ir = false
+runs = 200
+
+[[optimization_profiles]]
+id = "optimized-high-runs"
+optimizer = true
+via_ir = false
+runs = 220000
+
+[[optimization_profiles]]
+id = "optimized-low-runs"
+optimizer = true
+via_ir = false
+runs = 1
+
+[[optimization_profiles]]
+id = "via-ir"
+optimizer = true
+via_ir = true
+runs = 200
+
+[[optimization_profiles]]
+id = "via-ir-high-runs"
+optimizer = true
+via_ir = true
+runs = 10000
+
+[[optimization_profiles]]
+id = "via-ir-low-runs"
+optimizer = true
+via_ir = true
+runs = 1
+
+[[contracts]]
+address = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+source = "contracts/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2.sol"
+contract_name = "WETH9"
+
+[[contracts]]
+address = "0xd86756dbb01e75a11aadacb75c8495759ed92033"
+source = "contracts/0xd86756dbb01e75a11aadacb75c8495759ed92033.sol"
+contract_name = "OETH"
+
+[[contracts]]
+address = "0xfe89fd96f270ac3c0f11921af0390dbb1340f704"
+source = "contracts/0xfe89fd96f270ac3c0f11921af0390dbb1340f704.sol"
+contract_name = "AaveV4HubInstance"
+
+[[contracts]]
+address = "0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640"
+source = "contracts/0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640.sol"
+contract_name = "UniswapV3Pool"
+
+[contracts.immutables]
+original = "0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640"
+factory = "0x1f98431c8ad98523631ae4a59f267346ea31f984"
+token0 = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
+token1 = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+fee = "0x1f4"
+tick_spacing = "0x0a"
+max_liquidity_per_tick = "0x5e8b2285f864419ac400be907196"
+
+[[contracts]]
+address = "0x83bc649fcdb2c8da146b2154a559ddedf937ef12"
+source = "contracts/0x83bc649fcdb2c8da146b2154a559ddedf937ef12.sol"
+contract_name = "EtherfiLiquidityPool"
+
+[[transactions]]
+id = "weth-deposit"
+contract = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+fixture = "fixtures/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2/weth-deposit.json"
+
+[[transactions]]
+id = "weth-transfer"
+contract = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+fixture = "fixtures/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2/weth-transfer.json"
+
+[[transactions]]
+id = "oeth-swap"
+contract = "0xd86756dbb01e75a11aadacb75c8495759ed92033"
+fixture = "fixtures/0xd86756dbb01e75a11aadacb75c8495759ed92033/oeth-swap.json"
+
+[[transactions]]
+id = "aavev4hub-borrow"
+contract = "0xfe89fd96f270ac3c0f11921af0390dbb1340f704"
+fixture = "fixtures/0xfe89fd96f270ac3c0f11921af0390dbb1340f704/aavev4hub-borrow.json"
+
+[[transactions]]
+id = "aavev4hub-repay"
+contract = "0xfe89fd96f270ac3c0f11921af0390dbb1340f704"
+fixture ="fixtures/0xfe89fd96f270ac3c0f11921af0390dbb1340f704/aavev4hub-repay.json"
+
+[[transactions]]
+id = "uniswapv3-swap"
+contract = "0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640"
+fixture = "fixtures/0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640/uniswapv3-swap.json"
+
+[[transactions]]
+id = "etherfi-requestWithdraw"
+contract = "0x83bc649fcdb2c8da146b2154a559ddedf937ef12"
+fixture = "fixtures/0x83bc649fcdb2c8da146b2154a559ddedf937ef12/etherfi-requestWithdraw.json"

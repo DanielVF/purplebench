@@ -4,10 +4,10 @@ use std::{
     path::{Path, PathBuf},
 };
 
-use anyhow::{Context, Result};
+use anyhow::{Context, Result, bail};
 use chrono::Utc;
 use rayon::{ThreadPoolBuilder, prelude::*};
-use serde_json::json;
+use serde_json::{Value, json};
 
 use crate::{
     compiler::{self, CompileJob},
@@ -44,10 +44,8 @@ pub fn run(options: RunOptions) -> Result<PathBuf> {
     eprintln!("{validation}");
 
     let suite = config::load_suite(&options.suite_path)?;
-    let run_id = unique_run_id(&options.compiler_id, &options.runs_dir)?;
+    let run_id = run_id_for_compiler(&options.compiler_id);
     let run_dir = options.runs_dir.join(&run_id);
-    fs::create_dir_all(&run_dir)?;
-    write_meta(&run_dir, &run_id, &options, &suite)?;
 
     let compile_jobs = build_compile_jobs(&options, &suite, &run_id);
     let compile_pool = ThreadPoolBuilder::new()
@@ -57,23 +55,11 @@ pub fn run(options: RunOptions) -> Result<PathBuf> {
         compile_jobs
             .par_iter()
             .map(compiler::compile)
-            .collect::<Vec<_>>()
-    });
+            .collect::<Result<Vec<_>>>()
+    })?;
 
     let mut result_set = results::ResultSet::default();
     for outcome in &compile_outcomes {
-        if !outcome.row.success {
-            result_set.failures.push(results::FailureRow {
-                run_id: outcome.row.run_id.clone(),
-                compiler_id: outcome.row.compiler_id.clone(),
-                stage: "compile".to_string(),
-                contract: outcome.row.contract.clone(),
-                profile: outcome.row.profile.clone(),
-                tx_id: None,
-                error_kind: "compiler_error".to_string(),
-                error: outcome.row.error.clone().unwrap_or_default(),
-            });
-        }
         result_set.compilations.push(outcome.row.clone());
     }
 
@@ -89,8 +75,13 @@ pub fn run(options: RunOptions) -> Result<PathBuf> {
         result_set.failures.extend(sim.failures);
     }
 
-    if let Some(baseline) = &options.baseline {
-        apply_baseline(&mut result_set.transactions, baseline)?;
+    let baseline_results = options
+        .baseline
+        .as_ref()
+        .map(|baseline| results::read_all(baseline))
+        .transpose()?;
+    if let Some(baseline) = &baseline_results {
+        apply_baseline(&mut result_set.transactions, &baseline.transactions);
     }
 
     let profiles = suite
@@ -108,13 +99,23 @@ pub fn run(options: RunOptions) -> Result<PathBuf> {
         &profiles,
     );
 
+    let diff_text = baseline_results
+        .as_ref()
+        .map(|baseline| diff::diff_result_sets(&result_set, baseline));
+
+    prepare_run_output_dir(&options.runs_dir, &run_dir, &options.compiler_id)?;
+    write_meta(&run_dir, &run_id, &options, &suite)?;
+    for outcome in &compile_outcomes {
+        compiler::write_artifacts(outcome)?;
+    }
     write_journal(&run_dir, &result_set)?;
     results::write_all(&run_dir, &mut result_set)?;
 
-    if let Some(baseline) = &options.baseline {
-        let text = diff::diff_runs(&run_dir, baseline)?;
+    if let Some(text) = diff_text {
         fs::write(run_dir.join("diff.txt"), text)?;
     }
+
+    fail_on_run_failures(&run_dir, &result_set)?;
 
     Ok(run_dir)
 }
@@ -143,9 +144,6 @@ fn build_sim_jobs(
 ) -> Result<Vec<SimJob>> {
     let mut jobs = Vec::new();
     for outcome in compile_outcomes {
-        let Some(runtime_hex) = &outcome.runtime_hex else {
-            continue;
-        };
         for tx in suite
             .config
             .transactions
@@ -159,7 +157,7 @@ fn build_sim_jobs(
                 profile: outcome.row.profile.clone(),
                 tx_id: tx.id.clone(),
                 fixture_path: suite.fixture_path(tx),
-                runtime_hex: runtime_hex.clone(),
+                runtime_hex: outcome.runtime_hex.clone(),
             });
         }
     }
@@ -220,9 +218,8 @@ fn run_sim_job(job: &SimJob) -> revm_runner::SimulationOutput {
     }
 }
 
-fn apply_baseline(rows: &mut [results::TransactionRow], baseline: &Path) -> Result<()> {
-    let baseline_rows = results::read_all(baseline)?.transactions;
-    let map = results::baseline_gas_map(&baseline_rows);
+fn apply_baseline(rows: &mut [results::TransactionRow], baseline_rows: &[results::TransactionRow]) {
+    let map = results::baseline_gas_map(baseline_rows);
     for row in rows {
         let key = (row.contract.clone(), row.profile.clone(), row.tx_id.clone());
         if let Some(baseline_gas) = map.get(&key).copied() {
@@ -238,7 +235,6 @@ fn apply_baseline(rows: &mut [results::TransactionRow], baseline: &Path) -> Resu
             }
         }
     }
-    Ok(())
 }
 
 fn write_meta(
@@ -290,18 +286,111 @@ fn write_journal(run_dir: &Path, result_set: &results::ResultSet) -> Result<()> 
     Ok(())
 }
 
-fn unique_run_id(compiler_id: &str, runs_dir: &PathBuf) -> Result<String> {
-    fs::create_dir_all(runs_dir)?;
+fn run_id_for_compiler(compiler_id: &str) -> String {
     let base = util::sanitize_id(compiler_id);
-    let base = if base.is_empty() {
+    if base.is_empty() {
         "run".to_string()
     } else {
         base
-    };
-    if !runs_dir.join(&base).exists() {
-        return Ok(base);
     }
-    Ok(format!("{}-{}", base, Utc::now().format("%Y%m%d%H%M%S")))
+}
+
+fn prepare_run_output_dir(runs_dir: &Path, run_dir: &Path, compiler_id: &str) -> Result<()> {
+    remove_previous_run_dirs(runs_dir, run_dir, compiler_id)?;
+    fs::create_dir_all(run_dir)
+        .with_context(|| format!("failed to create {}", run_dir.display()))?;
+    Ok(())
+}
+
+fn remove_previous_run_dirs(runs_dir: &Path, run_dir: &Path, compiler_id: &str) -> Result<()> {
+    if !runs_dir.exists() {
+        return Ok(());
+    }
+
+    let target_name = run_dir.file_name();
+    for entry in
+        fs::read_dir(runs_dir).with_context(|| format!("failed to read {}", runs_dir.display()))?
+    {
+        let entry = entry?;
+        if !entry.file_type()?.is_dir() {
+            continue;
+        }
+
+        let entry_name = entry.file_name();
+        let path = entry.path();
+        let is_target = target_name == Some(entry_name.as_os_str());
+        let has_same_compiler_id = run_compiler_id(&path).as_deref() == Some(compiler_id);
+        if is_target || has_same_compiler_id {
+            fs::remove_dir_all(&path)
+                .with_context(|| format!("failed to remove previous run {}", path.display()))?;
+        }
+    }
+    Ok(())
+}
+
+fn run_compiler_id(run_dir: &Path) -> Option<String> {
+    let bytes = fs::read(run_dir.join("meta.json")).ok()?;
+    let meta: Value = serde_json::from_slice(&bytes).ok()?;
+    meta.get("compiler_id")
+        .and_then(Value::as_str)
+        .map(str::to_string)
+}
+
+fn fail_on_run_failures(run_dir: &Path, result_set: &results::ResultSet) -> Result<()> {
+    let failed_transactions = result_set
+        .transactions
+        .iter()
+        .filter(|row| !row.success)
+        .count();
+    if result_set.failures.is_empty() && failed_transactions == 0 {
+        return Ok(());
+    }
+
+    let mut message = if result_set.failures.is_empty() {
+        format!(
+            "run failed with {failed_transactions} failed transaction{}; wrote results to {}",
+            plural(failed_transactions),
+            run_dir.display()
+        )
+    } else {
+        format!(
+            "run failed with {} recorded failure{}; wrote results to {}",
+            result_set.failures.len(),
+            plural(result_set.failures.len()),
+            run_dir.display()
+        )
+    };
+    let detail_file = if result_set.failures.is_empty() {
+        run_dir.join("csv").join("transactions.csv")
+    } else {
+        run_dir.join("csv").join("failures.csv")
+    };
+    message.push_str(&format!("\nsee {}", detail_file.display()));
+
+    for failure in result_set.failures.iter().take(5) {
+        message.push_str(&format!(
+            "\n- {} {} {} {} {}: {}",
+            failure.stage,
+            failure.contract,
+            failure.profile,
+            failure.tx_id.as_deref().unwrap_or("-"),
+            failure.error_kind,
+            failure.error
+        ));
+    }
+    if result_set.failures.len() > 5 {
+        message.push_str(&format!(
+            "\n- ... {} more failure{}",
+            result_set.failures.len() - 5,
+            plural(result_set.failures.len() - 5)
+        ));
+    }
+
+    bail!("{message}");
+}
+
+fn plural(count: usize) -> &'static str {
+    if count == 1 { "" } else { "s" }
 }
 
 fn default_jobs() -> usize {
@@ -309,4 +398,323 @@ fn default_jobs() -> usize {
         .map(usize::from)
         .unwrap_or(1)
         .max(1)
+}
+
+#[cfg(test)]
+mod tests {
+    use std::{
+        collections::BTreeMap,
+        fs,
+        time::{SystemTime, UNIX_EPOCH},
+    };
+
+    use super::*;
+
+    #[cfg(unix)]
+    use std::os::unix::fs::PermissionsExt;
+
+    #[test]
+    fn run_id_for_compiler_is_stable_sanitized_id() {
+        assert_eq!(
+            run_id_for_compiler("solc feature/branch"),
+            "solc-feature-branch"
+        );
+        assert_eq!(run_id_for_compiler("!!!"), "run");
+    }
+
+    #[test]
+    fn prepare_run_output_dir_removes_target_and_same_compiler_runs() -> Result<()> {
+        let root = unique_test_root("pipeline-overwrite");
+        let _ = fs::remove_dir_all(&root);
+
+        let runs_dir = root.join("runs");
+        let compiler_id = "solc/feature";
+        let target = runs_dir.join(run_id_for_compiler(compiler_id));
+        let timestamped = runs_dir.join("solc-feature-20260101000000");
+        let other = runs_dir.join("other");
+
+        fs::create_dir_all(&target)?;
+        fs::write(target.join("stale.txt"), "old")?;
+        fs::create_dir_all(&timestamped)?;
+        fs::write(
+            timestamped.join("meta.json"),
+            r#"{"compiler_id":"solc/feature"}"#,
+        )?;
+        fs::create_dir_all(&other)?;
+        fs::write(other.join("meta.json"), r#"{"compiler_id":"other"}"#)?;
+
+        prepare_run_output_dir(&runs_dir, &target, compiler_id)?;
+
+        assert!(target.exists(), "{} should exist", target.display());
+        assert!(
+            !target.join("stale.txt").exists(),
+            "stale target output should be removed"
+        );
+        assert!(
+            !timestamped.exists(),
+            "{} should be removed",
+            timestamped.display()
+        );
+        assert!(other.exists(), "{} should remain", other.display());
+
+        fs::remove_dir_all(root)?;
+        Ok(())
+    }
+
+    #[test]
+    #[cfg(unix)]
+    fn compile_failure_exits_without_run_output() -> Result<()> {
+        let root = unique_test_root("pipeline-compile-failure");
+        let _ = fs::remove_dir_all(&root);
+
+        let suite_dir = root.join("suite");
+        let contracts_dir = suite_dir.join("contracts");
+        fs::create_dir_all(&contracts_dir)?;
+
+        let address = "0x1111111111111111111111111111111111111111";
+        fs::write(
+            suite_dir.join("purplebench.toml"),
+            format!(
+                r#"[suite]
+name = "test"
+chain_id = 1
+evm_spec = "cancun"
+
+[[optimization_profiles]]
+id = "default"
+optimizer = false
+via_ir = false
+runs = 0
+
+[[contracts]]
+address = "{address}"
+source = "contracts/{address}.sol"
+contract_name = "Bad"
+"#
+            ),
+        )?;
+        fs::write(
+            contracts_dir.join(format!("{address}.sol")),
+            "contract Bad {",
+        )?;
+
+        let compiler_path = root.join("solc-fail");
+        fs::write(
+            &compiler_path,
+            r#"#!/bin/sh
+cat >/dev/null
+printf '%s\n' '{"errors":[{"severity":"error","formattedMessage":"ParserError: bad syntax"}]}'
+"#,
+        )?;
+        let mut permissions = fs::metadata(&compiler_path)?.permissions();
+        permissions.set_mode(0o755);
+        fs::set_permissions(&compiler_path, permissions)?;
+
+        let runs_dir = root.join("runs");
+        let error = run(RunOptions {
+            suite_path: suite_dir.join("purplebench.toml"),
+            compiler_path,
+            compiler_id: "failed-run".to_string(),
+            baseline: None,
+            runs_dir: runs_dir.clone(),
+            compile_jobs: Some(1),
+            sim_jobs: Some(1),
+        })
+        .expect_err("run should fail on compiler errors");
+
+        let rendered = format!("{error:?}");
+        assert!(rendered.contains("ParserError: bad syntax"), "{rendered}");
+        assert!(
+            !runs_dir.exists(),
+            "{} should not exist",
+            runs_dir.display()
+        );
+
+        fs::remove_dir_all(root)?;
+        Ok(())
+    }
+
+    #[test]
+    #[cfg(unix)]
+    fn simulation_failure_exits_after_writing_run_output() -> Result<()> {
+        let root = unique_test_root("pipeline-simulation-failure");
+        let _ = fs::remove_dir_all(&root);
+
+        let suite_dir = root.join("suite");
+        let contracts_dir = suite_dir.join("contracts");
+        let fixtures_dir = suite_dir.join("fixtures");
+        fs::create_dir_all(&contracts_dir)?;
+        fs::create_dir_all(&fixtures_dir)?;
+
+        let address = "0x1111111111111111111111111111111111111111";
+        fs::write(
+            suite_dir.join("purplebench.toml"),
+            format!(
+                r#"[suite]
+name = "test"
+chain_id = 1
+evm_spec = "cancun"
+
+[[optimization_profiles]]
+id = "default"
+optimizer = false
+via_ir = false
+runs = 0
+
+[[contracts]]
+address = "{address}"
+source = "contracts/{address}.sol"
+contract_name = "Store"
+
+[[transactions]]
+id = "store"
+contract = "{address}"
+fixture = "fixtures/store.json"
+"#
+            ),
+        )?;
+        fs::write(
+            contracts_dir.join(format!("{address}.sol")),
+            "contract Store {}",
+        )?;
+
+        let caller = "0x2222222222222222222222222222222222222222";
+        let coinbase = "0x0000000000000000000000000000000000000000";
+        crate::fixtures::write_fixture(
+            &fixtures_dir.join("store.json"),
+            &crate::fixtures::Fixture {
+                id: "store".to_string(),
+                chain_id: 1,
+                evm_spec: "cancun".to_string(),
+                contract: address.to_string(),
+                block: crate::fixtures::BlockFixture {
+                    number: "0x1".to_string(),
+                    timestamp: "0x1".to_string(),
+                    base_fee_per_gas: "0x0".to_string(),
+                    gas_limit: "0x1000000".to_string(),
+                    coinbase: coinbase.to_string(),
+                    prevrandao: Some(
+                        "0x0000000000000000000000000000000000000000000000000000000000000000"
+                            .to_string(),
+                    ),
+                },
+                tx: crate::fixtures::TxFixture {
+                    from: caller.to_string(),
+                    to: Some(address.to_string()),
+                    value: "0x0".to_string(),
+                    data: "0x".to_string(),
+                    gas_limit: "0x186a0".to_string(),
+                    gas_price: Some("0x0".to_string()),
+                    max_fee_per_gas: None,
+                    max_priority_fee_per_gas: None,
+                    nonce: Some("0x0".to_string()),
+                    access_list: Vec::new(),
+                },
+                block_hashes: BTreeMap::new(),
+                accounts: BTreeMap::from([
+                    (
+                        address.to_string(),
+                        crate::fixtures::AccountFixture {
+                            nonce: "0x1".to_string(),
+                            balance: "0x0".to_string(),
+                            code: "0x6001600055".to_string(),
+                            storage: BTreeMap::from([("0x0".to_string(), "0x0".to_string())]),
+                        },
+                    ),
+                    (
+                        caller.to_string(),
+                        crate::fixtures::AccountFixture {
+                            nonce: "0x0".to_string(),
+                            balance: "0xffffffffffffffff".to_string(),
+                            code: "0x".to_string(),
+                            storage: BTreeMap::new(),
+                        },
+                    ),
+                    (
+                        coinbase.to_string(),
+                        crate::fixtures::AccountFixture {
+                            nonce: "0x0".to_string(),
+                            balance: "0x0".to_string(),
+                            code: "0x".to_string(),
+                            storage: BTreeMap::new(),
+                        },
+                    ),
+                ]),
+                expected: crate::fixtures::ExpectedFixture {
+                    success: true,
+                    revert_data_hash: None,
+                    logs_hash: None,
+                    storage_after: BTreeMap::from([(
+                        address.to_string(),
+                        BTreeMap::from([("0x0".to_string(), "0x1".to_string())]),
+                    )]),
+                },
+            },
+        )?;
+
+        let compiler_output = serde_json::json!({
+            "contracts": {
+                format!("{address}.sol"): {
+                    "Store": {
+                        "evm": {
+                            "deployedBytecode": {
+                                "object": "6002600055"
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        let compiler_path = root.join("solc-candidate");
+        fs::write(
+            &compiler_path,
+            format!(
+                "#!/bin/sh\ncat >/dev/null\nprintf '%s\\n' '{}'\n",
+                serde_json::to_string(&compiler_output)?
+            ),
+        )?;
+        let mut permissions = fs::metadata(&compiler_path)?.permissions();
+        permissions.set_mode(0o755);
+        fs::set_permissions(&compiler_path, permissions)?;
+
+        let runs_dir = root.join("runs");
+        let error = run(RunOptions {
+            suite_path: suite_dir.join("purplebench.toml"),
+            compiler_path,
+            compiler_id: "candidate".to_string(),
+            baseline: None,
+            runs_dir: runs_dir.clone(),
+            compile_jobs: Some(1),
+            sim_jobs: Some(1),
+        })
+        .expect_err("run should fail when replay records failures");
+
+        let run_dir = runs_dir.join("candidate");
+        let rendered = format!("{error:?}");
+        assert!(
+            rendered.contains("run failed with 1 recorded failure"),
+            "{rendered}"
+        );
+        assert!(rendered.contains("storage_mismatch"), "{rendered}");
+        assert!(
+            rendered.contains(&run_dir.display().to_string()),
+            "{rendered}"
+        );
+        assert!(run_dir.join("csv").join("failures.csv").exists());
+        assert!(
+            fs::read_to_string(run_dir.join("csv").join("failures.csv"))?
+                .contains("storage_mismatch")
+        );
+
+        fs::remove_dir_all(root)?;
+        Ok(())
+    }
+
+    fn unique_test_root(name: &str) -> PathBuf {
+        let nanos = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .expect("system clock should be after unix epoch")
+            .as_nanos();
+        std::env::temp_dir().join(format!("purplebench-{name}-{}-{nanos}", std::process::id()))
+    }
 }

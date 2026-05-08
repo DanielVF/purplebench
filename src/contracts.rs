@@ -47,9 +47,13 @@ pub fn standard_json(source: &LoadedContractSource, profile: &OptimizationProfil
             "viaIR": profile.via_ir,
             "outputSelection": {
                 "*": {
+                    "": [
+                        "ast"
+                    ],
                     "*": [
                         "evm.deployedBytecode.object",
                         "evm.deployedBytecode.opcodes",
+                        "evm.deployedBytecode.immutableReferences",
                         "metadata"
                     ]
                 }
@@ -80,5 +84,6 @@ mod tests {
             value["settings"]["outputSelection"]["*"]["*"][0],
             "evm.deployedBytecode.object"
         );
+        assert_eq!(value["settings"]["outputSelection"]["*"][""][0], "ast");
     }
 }

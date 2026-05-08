@@ -1,0 +1,23 @@
+{
+  "compiler_id": "solc-0.8.36-memorymasking-04",
+  "contract": "0xfe89fd96f270ac3c0f11921af0390dbb1340f704",
+  "contract_name": "AaveV4HubInstance",
+  "profile": "optimized",
+  "optimizer": true,
+  "via_ir": false,
+  "runs": 200,
+  "runtime_size_bytes": 21288,
+  "runtime_hash": "0xed341d0d3e9c9b075eab48f2ebf9e741533bea669c98a5b74188ac3063cdf038",
+  "immutable_patches": [],
+  "warnings": [
+    "Warning: This is a pre-release compiler version, please do not use it in production.",
+    "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> 0xfe89fd96f270ac3c0f11921af0390dbb1340f704.sol",
+    "Warning: Source file does not specify required compiler version!\n--> 0xfe89fd96f270ac3c0f11921af0390dbb1340f704.sol",
+    "Warning: \"at\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> 0xfe89fd96f270ac3c0f11921af0390dbb1340f704.sol:1963:3:\n     |\n1963 |   function at(Bytes32Set storage set, uint256 index) internal view returns (bytes32) {\n     |   ^ (Relevant source part starts here and spans across multiple lines).",
+    "Warning: \"at\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> 0xfe89fd96f270ac3c0f11921af0390dbb1340f704.sol:2069:3:\n     |\n2069 |   function at(AddressSet storage set, uint256 index) internal view returns (address) {\n     |   ^ (Relevant source part starts here and spans across multiple lines).",
+    "Warning: \"at\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> 0xfe89fd96f270ac3c0f11921af0390dbb1340f704.sol:2175:3:\n     |\n2175 |   function at(UintSet storage set, uint256 index) internal view returns (uint256) {\n     |   ^ (Relevant source part starts here and spans across multiple lines).",
+    "Warning: \"at\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> 0xfe89fd96f270ac3c0f11921af0390dbb1340f704.sol:2325:3:\n     |\n2325 |   function at(StringSet storage set, uint256 index) internal view returns (string memory) {\n     |   ^ (Relevant source part starts here and spans across multiple lines).",
+    "Warning: \"at\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> 0xfe89fd96f270ac3c0f11921af0390dbb1340f704.sol:2471:3:\n     |\n2471 |   function at(BytesSet storage set, uint256 index) internal view returns (bytes memory) {\n     |   ^ (Relevant source part starts here and spans across multiple lines)."
+  ],
+  "compile_ms": 682
+}

@@ -111,7 +111,7 @@ pub fn run(cli: Cli) -> Result<()> {
             println!("{}", run_dir.display());
         }),
         Command::Diff(args) => {
-            let text = diff::diff_runs(&args.run, &args.baseline)?;
+            let text = diff::write_diff_for_run(&args.run, &args.baseline)?;
             println!("{text}");
             Ok(())
         }

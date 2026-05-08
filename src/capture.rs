@@ -92,6 +92,7 @@ pub fn capture(options: CaptureOptions) -> Result<()> {
         .modify_cfg_chained(|cfg| {
             cfg.set_spec_and_mainnet_gas_params(spec);
             cfg.chain_id = chain_id;
+            cfg.disable_eip3607 = true;
         })
         .with_block(block_env)
         .with_db(db);
