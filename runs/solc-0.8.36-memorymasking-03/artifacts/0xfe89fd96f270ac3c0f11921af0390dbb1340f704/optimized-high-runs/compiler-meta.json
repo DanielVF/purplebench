@@ -20,5 +20,5 @@
     "Warning: \"at\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> 0xfe89fd96f270ac3c0f11921af0390dbb1340f704.sol:2471:3:\n     |\n2471 |   function at(BytesSet storage set, uint256 index) internal view returns (bytes memory) {\n     |   ^ (Relevant source part starts here and spans across multiple lines).",
     "Warning: Contract code size is 31256 bytes and exceeds 24576 bytes (a limit introduced in Spurious Dragon). This contract may not be deployable on Mainnet. Consider enabling the optimizer (with a low \"runs\" value!), turning off revert strings, or using libraries.\n    --> 0xfe89fd96f270ac3c0f11921af0390dbb1340f704.sol:7897:1:\n     |\n7897 | contract AaveV4HubInstance is Hub {\n     | ^ (Relevant source part starts here and spans across multiple lines)."
   ],
-  "compile_ms": 684
+  "compile_ms": 662
 }

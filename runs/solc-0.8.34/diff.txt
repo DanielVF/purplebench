@@ -1,0 +1,46 @@
+CORRECTNESS FAILURES
+none
+
+GAS REGRESSIONS
+none
+
+GAS IMPROVEMENTS
+none
+
+RUNTIME BYTECODE SIZE
+-37 B  0x83bc649f... default  37353 -> 37316
+-37 B  0x83bc649f... optimized  21015 -> 20978
+-37 B  0x83bc649f... optimized-high-runs  28217 -> 28180
+-37 B  0x83bc649f... optimized-low-runs  20764 -> 20727
+-37 B  0x83bc649f... via-ir  18532 -> 18495
+-37 B  0x83bc649f... via-ir-high-runs  22024 -> 21987
+-37 B  0x83bc649f... via-ir-low-runs  18459 -> 18422
+-37 B  0x88e6a0c2... default  40123 -> 40086
+-37 B  0x88e6a0c2... optimized  24206 -> 24169
+-37 B  0x88e6a0c2... optimized-high-runs  33138 -> 33101
+-37 B  0x88e6a0c2... optimized-low-runs  23929 -> 23892
+-37 B  0x88e6a0c2... via-ir  23978 -> 23941
+-37 B  0x88e6a0c2... via-ir-high-runs  27664 -> 27627
+-37 B  0x88e6a0c2... via-ir-low-runs  23958 -> 23921
+-37 B  0xc02aaa39... default  3640 -> 3603
+-37 B  0xc02aaa39... optimized  1926 -> 1889
+-37 B  0xc02aaa39... optimized-high-runs  2210 -> 2173
+-37 B  0xc02aaa39... optimized-low-runs  1911 -> 1874
+-37 B  0xc02aaa39... via-ir  1816 -> 1779
+-37 B  0xc02aaa39... via-ir-high-runs  2139 -> 2102
+-37 B  0xc02aaa39... via-ir-low-runs  1808 -> 1771
+-37 B  0xd86756db... default  20021 -> 19984
+-37 B  0xd86756db... optimized  9647 -> 9610
+-37 B  0xd86756db... optimized-high-runs  12899 -> 12862
+-37 B  0xd86756db... optimized-low-runs  9383 -> 9346
+-37 B  0xd86756db... via-ir  8585 -> 8548
+-37 B  0xd86756db... via-ir-high-runs  9470 -> 9433
+-37 B  0xd86756db... via-ir-low-runs  8475 -> 8438
+-37 B  0xfe89fd96... default  41087 -> 41050
+-37 B  0xfe89fd96... optimized  22779 -> 22742
+-37 B  0xfe89fd96... optimized-high-runs  31220 -> 31183
+-37 B  0xfe89fd96... optimized-low-runs  22265 -> 22228
+-37 B  0xfe89fd96... via-ir  18794 -> 18757
+-37 B  0xfe89fd96... via-ir-high-runs  23519 -> 23482
+-37 B  0xfe89fd96... via-ir-low-runs  18873 -> 18836
+

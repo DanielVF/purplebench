@@ -1,0 +1,18 @@
+{
+  "compiler_id": "solc-0.8.35",
+  "contract": "0xd86756dbb01e75a11aadacb75c8495759ed92033",
+  "contract_name": "OETH",
+  "profile": "default",
+  "optimizer": false,
+  "via_ir": false,
+  "runs": 0,
+  "runtime_size_bytes": 19984,
+  "runtime_hash": "0xa5d2be69c073c13407d95f9c188092fcf5c847905035e5c422ee4eeb2c47ef4f",
+  "immutable_patches": [],
+  "warnings": [
+    "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> 0xd86756dbb01e75a11aadacb75c8495759ed92033.sol",
+    "Warning: Source file does not specify required compiler version! Consider adding \"pragma solidity ^0.8.35;\"\n--> 0xd86756dbb01e75a11aadacb75c8495759ed92033.sol",
+    "Warning: This declaration has the same name as another declaration.\n    --> 0xd86756dbb01e75a11aadacb75c8495759ed92033.sol:1692:18:\n     |\n1692 |         returns (uint256 rebasingCredits)\n     |                  ^^^^^^^^^^^^^^^^^^^^^^^\nNote: The other declaration is here:\n    --> 0xd86756dbb01e75a11aadacb75c8495759ed92033.sol:1360:5:\n     |\n1360 |     function rebasingCredits() external view returns (uint256) {\n     |     ^ (Relevant source part starts here and spans across multiple lines)."
+  ],
+  "compile_ms": 153
+}

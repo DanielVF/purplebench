@@ -1,0 +1,8 @@
+run_id,compiler_id,profile,total_runtime_size,total_gas,mean_gas,median_gas,tx_count,compile_failures,sim_failures,storage_failures
+solc-0.8.34,solc-0.8.34,default,142039,1740534,248647.7142857143,172675.0,7,0,0,0
+solc-0.8.34,solc-0.8.34,optimized,79388,1687126,241018.0,167881.0,7,0,0,0
+solc-0.8.34,solc-0.8.34,optimized-high-runs,107499,1682193,240313.2857142857,167540.0,7,0,0,0
+solc-0.8.34,solc-0.8.34,optimized-low-runs,78067,1693517,241931.0,168852.0,7,0,0,0
+solc-0.8.34,solc-0.8.34,via-ir,71520,1678509,239787.0,168284.0,7,0,0,0
+solc-0.8.34,solc-0.8.34,via-ir-high-runs,84631,1676517,239502.42857142858,168029.0,7,0,0,0
+solc-0.8.34,solc-0.8.34,via-ir-low-runs,71388,1679561,239937.2857142857,168343.0,7,0,0,0

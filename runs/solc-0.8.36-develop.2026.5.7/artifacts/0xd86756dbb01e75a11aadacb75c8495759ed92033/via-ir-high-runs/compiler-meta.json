@@ -15,5 +15,5 @@
     "Warning: Source file does not specify required compiler version!\n--> 0xd86756dbb01e75a11aadacb75c8495759ed92033.sol",
     "Warning: This declaration has the same name as another declaration.\n    --> 0xd86756dbb01e75a11aadacb75c8495759ed92033.sol:1692:18:\n     |\n1692 |         returns (uint256 rebasingCredits)\n     |                  ^^^^^^^^^^^^^^^^^^^^^^^\nNote: The other declaration is here:\n    --> 0xd86756dbb01e75a11aadacb75c8495759ed92033.sol:1360:5:\n     |\n1360 |     function rebasingCredits() external view returns (uint256) {\n     |     ^ (Relevant source part starts here and spans across multiple lines)."
   ],
-  "compile_ms": 973
+  "compile_ms": 920
 }

@@ -15,5 +15,5 @@
     "Warning: Source file does not specify required compiler version!\n--> 0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2.sol",
     "Warning: 'transfer' is deprecated and scheduled for removal. Use 'call{value: <amount>}(\"\")' instead.\n  --> 0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2.sol:80:9:\n   |\n80 |         payable(msg.sender).transfer(wad);\n   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
   ],
-  "compile_ms": 125
+  "compile_ms": 126
 }

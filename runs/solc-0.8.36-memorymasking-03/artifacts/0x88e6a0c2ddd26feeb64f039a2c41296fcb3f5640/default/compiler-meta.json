@@ -58,5 +58,5 @@
     "Warning: Source file does not specify required compiler version!\n--> 0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640.sol",
     "Warning: Contract code size is 40128 bytes and exceeds 24576 bytes (a limit introduced in Spurious Dragon). This contract may not be deployable on Mainnet. Consider enabling the optimizer (with a low \"runs\" value!), turning off revert strings, or using libraries.\n    --> 0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640.sol:1611:1:\n     |\n1611 | contract UniswapV3Pool is IUniswapV3Pool, NoDelegateCall {\n     | ^ (Relevant source part starts here and spans across multiple lines)."
   ],
-  "compile_ms": 284
+  "compile_ms": 286
 }

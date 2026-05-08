@@ -1,0 +1,18 @@
+{
+  "compiler_id": "solc-0.8.35",
+  "contract": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+  "contract_name": "WETH9",
+  "profile": "via-ir-low-runs",
+  "optimizer": true,
+  "via_ir": true,
+  "runs": 1,
+  "runtime_size_bytes": 1771,
+  "runtime_hash": "0x484864aab9fc8e7f7d5ab9e8be3cd80e2f135cc8e74ef61bfa0358d15903490d",
+  "immutable_patches": [],
+  "warnings": [
+    "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> 0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2.sol",
+    "Warning: Source file does not specify required compiler version! Consider adding \"pragma solidity ^0.8.35;\"\n--> 0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2.sol",
+    "Warning: 'transfer' is deprecated and scheduled for removal. Use 'call{value: <amount>}(\"\")' instead.\n  --> 0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2.sol:80:9:\n   |\n80 |         payable(msg.sender).transfer(wad);\n   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+  ],
+  "compile_ms": 91
+}

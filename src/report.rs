@@ -170,7 +170,7 @@ fn write_compiler_page(out_dir: &Path, run: &ReportRun) -> Result<()> {
     html.push_str("<main class=\"page\"><nav><a href=\"../index.html\">runs</a></nav>");
     html.push_str(&format!("<h1>{}</h1>", util::html_escape(&run.id)));
     html.push_str("<h2 id=\"compilations\">compilations</h2><table><thead><tr><th>contract</th><th>profile</th><th class=\"num\">runtime bytes</th><th class=\"num\">delta</th><th class=\"num\">pct</th><th>bytecode</th><th>status</th></tr></thead><tbody>");
-    for row in &run.results.compilations {
+    for row in compiler_compilation_rows(&run.results.compilations) {
         let bytecode_href = format!(
             "../bytecode/{}/{}/{}.html",
             util::html_escape(&run.id),
@@ -199,15 +199,14 @@ fn write_compiler_page(out_dir: &Path, run: &ReportRun) -> Result<()> {
     }
     html.push_str("</tbody></table>");
 
-    html.push_str("<h2 id=\"transactions\">transactions</h2><table><thead><tr><th>tx</th><th>contract</th><th>profile</th><th class=\"num\">gas</th><th class=\"num\">delta</th><th class=\"num\">pct</th><th>status</th><th>logs</th><th>revert</th><th>storage</th></tr></thead><tbody>");
+    html.push_str("<h2 id=\"transactions\">transactions</h2><table><thead><tr><th>tx</th><th>profile</th><th class=\"num\">gas</th><th class=\"num\">delta</th><th class=\"num\">pct</th><th>status</th><th>logs</th><th>revert</th><th>storage</th></tr></thead><tbody>");
     for row in compiler_transaction_rows(&run.results.transactions) {
         let diff = transaction_gas_diff(row, &run.diffs);
         let gas_delta = row.gas_delta.or_else(|| diff.map(|diff| diff.delta));
         let gas_pct = row.gas_pct.or_else(|| diff.map(|diff| diff.pct));
         html.push_str(&format!(
-            "<tr><td>{}</td><td class=\"mono\">{}</td><td>{}</td><td class=\"num mono\">{}</td><td class=\"num mono {}\">{}</td><td class=\"num mono {}\">{}</td><td>{}</td><td>{}</td><td>{}</td><td class=\"{}\">{}</td></tr>",
+            "<tr><td>{}</td><td>{}</td><td class=\"num mono\">{}</td><td class=\"num mono {}\">{}</td><td class=\"num mono {}\">{}</td><td>{}</td><td>{}</td><td>{}</td><td class=\"{}\">{}</td></tr>",
             util::html_escape(&row.tx_id),
-            util::html_escape(&row.contract),
             util::html_escape(&row.profile),
             row.gas_used.map(|v| v.to_string()).unwrap_or_default(),
             delta_class(gas_delta),
@@ -248,14 +247,33 @@ fn write_compiler_page(out_dir: &Path, run: &ReportRun) -> Result<()> {
     Ok(())
 }
 
+fn compiler_compilation_rows(
+    compilations: &[results::CompilationRow],
+) -> Vec<&results::CompilationRow> {
+    let mut rows = compilations.iter().collect::<Vec<_>>();
+    rows.sort_by(|a, b| {
+        (
+            a.profile.as_str(),
+            a.contract_name.as_str(),
+            a.contract.as_str(),
+        )
+            .cmp(&(
+                b.profile.as_str(),
+                b.contract_name.as_str(),
+                b.contract.as_str(),
+            ))
+    });
+    rows
+}
+
 fn compiler_transaction_rows(
     transactions: &[results::TransactionRow],
 ) -> Vec<&results::TransactionRow> {
     let mut rows = transactions.iter().collect::<Vec<_>>();
     rows.sort_by(|a, b| {
-        (a.tx_id.as_str(), a.profile.as_str(), a.contract.as_str()).cmp(&(
-            b.tx_id.as_str(),
+        (a.profile.as_str(), a.tx_id.as_str(), a.contract.as_str()).cmp(&(
             b.profile.as_str(),
+            b.tx_id.as_str(),
             b.contract.as_str(),
         ))
     });
@@ -588,12 +606,57 @@ mod tests {
         }
     }
 
+    fn compilation_row(
+        contract: &str,
+        contract_name: &str,
+        profile: &str,
+    ) -> results::CompilationRow {
+        results::CompilationRow {
+            contract: contract.to_string(),
+            contract_name: contract_name.to_string(),
+            profile: profile.to_string(),
+            ..Default::default()
+        }
+    }
+
     #[test]
-    fn compiler_transaction_rows_sort_by_tx_id_then_profile() {
+    fn compiler_compilation_rows_sort_by_profile_then_contract_name() {
+        let rows = vec![
+            compilation_row("0x2222", "Token", "via-ir"),
+            compilation_row("0x3333", "Vault", "default"),
+            compilation_row("0x1111", "Pool", "default"),
+            compilation_row("0x2222", "Token", "default"),
+        ];
+
+        let order = compiler_compilation_rows(&rows)
+            .into_iter()
+            .map(|row| {
+                (
+                    row.profile.as_str(),
+                    row.contract_name.as_str(),
+                    row.contract.as_str(),
+                )
+            })
+            .collect::<Vec<_>>();
+
+        assert_eq!(
+            order,
+            vec![
+                ("default", "Pool", "0x1111"),
+                ("default", "Token", "0x2222"),
+                ("default", "Vault", "0x3333"),
+                ("via-ir", "Token", "0x2222"),
+            ]
+        );
+    }
+
+    #[test]
+    fn compiler_transaction_rows_sort_by_profile_then_tx_id() {
         let rows = vec![
             tx_row("transfer", "via-ir", "0x2222"),
             tx_row("deposit", "optimized", "0x2222"),
             tx_row("deposit", "default", "0x3333"),
+            tx_row("borrow", "default", "0x1111"),
             tx_row("deposit", "default", "0x1111"),
             tx_row("transfer", "default", "0x2222"),
         ];
@@ -612,10 +675,11 @@ mod tests {
         assert_eq!(
             order,
             vec![
+                ("borrow", "default", "0x1111"),
                 ("deposit", "default", "0x1111"),
                 ("deposit", "default", "0x3333"),
-                ("deposit", "optimized", "0x2222"),
                 ("transfer", "default", "0x2222"),
+                ("deposit", "optimized", "0x2222"),
                 ("transfer", "via-ir", "0x2222"),
             ]
         );
@@ -669,6 +733,8 @@ mod tests {
         let html = fs::read_to_string(out_dir.join("compilers/candidate.html"))?;
         assert!(html.contains("<h2 id=\"compilations\">compilations</h2>"));
         assert!(html.contains("<h2 id=\"transactions\">transactions</h2>"));
+        assert!(html.contains("<h2 id=\"transactions\">transactions</h2><table><thead><tr><th>tx</th><th>profile</th><th class=\"num\">gas</th>"));
+        assert!(!html.contains("<th>tx</th><th>contract</th><th>profile</th>"));
         assert!(html.contains("+2 B"));
         assert!(html.contains("+20.00%"));
         assert!(html.contains("+11</td>"));

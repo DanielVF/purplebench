@@ -44,13 +44,24 @@ Validate the suite and fixtures:
 cargo run -- validate --suite suite/purplebench.toml
 ```
 
-Run a compiler build:
+Run a single compiler build:
 
 ```sh
 cargo run -- run \
   --suite suite/purplebench.toml \
   --compiler /path/to/solc \
   --compiler-id solc-feature-branch
+```
+
+Run several compiler builds in one batch:
+
+```sh
+cargo run -- run \
+  --suite suite/purplebench.toml \
+  --compilers compilers.toml \
+  --runs-dir runs \
+  --compile-jobs 8 \
+  --sim-jobs 8
 ```
 
 Compare a run against a baseline:
@@ -141,7 +152,7 @@ Validation checks that:
 ### `purplebench run`
 
 Compiles every contract/profile pair, runs matching transaction fixtures, and
-writes a run directory.
+writes one or more run directories.
 
 ```sh
 cargo run -- run \
@@ -157,13 +168,38 @@ cargo run -- run \
 compiler id is kept once under `--runs-dir`; a later successful run for the same
 compiler id replaces the previous run output.
 
+Use `--compilers compilers.toml` to compile and replay multiple compilers in one
+command. Purplebench builds one compile job set across all configured compilers,
+runs those jobs with the shared `--compile-jobs` pool, then runs every
+transaction replay with the shared `--sim-jobs` pool.
+
+```toml
+benchmark_id = "solc-main"
+
+[[compilers]]
+id = "solc-main"
+path = "~/projects/solc-main"
+
+[[compilers]]
+id = "solc-feature-branch"
+path = "~/projects/solc-feature-branch"
+```
+
+`benchmark_id` must match one configured compiler id. After all compiles and
+simulations finish, every compiler whose id differs from `benchmark_id` is
+compared against that benchmark compiler: its transaction CSV rows get baseline
+gas and gas delta columns, and `<run>/diff.txt` is written. The benchmark
+compiler's own run directory is written without a diff. Compiler paths may be
+absolute, `~/...`, relative to `compilers.toml`, or bare command names resolved
+through `PATH`.
+
 Compilation is all-or-nothing. If any contract/profile pair fails to compile,
 Purplebench prints the compiler message to stderr, exits with an error, and
-does not create a run directory or record result rows for that attempt.
+does not create run directories or record result rows for that attempt.
 
 If replay records any simulation or storage correctness failure, Purplebench
-writes the run directory, reports the failures CSV path, and exits with an
-error. Gas deltas alone do not make `run` fail.
+writes completed run directories, reports the failures CSV path, and exits with
+an error. Gas deltas alone do not make `run` fail.
 
 Use `--baseline runs/<baseline>` to add gas deltas to transaction CSV rows,
 write `diff.txt` into the new run directory, and make the baseline diff
@@ -203,8 +239,9 @@ The run index sorts summary rows by profile, then compiler, and colors chart
 points by compiler.
 Compiler/run detail pages show contract names in compilation tables; hover the
 name to see the contract address.
-Compiler/run detail transaction tables sort rows by transaction id, then
-optimization profile.
+Compiler/run detail compilation tables sort rows by optimization profile, then
+contract name. Transaction tables sort rows by optimization profile, then
+transaction id, and omit contract address columns.
 
 ## Suite Configuration
 
@@ -416,6 +453,9 @@ runs/<run-id>/
 ```
 
 CSV files are sorted for stable diffs.
+
+When a run is produced from `--compilers`, `meta.json` also records the
+`benchmark_id` and the `compilers.toml` path used for the batch.
 
 `compilations.csv` records successful compiler outputs, runtime bytecode size,
 runtime hash, artifact path, and duration. Compile failures abort the run before
