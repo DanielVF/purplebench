@@ -1,0 +1,17 @@
+{
+  "compiler_id": "solc-0.8.35",
+  "contract": "0xbbbbbbbbbb9cc5e90e3b3af64bdaf62c37eeffcb",
+  "contract_name": "Morpho",
+  "profile": "via-ir-low-runs",
+  "optimizer": true,
+  "via_ir": true,
+  "runs": 1,
+  "runtime_size_bytes": 12688,
+  "runtime_hash": "0xdd57c99fac7f046d8b5d70e0b15a100eeb0cabdb12dc269dfa742e72843e8b9a",
+  "immutable_patches": [],
+  "warnings": [
+    "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> 0xbbbbbbbbbb9cc5e90e3b3af64bdaf62c37eeffcb.sol",
+    "Warning: Source file does not specify required compiler version! Consider adding \"pragma solidity ^0.8.35;\"\n--> 0xbbbbbbbbbb9cc5e90e3b3af64bdaf62c37eeffcb.sol"
+  ],
+  "compile_ms": 775
+}

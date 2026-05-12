@@ -1,0 +1,18 @@
+{
+  "compiler_id": "solc-0.8.35",
+  "contract": "0x4e90495f66fb04a5fba401967abd607e2ea0ab46",
+  "contract_name": "Poap",
+  "profile": "via-ir-high-runs",
+  "optimizer": true,
+  "via_ir": true,
+  "runs": 10000,
+  "runtime_size_bytes": 11553,
+  "runtime_hash": "0x9676cd519ca349ee3f61762f41083b2b14a8864cd03c21df3239da85ae04b1bc",
+  "immutable_patches": [],
+  "warnings": [
+    "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> 0x4e90495f66fb04a5fba401967abd607e2ea0ab46.sol",
+    "Warning: Source file does not specify required compiler version! Consider adding \"pragma solidity ^0.8.35;\"\n--> 0x4e90495f66fb04a5fba401967abd607e2ea0ab46.sol",
+    "Warning: Unreachable code.\n  --> 0x4e90495f66fb04a5fba401967abd607e2ea0ab46.sol:39:5:\n   |\n39 |     initializing = wasInitializing;\n   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+  ],
+  "compile_ms": 1193
+}

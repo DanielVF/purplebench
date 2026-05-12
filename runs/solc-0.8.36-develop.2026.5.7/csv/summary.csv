@@ -1,8 +1,0 @@
-run_id,compiler_id,profile,total_runtime_size,total_gas,mean_gas,median_gas,tx_count,compile_failures,sim_failures,storage_failures
-solc-0.8.36-develop.2026.5.7,solc-0.8.36-develop.2026.5.7,default,142224,1740534,248647.7142857143,172675.0,7,0,0,0
-solc-0.8.36-develop.2026.5.7,solc-0.8.36-develop.2026.5.7,optimized,79573,1687126,241018.0,167881.0,7,0,0,0
-solc-0.8.36-develop.2026.5.7,solc-0.8.36-develop.2026.5.7,optimized-high-runs,107684,1682193,240313.2857142857,167540.0,7,0,0,0
-solc-0.8.36-develop.2026.5.7,solc-0.8.36-develop.2026.5.7,optimized-low-runs,78252,1693517,241931.0,168852.0,7,0,0,0
-solc-0.8.36-develop.2026.5.7,solc-0.8.36-develop.2026.5.7,via-ir,71705,1678509,239787.0,168284.0,7,0,0,0
-solc-0.8.36-develop.2026.5.7,solc-0.8.36-develop.2026.5.7,via-ir-high-runs,84816,1676517,239502.42857142858,168029.0,7,0,0,0
-solc-0.8.36-develop.2026.5.7,solc-0.8.36-develop.2026.5.7,via-ir-low-runs,71573,1679561,239937.2857142857,168343.0,7,0,0,0

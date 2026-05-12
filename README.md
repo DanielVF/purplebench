@@ -8,7 +8,7 @@ static HTML reports.
 
 The primary benchmark metrics are:
 
-- Runtime bytecode size, including compiler metadata.
+- Runtime bytecode size, compiled without appended compiler metadata.
 - Gas used by sampled transactions.
 - Correctness checks for transaction status, logs, revert data, and final
   storage slots recorded in each fixture.
@@ -37,6 +37,13 @@ cargo run -- init
 Edit `suite/purplebench.toml`, add flattened contract sources under
 `suite/contracts/`, and add or capture transaction fixtures under
 `suite/fixtures/`.
+
+The checked-in mainnet suite includes two sampled fixtures for each configured
+contract: one very common path and one moderately common path. Most fixtures are
+captured mined transactions; the Chainlink `latestRoundData()` and EulerSwap
+read-path fixtures are generated from access lists for deterministic offline
+replay. Uniswap V4 pools are benchmarked via the PoolManager singleton because
+individual V4 pools are keyed state, not separate pool contracts.
 
 Validate the suite and fixtures:
 
@@ -204,7 +211,10 @@ an error. Gas deltas alone do not make `run` fail.
 
 Use `--baseline runs/<baseline>` to add gas deltas to transaction CSV rows,
 write `diff.txt` into the new run directory, and make the baseline diff
-available in generated HTML report tables.
+available in generated HTML report tables. If the baseline argument is not
+itself a run directory, Purplebench also looks under `--runs-dir` using the
+sanitized argument as the run directory name. This supports baselines written
+with path-shaped compiler IDs such as `/path/to/solc`.
 
 ### `purplebench diff`
 
@@ -214,6 +224,9 @@ same comparison to `<run>/diff.txt`.
 ```sh
 cargo run -- diff --run runs/solc-candidate --baseline runs/solc-main
 ```
+
+As with `run --baseline`, a baseline that is not itself a run directory is
+resolved beside `--run` using the sanitized argument as the run directory name.
 
 The diff includes correctness failures, gas regressions, gas improvements, and
 runtime bytecode size changes.
@@ -317,8 +330,8 @@ suite/contracts/0x1111111111111111111111111111111111111111.sol
 
 Purplebench compiles through Solidity standard JSON and reads
 `evm.deployedBytecode.object` from the configured `contract_name`. Runtime size
-is measured from the exact deployed bytecode returned by the compiler,
-including metadata.
+is measured from the deployed bytecode returned by the compiler with appended
+compiler metadata disabled.
 
 If a contract has constructor-set Solidity immutables and the runtime is being
 substituted directly into an existing fixture, add a `[contracts.immutables]`
@@ -327,6 +340,22 @@ table under that contract. Purplebench reads solc
 variable names, patches every emitted reference, and writes the patched runtime
 to `runtime.hex`. Keys may be exact Solidity names such as `tickSpacing` or
 snake-case aliases such as `tick_spacing`.
+
+If a contract calls external Solidity libraries, add a `[contracts.libraries]`
+table under that contract. Purplebench passes those addresses to solc standard
+JSON as `settings.libraries` for the flattened source file. Library keys are
+Solidity library names and values are deployed library addresses. Runs fail with
+a concise unlinked-library message when solc still returns deployed bytecode
+with unresolved library placeholders.
+
+The checked-in Uniswap V4 `PoolManager` entry patches its inherited
+`NoDelegateCall.original` immutable to the singleton address. Its
+`initialOwner` constructor value is ordinary storage captured in the fixture,
+so it is not listed as an immutable patch.
+
+The checked-in Rocket Pool `RocketDepositPool` entry patches the
+constructor-resolved `rocketVault` and `rocketTokenRETH` immutables. Its
+`RocketBase.rocketStorage` value is ordinary storage captured in the fixture.
 
 Example for the mainnet Uniswap V3 USDC/WETH 0.05% pool:
 
@@ -423,6 +452,10 @@ Fixtures are JSON files with all state required for offline replay.
 Numeric values can be decimal strings or `0x` hex strings. Addresses are
 normalized to lowercase. Storage slots and values are compared as 256-bit
 values.
+
+The `accounts` map must include every account the replay may read or call,
+including empty accounts such as the zero address when they are touched. Empty
+accounts should use zero nonce, zero balance, `0x` code, and empty storage.
 
 `expected.storage_after` must include every storage slot that is expected to be
 touched by the transaction. If replay touches a storage slot that is not listed

@@ -1,0 +1,29 @@
+{
+  "compiler_id": "solc-0.8.36-memorymasking-07",
+  "contract": "0x000000000004444c5dc75cb358380d2e3de08a90",
+  "contract_name": "PoolManager",
+  "profile": "optimized",
+  "optimizer": true,
+  "via_ir": false,
+  "runs": 200,
+  "runtime_size_bytes": 18640,
+  "runtime_hash": "0xe7c873e230d31ba8e7b47c09b34a75225c510ef3817f3a7ef601214e19f9ac1a",
+  "immutable_patches": [
+    {
+      "name": "original",
+      "configured_name": "original",
+      "value": "0x000000000004444c5dc75cb358380d2e3de08a90",
+      "references": 1
+    }
+  ],
+  "warnings": [
+    "Warning: This is a pre-release compiler version, please do not use it in production.",
+    "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> 0x000000000004444c5dc75cb358380d2e3de08a90.sol",
+    "Warning: Virtual modifiers are deprecated and scheduled for removal.\n    --> 0x000000000004444c5dc75cb358380d2e3de08a90.sol:3409:5:\n     |\n3409 |     modifier onlyOwner() virtual {\n     |     ^ (Relevant source part starts here and spans across multiple lines).",
+    "Warning: Source file does not specify required compiler version!\n--> 0x000000000004444c5dc75cb358380d2e3de08a90.sol",
+    "Warning: This declaration shadows an existing declaration.\n    --> 0x000000000004444c5dc75cb358380d2e3de08a90.sol:2199:105:\n     |\n2199 |     function getNextSqrtPriceFromAmount0RoundingUp(uint160 sqrtPX96, uint128 liquidity, uint256 amount, bool add)\n     |                                                                                                         ^^^^^^^^\nNote: The shadowed declaration is here:\n   --> 0x000000000004444c5dc75cb358380d2e3de08a90.sol:372:1:\n    |\n372 | function add(BalanceDelta a, BalanceDelta b) pure returns (BalanceDelta) {\n    | ^ (Relevant source part starts here and spans across multiple lines).",
+    "Warning: This declaration shadows an existing declaration.\n    --> 0x000000000004444c5dc75cb358380d2e3de08a90.sol:2254:107:\n     |\n2254 |     function getNextSqrtPriceFromAmount1RoundingDown(uint160 sqrtPX96, uint128 liquidity, uint256 amount, bool add)\n     |                                                                                                           ^^^^^^^^\nNote: The shadowed declaration is here:\n   --> 0x000000000004444c5dc75cb358380d2e3de08a90.sol:372:1:\n    |\n372 | function add(BalanceDelta a, BalanceDelta b) pure returns (BalanceDelta) {\n    | ^ (Relevant source part starts here and spans across multiple lines).",
+    "Warning: Transient storage as defined by EIP-1153 can break the composability of smart contracts: Since transient storage is cleared only at the end of the transaction and not at the end of the outermost call frame to the contract within a transaction, your contract may unintentionally misbehave when invoked multiple times in a complex transaction. To avoid this, be sure to clear all transient storage at the end of any call to your contract. The use of transient storage for reentrancy guards that are cleared at the end of the call is safe.\n    --> 0x000000000004444c5dc75cb358380d2e3de08a90.sol:3372:13:\n     |\n3372 |             tstore(CURRENCY_SLOT, 0)\n     |             ^^^^^^"
+  ],
+  "compile_ms": 570
+}

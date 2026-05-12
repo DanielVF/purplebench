@@ -145,7 +145,7 @@ fn compile_inner(job: &CompileJob) -> Result<CompilerOutput> {
     let source_path = job.suite.contract_source_path(&job.contract);
     let source =
         contracts::load_flattened_source(&source_path, job.suite.config.suite.allow_local_imports)?;
-    let input = contracts::standard_json(&source, &job.profile);
+    let input = contracts::standard_json(&source, &job.profile, &job.contract.libraries);
 
     let mut child = Command::new(&job.compiler_path)
         .arg("--standard-json")
@@ -201,6 +201,14 @@ fn compile_inner(job: &CompileJob) -> Result<CompilerOutput> {
                 source.source_name
             )
         })?;
+
+    let unlinked_libraries = unlinked_library_references(contract_output);
+    if !unlinked_libraries.is_empty() {
+        bail!(
+            "compiled deployed bytecode has unlinked libraries: {}. Add addresses under [contracts.libraries] for this contract",
+            unlinked_libraries.join("; ")
+        );
+    }
 
     let mut runtime_hex = format!("0x{}", util::strip_0x(runtime).to_ascii_lowercase());
     let immutable_patches = if job.contract.immutables.is_empty() {
@@ -411,6 +419,28 @@ fn compiler_messages(value: &Value, severity: &str) -> Vec<String> {
         .collect()
 }
 
+fn unlinked_library_references(contract_output: &Value) -> Vec<String> {
+    let mut references = Vec::new();
+    let Some(sources) = contract_output
+        .pointer("/evm/deployedBytecode/linkReferences")
+        .and_then(Value::as_object)
+    else {
+        return references;
+    };
+
+    for (source, libraries) in sources {
+        let Some(libraries) = libraries.as_object() else {
+            continue;
+        };
+        for (library, entries) in libraries {
+            let count = entries.as_array().map_or(0, Vec::len);
+            references.push(format!("{source}:{library} ({count} references)"));
+        }
+    }
+    references.sort();
+    references
+}
+
 fn write_json<T: Serialize>(path: &Path, value: &T) -> Result<()> {
     util::ensure_parent(path)?;
     fs::write(path, format!("{}\n", serde_json::to_string_pretty(value)?))?;
@@ -484,6 +514,7 @@ printf '%s\n' '{"errors":[{"severity":"error","formattedMessage":"ParserError: b
                 address,
                 source,
                 contract_name: "Bad".to_string(),
+                libraries: BTreeMap::new(),
                 immutables: BTreeMap::new(),
             },
             profile: OptimizationProfile {
@@ -593,6 +624,7 @@ printf '%s\n' '{"errors":[{"severity":"error","formattedMessage":"ParserError: b
                 address,
                 source,
                 contract_name: "HasImmutable".to_string(),
+                libraries: BTreeMap::new(),
                 immutables: BTreeMap::from([("answer_value".to_string(), "0x1234".to_string())]),
             },
             profile: OptimizationProfile {
@@ -611,6 +643,105 @@ printf '%s\n' '{"errors":[{"severity":"error","formattedMessage":"ParserError: b
         assert_eq!(&bytes[40..72], expected.as_slice());
         assert_eq!(outcome.meta.immutable_patches.len(), 1);
         assert_eq!(outcome.meta.immutable_patches[0].name, "answerValue");
+
+        fs::remove_dir_all(root)?;
+        Ok(())
+    }
+
+    #[test]
+    #[cfg(unix)]
+    fn compile_reports_unlinked_libraries() -> Result<()> {
+        let root = unique_test_root("compile-unlinked-library");
+        let _ = fs::remove_dir_all(&root);
+
+        let suite_dir = root.join("suite");
+        let contracts_dir = suite_dir.join("contracts");
+        fs::create_dir_all(&contracts_dir)?;
+        let suite_path = suite_dir.join("purplebench.toml");
+        fs::write(&suite_path, "")?;
+
+        let address = "0x1111111111111111111111111111111111111111".to_string();
+        let source = PathBuf::from(format!("contracts/{address}.sol"));
+        fs::write(suite_dir.join(&source), "contract UsesLibrary {}")?;
+
+        let compiler_output = serde_json::json!({
+            "sources": {
+                format!("{address}.sol"): {
+                    "ast": {"nodeType": "SourceUnit", "nodes": []}
+                }
+            },
+            "contracts": {
+                format!("{address}.sol"): {
+                    "UsesLibrary": {
+                        "evm": {
+                            "deployedBytecode": {
+                                "object": "60__$1234567890abcdef1234567890abcdef12$__00",
+                                "immutableReferences": {},
+                                "linkReferences": {
+                                    format!("{address}.sol"): {
+                                        "LinkedLibrary": [
+                                            {"start": 1, "length": 20}
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        let compiler_path = root.join("solc-unlinked-library");
+        fs::write(
+            &compiler_path,
+            format!(
+                "#!/bin/sh\ncat >/dev/null\nprintf '%s\\n' '{}'\n",
+                serde_json::to_string(&compiler_output)?
+            ),
+        )?;
+        let mut permissions = fs::metadata(&compiler_path)?.permissions();
+        permissions.set_mode(0o755);
+        fs::set_permissions(&compiler_path, permissions)?;
+
+        let suite = LoadedSuite {
+            path: suite_path,
+            config: SuiteConfig {
+                suite: SuiteSection {
+                    name: "test".to_string(),
+                    chain_id: 1,
+                    evm_spec: "cancun".to_string(),
+                    allow_local_imports: false,
+                },
+                optimization_profiles: Vec::new(),
+                contracts: Vec::new(),
+                transactions: Vec::new(),
+            },
+        };
+        let job = CompileJob {
+            run_id: "unlinked-library-run".to_string(),
+            compiler_id: "fake-solc".to_string(),
+            compiler_path,
+            run_dir: root.join("runs").join("unlinked-library-run"),
+            contract: ContractConfig {
+                address,
+                source,
+                contract_name: "UsesLibrary".to_string(),
+                libraries: BTreeMap::new(),
+                immutables: BTreeMap::new(),
+            },
+            profile: OptimizationProfile {
+                id: "default".to_string(),
+                optimizer: false,
+                via_ir: false,
+                runs: 0,
+            },
+            suite,
+        };
+
+        let error = compile(&job).expect_err("compile should fail");
+        let rendered = format!("{error:?}");
+        assert!(rendered.contains("unlinked libraries"), "{rendered}");
+        assert!(rendered.contains("LinkedLibrary"), "{rendered}");
+        assert!(!rendered.contains("invalid hex byte string"), "{rendered}");
 
         fs::remove_dir_all(root)?;
         Ok(())

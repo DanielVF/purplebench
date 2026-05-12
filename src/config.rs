@@ -43,6 +43,8 @@ pub struct ContractConfig {
     pub source: PathBuf,
     pub contract_name: String,
     #[serde(default)]
+    pub libraries: BTreeMap<String, String>,
+    #[serde(default)]
     pub immutables: BTreeMap<String, String>,
 }
 
@@ -89,6 +91,9 @@ pub fn load_suite(path: &Path) -> Result<LoadedSuite> {
 
     for contract in &mut config.contracts {
         contract.address = util::normalize_address(&contract.address)?;
+        for value in contract.libraries.values_mut() {
+            *value = util::normalize_address(value)?;
+        }
     }
     for tx in &mut config.transactions {
         tx.contract = util::normalize_address(&tx.contract)?;
@@ -231,6 +236,17 @@ fn validate_config_shape(suite: &LoadedSuite, messages: &mut Vec<String>) -> Res
                 "contract source {} contains imports but suite.allow_local_imports is false",
                 source_path.display()
             );
+        }
+        for (name, value) in &contract.libraries {
+            if name.trim().is_empty() {
+                bail!("contract {} has an empty library name", contract.address);
+            }
+            util::normalize_address(value).with_context(|| {
+                format!(
+                    "contract {} library `{name}` has invalid address `{value}`",
+                    contract.address
+                )
+            })?;
         }
         for (name, value) in &contract.immutables {
             if name.trim().is_empty() {

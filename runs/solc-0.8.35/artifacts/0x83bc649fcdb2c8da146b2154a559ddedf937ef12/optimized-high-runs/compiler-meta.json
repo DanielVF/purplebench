@@ -6,8 +6,8 @@
   "optimizer": true,
   "via_ir": false,
   "runs": 220000,
-  "runtime_size_bytes": 28180,
-  "runtime_hash": "0x326c941dc36510c0930403b492f37d8c0d1a1b20e07b95285f944896ef858830",
+  "runtime_size_bytes": 28127,
+  "runtime_hash": "0xec2b4d35631281ae53cd311389017ede53bedcf2180cc207535dc701d6ce6404",
   "immutable_patches": [],
   "warnings": [
     "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> 0x83bc649fcdb2c8da146b2154a559ddedf937ef12.sol",
@@ -51,7 +51,7 @@
     "Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.\n    --> 0x83bc649fcdb2c8da146b2154a559ddedf937ef12.sol:9947:32:\n     |\n9947 |     function _authorizeUpgrade(address newImplementation) internal override {\n     |                                ^^^^^^^^^^^^^^^^^^^^^^^^^",
     "Warning: Function state mutability can be restricted to view\n    --> 0x83bc649fcdb2c8da146b2154a559ddedf937ef12.sol:8151:5:\n     |\n8151 |     function _authorizeUpgrade(address newImplementation) internal override {\n     |     ^ (Relevant source part starts here and spans across multiple lines).",
     "Warning: Function state mutability can be restricted to view\n    --> 0x83bc649fcdb2c8da146b2154a559ddedf937ef12.sol:9947:5:\n     |\n9947 |     function _authorizeUpgrade(address newImplementation) internal override {\n     |     ^ (Relevant source part starts here and spans across multiple lines).",
-    "Warning: Contract code size is 28180 bytes and exceeds 24576 bytes (a limit introduced in Spurious Dragon). This contract may not be deployable on Mainnet. Consider enabling the optimizer (with a low \"runs\" value!), turning off revert strings, or using libraries.\n    --> 0x83bc649fcdb2c8da146b2154a559ddedf937ef12.sol:9416:1:\n     |\n9416 | contract EtherfiLiquidityPool is Initializable, OwnableUpgradeable, UUPSUpgradeable, ILiquidityPool {\n     | ^ (Relevant source part starts here and spans across multiple lines)."
+    "Warning: Contract code size is 28127 bytes and exceeds 24576 bytes (a limit introduced in Spurious Dragon). This contract may not be deployable on Mainnet. Consider enabling the optimizer (with a low \"runs\" value!), turning off revert strings, or using libraries.\n    --> 0x83bc649fcdb2c8da146b2154a559ddedf937ef12.sol:9416:1:\n     |\n9416 | contract EtherfiLiquidityPool is Initializable, OwnableUpgradeable, UUPSUpgradeable, ILiquidityPool {\n     | ^ (Relevant source part starts here and spans across multiple lines)."
   ],
-  "compile_ms": 1647
+  "compile_ms": 1550
 }

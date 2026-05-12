@@ -6,8 +6,8 @@
   "optimizer": true,
   "via_ir": false,
   "runs": 200,
-  "runtime_size_bytes": 24169,
-  "runtime_hash": "0xaad95c1eb1e16da6ab6fc8289a93afedb6c2378a9e385d8625e1b05e09ff001c",
+  "runtime_size_bytes": 24115,
+  "runtime_hash": "0x912b965ef1320d798b34d065f3d81138851de6a6b0d167e033caf8cf4ffba53b",
   "immutable_patches": [
     {
       "name": "factory",
@@ -56,5 +56,5 @@
     "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> 0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640.sol",
     "Warning: Source file does not specify required compiler version! Consider adding \"pragma solidity ^0.8.35;\"\n--> 0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640.sol"
   ],
-  "compile_ms": 513
+  "compile_ms": 515
 }

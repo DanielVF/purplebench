@@ -6,13 +6,13 @@
   "optimizer": true,
   "via_ir": true,
   "runs": 1,
-  "runtime_size_bytes": 8438,
-  "runtime_hash": "0x648806ecea1802e1619a32184ae7f30ab78fafe8da477dc73a610a63e299f449",
+  "runtime_size_bytes": 8385,
+  "runtime_hash": "0x2dcac07c1c5d9b8df691cd28a2dac1383b267a16e6592831633a8cce515878f6",
   "immutable_patches": [],
   "warnings": [
     "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> 0xd86756dbb01e75a11aadacb75c8495759ed92033.sol",
     "Warning: Source file does not specify required compiler version! Consider adding \"pragma solidity ^0.8.35;\"\n--> 0xd86756dbb01e75a11aadacb75c8495759ed92033.sol",
     "Warning: This declaration has the same name as another declaration.\n    --> 0xd86756dbb01e75a11aadacb75c8495759ed92033.sol:1692:18:\n     |\n1692 |         returns (uint256 rebasingCredits)\n     |                  ^^^^^^^^^^^^^^^^^^^^^^^\nNote: The other declaration is here:\n    --> 0xd86756dbb01e75a11aadacb75c8495759ed92033.sol:1360:5:\n     |\n1360 |     function rebasingCredits() external view returns (uint256) {\n     |     ^ (Relevant source part starts here and spans across multiple lines)."
   ],
-  "compile_ms": 1004
+  "compile_ms": 960
 }

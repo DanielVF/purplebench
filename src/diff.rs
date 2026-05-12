@@ -1,20 +1,59 @@
-use std::{collections::BTreeSet, fs, path::Path};
+use std::{
+    collections::BTreeSet,
+    fs,
+    path::{Path, PathBuf},
+};
 
 use anyhow::{Context, Result};
 
 use crate::{results, util};
 
 pub fn diff_runs(run: &Path, baseline: &Path) -> Result<String> {
-    let new = results::read_all(run)?;
-    let base = results::read_all(baseline)?;
+    let (run, baseline) = resolve_diff_dirs(run, baseline);
+    let new = results::read_all(&run)?;
+    let base = results::read_all(&baseline)?;
     Ok(diff_result_sets(&new, &base))
 }
 
 pub fn write_diff_for_run(run: &Path, baseline: &Path) -> Result<String> {
-    let text = diff_runs(run, baseline)?;
+    let (run, baseline) = resolve_diff_dirs(run, baseline);
+    let text = diff_runs(&run, &baseline)?;
     fs::write(run.join("diff.txt"), &text)
         .with_context(|| format!("failed to write {}", run.join("diff.txt").display()))?;
     Ok(text)
+}
+
+pub fn resolve_run_dir(runs_dir: &Path, value: &Path) -> PathBuf {
+    if is_run_dir(value) {
+        return value.to_path_buf();
+    }
+
+    let candidate = runs_dir.join(run_id_for_value(value));
+    if is_run_dir(&candidate) {
+        candidate
+    } else {
+        value.to_path_buf()
+    }
+}
+
+fn resolve_diff_dirs(run: &Path, baseline: &Path) -> (PathBuf, PathBuf) {
+    let run = resolve_run_dir(Path::new("runs"), run);
+    let runs_dir = run.parent().unwrap_or_else(|| Path::new("runs"));
+    let baseline = resolve_run_dir(runs_dir, baseline);
+    (run, baseline)
+}
+
+fn is_run_dir(path: &Path) -> bool {
+    path.join("csv").join("compilations.csv").exists()
+}
+
+fn run_id_for_value(value: &Path) -> String {
+    let base = util::sanitize_id(&value.to_string_lossy());
+    if base.is_empty() {
+        "run".to_string()
+    } else {
+        base
+    }
 }
 
 pub fn diff_result_sets(new: &results::ResultSet, base: &results::ResultSet) -> String {
@@ -199,6 +238,30 @@ mod tests {
         assert_eq!(fs::read_to_string(run_dir.join("diff.txt"))?, text);
         assert!(text.contains("GAS REGRESSIONS"));
         assert!(text.contains("+2 B"));
+
+        fs::remove_dir_all(root)?;
+        Ok(())
+    }
+
+    #[test]
+    fn write_diff_for_run_resolves_sanitized_baseline_path() -> Result<()> {
+        let root = unique_test_root("diff-baseline-path");
+        let _ = fs::remove_dir_all(&root);
+        let runs_dir = root.join("runs");
+        let run_dir = runs_dir.join("candidate");
+        let baseline_path = root.join("solc-0.8.35");
+        let baseline_dir = runs_dir.join(util::sanitize_id(&baseline_path.to_string_lossy()));
+
+        let mut run_results = result_set(110, 12);
+        let mut baseline_results = result_set(100, 10);
+        results::write_all(&run_dir, &mut run_results)?;
+        results::write_all(&baseline_dir, &mut baseline_results)?;
+
+        let text = write_diff_for_run(&run_dir, &baseline_path)?;
+
+        assert_eq!(fs::read_to_string(run_dir.join("diff.txt"))?, text);
+        assert!(text.contains("+10.0%"), "{text}");
+        assert!(text.contains("+2 B"), "{text}");
 
         fs::remove_dir_all(root)?;
         Ok(())

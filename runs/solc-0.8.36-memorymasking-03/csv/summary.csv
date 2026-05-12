@@ -1,8 +1,0 @@
-run_id,compiler_id,profile,total_runtime_size,total_gas,mean_gas,median_gas,tx_count,compile_failures,sim_failures,storage_failures
-solc-0.8.36-memorymasking-03,solc-0.8.36-memorymasking-03,default,142249,1740759,248679.85714285713,172703.0,7,0,0,0
-solc-0.8.36-memorymasking-03,solc-0.8.36-memorymasking-03,optimized,75358,1684750,240678.57142857142,167729.0,7,0,0,0
-solc-0.8.36-memorymasking-03,solc-0.8.36-memorymasking-03,optimized-high-runs,107864,1682386,240340.85714285713,167564.0,7,0,0,0
-solc-0.8.36-memorymasking-03,solc-0.8.36-memorymasking-03,optimized-low-runs,74047,1691051,241578.7142857143,168700.0,7,0,0,0
-solc-0.8.36-memorymasking-03,solc-0.8.36-memorymasking-03,via-ir,68609,1676636,239519.42857142858,168132.0,7,0,0,0
-solc-0.8.36-memorymasking-03,solc-0.8.36-memorymasking-03,via-ir-high-runs,84948,1676721,239531.57142857142,168053.0,7,0,0,0
-solc-0.8.36-memorymasking-03,solc-0.8.36-memorymasking-03,via-ir-low-runs,68912,1677922,239703.14285714287,168200.0,7,0,0,0

@@ -143,7 +143,12 @@ fn run_batch(options: BatchOptions) -> Result<Vec<PathBuf>> {
     let sim_outputs = sim_pool.install(|| sim_jobs.par_iter().map(run_sim_job).collect::<Vec<_>>());
 
     let mut result_sets = collect_result_sets(&compilers, &compile_outcomes, sim_outputs);
-    let baseline_results = baseline_results(&options.baseline, &compilers, &result_sets)?;
+    let baseline_results = baseline_results(
+        &options.baseline,
+        &options.runs_dir,
+        &compilers,
+        &result_sets,
+    )?;
     let profiles = suite
         .config
         .optimization_profiles
@@ -309,12 +314,15 @@ fn collect_result_sets(
 
 fn baseline_results(
     baseline: &BaselineSelection,
+    runs_dir: &Path,
     compilers: &[PreparedCompiler],
     result_sets: &BTreeMap<String, results::ResultSet>,
 ) -> Result<Option<results::ResultSet>> {
     match baseline {
         BaselineSelection::None => Ok(None),
-        BaselineSelection::External(path) => results::read_all(path).map(Some),
+        BaselineSelection::External(path) => {
+            results::read_all(&diff::resolve_run_dir(runs_dir, path)).map(Some)
+        }
         BaselineSelection::BenchmarkCompiler(benchmark_id) => {
             let baseline = compilers
                 .iter()

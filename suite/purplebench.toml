@@ -75,9 +75,69 @@ tick_spacing = "0x0a"
 max_liquidity_per_tick = "0x5e8b2285f864419ac400be907196"
 
 [[contracts]]
+address = "0x000000000004444c5dc75cb358380d2e3de08a90"
+source = "contracts/0x000000000004444c5dc75cb358380d2e3de08a90.sol"
+contract_name = "PoolManager"
+
+[contracts.immutables]
+original = "0x000000000004444c5dc75cb358380d2e3de08a90"
+
+[[contracts]]
 address = "0x83bc649fcdb2c8da146b2154a559ddedf937ef12"
 source = "contracts/0x83bc649fcdb2c8da146b2154a559ddedf937ef12.sol"
 contract_name = "EtherfiLiquidityPool"
+
+[[contracts]]
+address = "0xdd3f50f8a6cafbe9b31a427582963f465e745af8"
+source = "contracts/0xdd3f50f8a6cafbe9b31a427582963f465e745af8.sol"
+contract_name = "RocketDepositPool"
+
+[contracts.immutables]
+rocket_vault = "0x3bdc69c4e5e13e52a65f5583c23efb9636b469d6"
+rocket_token_reth = "0xae78736cd615f374d3085123a210448e74fc6393"
+
+[[contracts]]
+address = "0x00000000000c2e074ec69a0dfb2997ba6c7d2e1e"
+source = "contracts/0x00000000000c2e074ec69a0dfb2997ba6c7d2e1e.sol"
+contract_name = "ENSRegistryWithFallback"
+
+[[contracts]]
+address = "0x43506849d7c04f9138d1a2050bbf3a0c054402dd"
+source = "contracts/0x43506849d7c04f9138d1a2050bbf3a0c054402dd.sol"
+contract_name = "FiatTokenV2_2"
+
+[contracts.libraries]
+SignatureChecker = "0x800c32eaa2a6c93cf4cb51794450ed77fbfbb172"
+
+[[contracts]]
+address = "0x4e90495f66fb04a5fba401967abd607e2ea0ab46"
+source = "contracts/0x4e90495f66fb04a5fba401967abd607e2ea0ab46.sol"
+contract_name = "Poap"
+
+[[contracts]]
+address = "0x7d4e742018fb52e48b08be73d041c18b21de6fb5"
+source = "contracts/0x7d4e742018fb52e48b08be73d041c18b21de6fb5.sol"
+contract_name = "AccessControlledOCR2Aggregator"
+
+[[contracts]]
+address = "0x8b0e044e364f2ce913799d53b300e15a6974dc97"
+source = "contracts/0x8b0e044e364f2ce913799d53b300e15a6974dc97.sol"
+contract_name = "EulerSwap"
+
+[[contracts]]
+address = "0xbbbbbbbbbb9cc5e90e3b3af64bdaf62c37eeffcb"
+source = "contracts/0xbbbbbbbbbb9cc5e90e3b3af64bdaf62c37eeffcb.sol"
+contract_name = "Morpho"
+
+[[contracts]]
+address = "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
+source = "contracts/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d.sol"
+contract_name = "BoredApeYachtClub"
+
+[[contracts]]
+address = "0xdac17f958d2ee523a2206206994597c13d831ec7"
+source = "contracts/0xdac17f958d2ee523a2206206994597c13d831ec7.sol"
+contract_name = "TetherToken"
 
 [[transactions]]
 id = "weth-deposit"
@@ -95,6 +155,11 @@ contract = "0xd86756dbb01e75a11aadacb75c8495759ed92033"
 fixture = "fixtures/0xd86756dbb01e75a11aadacb75c8495759ed92033/oeth-swap.json"
 
 [[transactions]]
+id = "oeth-rebase-opt-in"
+contract = "0xd86756dbb01e75a11aadacb75c8495759ed92033"
+fixture = "fixtures/0xd86756dbb01e75a11aadacb75c8495759ed92033/oeth-rebase-opt-in.json"
+
+[[transactions]]
 id = "aavev4hub-borrow"
 contract = "0xfe89fd96f270ac3c0f11921af0390dbb1340f704"
 fixture = "fixtures/0xfe89fd96f270ac3c0f11921af0390dbb1340f704/aavev4hub-borrow.json"
@@ -102,7 +167,7 @@ fixture = "fixtures/0xfe89fd96f270ac3c0f11921af0390dbb1340f704/aavev4hub-borrow.
 [[transactions]]
 id = "aavev4hub-repay"
 contract = "0xfe89fd96f270ac3c0f11921af0390dbb1340f704"
-fixture ="fixtures/0xfe89fd96f270ac3c0f11921af0390dbb1340f704/aavev4hub-repay.json"
+fixture = "fixtures/0xfe89fd96f270ac3c0f11921af0390dbb1340f704/aavev4hub-repay.json"
 
 [[transactions]]
 id = "uniswapv3-swap"
@@ -110,6 +175,111 @@ contract = "0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640"
 fixture = "fixtures/0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640/uniswapv3-swap.json"
 
 [[transactions]]
+id = "uniswapv3-collect"
+contract = "0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640"
+fixture = "fixtures/0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640/uniswapv3-collect.json"
+
+[[transactions]]
+id = "uniswapv4-usdc-weth-swap"
+contract = "0x000000000004444c5dc75cb358380d2e3de08a90"
+fixture = "fixtures/0x000000000004444c5dc75cb358380d2e3de08a90/uniswapv4-usdc-weth-swap.json"
+
+[[transactions]]
+id = "uniswapv4-modify-liquidity"
+contract = "0x000000000004444c5dc75cb358380d2e3de08a90"
+fixture = "fixtures/0x000000000004444c5dc75cb358380d2e3de08a90/uniswapv4-modify-liquidity.json"
+
+[[transactions]]
 id = "etherfi-requestWithdraw"
 contract = "0x83bc649fcdb2c8da146b2154a559ddedf937ef12"
 fixture = "fixtures/0x83bc649fcdb2c8da146b2154a559ddedf937ef12/etherfi-requestWithdraw.json"
+
+[[transactions]]
+id = "etherfi-deposit"
+contract = "0x83bc649fcdb2c8da146b2154a559ddedf937ef12"
+fixture = "fixtures/0x83bc649fcdb2c8da146b2154a559ddedf937ef12/etherfi-deposit.json"
+
+[[transactions]]
+id = "rocketpool-deposit"
+contract = "0xdd3f50f8a6cafbe9b31a427582963f465e745af8"
+fixture = "fixtures/0xdd3f50f8a6cafbe9b31a427582963f465e745af8/rocketpool-deposit.json"
+
+[[transactions]]
+id = "rocketpool-deposit-assigned"
+contract = "0xdd3f50f8a6cafbe9b31a427582963f465e745af8"
+fixture = "fixtures/0xdd3f50f8a6cafbe9b31a427582963f465e745af8/rocketpool-deposit-assigned.json"
+
+[[transactions]]
+id = "ens-set-subnode-record"
+contract = "0x00000000000c2e074ec69a0dfb2997ba6c7d2e1e"
+fixture = "fixtures/0x00000000000c2e074ec69a0dfb2997ba6c7d2e1e/ens-set-subnode-record.json"
+
+[[transactions]]
+id = "ens-set-subnode-owner"
+contract = "0x00000000000c2e074ec69a0dfb2997ba6c7d2e1e"
+fixture = "fixtures/0x00000000000c2e074ec69a0dfb2997ba6c7d2e1e/ens-set-subnode-owner.json"
+
+[[transactions]]
+id = "usdc-transfer"
+contract = "0x43506849d7c04f9138d1a2050bbf3a0c054402dd"
+fixture = "fixtures/0x43506849d7c04f9138d1a2050bbf3a0c054402dd/usdc-transfer.json"
+
+[[transactions]]
+id = "usdc-approve"
+contract = "0x43506849d7c04f9138d1a2050bbf3a0c054402dd"
+fixture = "fixtures/0x43506849d7c04f9138d1a2050bbf3a0c054402dd/usdc-approve.json"
+
+[[transactions]]
+id = "poap-transfer-from"
+contract = "0x4e90495f66fb04a5fba401967abd607e2ea0ab46"
+fixture = "fixtures/0x4e90495f66fb04a5fba401967abd607e2ea0ab46/poap-transfer-from.json"
+
+[[transactions]]
+id = "poap-safe-transfer-from"
+contract = "0x4e90495f66fb04a5fba401967abd607e2ea0ab46"
+fixture = "fixtures/0x4e90495f66fb04a5fba401967abd607e2ea0ab46/poap-safe-transfer-from.json"
+
+#[[transactions]]
+#id = "chainlink-latest-round-data"
+#contract = "0x7d4e742018fb52e48b08be73d041c18b21de6fb5"
+#fixture = "fixtures/0x7d4e742018fb52e48b08be73d041c18b21de6fb5/chainlink-latest-round-data.json"
+
+[[transactions]]
+id = "eulerswap-dynamic-params"
+contract = "0x8b0e044e364f2ce913799d53b300e15a6974dc97"
+fixture = "fixtures/0x8b0e044e364f2ce913799d53b300e15a6974dc97/eulerswap-dynamic-params.json"
+
+[[transactions]]
+id = "eulerswap-manager-lookup"
+contract = "0x8b0e044e364f2ce913799d53b300e15a6974dc97"
+fixture = "fixtures/0x8b0e044e364f2ce913799d53b300e15a6974dc97/eulerswap-manager-lookup.json"
+
+[[transactions]]
+id = "morpho-supply"
+contract = "0xbbbbbbbbbb9cc5e90e3b3af64bdaf62c37eeffcb"
+fixture = "fixtures/0xbbbbbbbbbb9cc5e90e3b3af64bdaf62c37eeffcb/morpho-supply.json"
+
+#[[transactions]]
+#id = "morpho-mass-reads"
+#contract = "0xbbbbbbbbbb9cc5e90e3b3af64bdaf62c37eeffcb"
+#fixture = "fixtures/0xbbbbbbbbbb9cc5e90e3b3af64bdaf62c37eeffcb/morpho-withdraw.json"
+
+[[transactions]]
+id = "bayc-safe-transfer-from"
+contract = "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
+fixture = "fixtures/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d/bayc-safe-transfer-from.json"
+
+[[transactions]]
+id = "bayc-transfer-from"
+contract = "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
+fixture = "fixtures/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d/bayc-transfer-from.json"
+
+[[transactions]]
+id = "tether-transfer"
+contract = "0xdac17f958d2ee523a2206206994597c13d831ec7"
+fixture = "fixtures/0xdac17f958d2ee523a2206206994597c13d831ec7/tether-transfer.json"
+
+[[transactions]]
+id = "tether-approve"
+contract = "0xdac17f958d2ee523a2206206994597c13d831ec7"
+fixture = "fixtures/0xdac17f958d2ee523a2206206994597c13d831ec7/tether-approve.json"

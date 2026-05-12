@@ -6,8 +6,8 @@
   "optimizer": false,
   "via_ir": false,
   "runs": 0,
-  "runtime_size_bytes": 40086,
-  "runtime_hash": "0x79bd32d19de0f87e57cb88d9ab5263e4fce6fa7c1d69f056934ff1e17b4dff5e",
+  "runtime_size_bytes": 40032,
+  "runtime_hash": "0x67b1ac7922fadb9c1a9d1a3b9e0d6c7bd3db9f6b86c8e9125e5e79091d3cfcc4",
   "immutable_patches": [
     {
       "name": "factory",
@@ -55,7 +55,7 @@
   "warnings": [
     "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> 0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640.sol",
     "Warning: Source file does not specify required compiler version! Consider adding \"pragma solidity ^0.8.35;\"\n--> 0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640.sol",
-    "Warning: Contract code size is 40086 bytes and exceeds 24576 bytes (a limit introduced in Spurious Dragon). This contract may not be deployable on Mainnet. Consider enabling the optimizer (with a low \"runs\" value!), turning off revert strings, or using libraries.\n    --> 0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640.sol:1611:1:\n     |\n1611 | contract UniswapV3Pool is IUniswapV3Pool, NoDelegateCall {\n     | ^ (Relevant source part starts here and spans across multiple lines)."
+    "Warning: Contract code size is 40032 bytes and exceeds 24576 bytes (a limit introduced in Spurious Dragon). This contract may not be deployable on Mainnet. Consider enabling the optimizer (with a low \"runs\" value!), turning off revert strings, or using libraries.\n    --> 0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640.sol:1611:1:\n     |\n1611 | contract UniswapV3Pool is IUniswapV3Pool, NoDelegateCall {\n     | ^ (Relevant source part starts here and spans across multiple lines)."
   ],
-  "compile_ms": 291
+  "compile_ms": 285
 }

@@ -31,8 +31,8 @@ Do not leave behavior changes undocumented.
 
 ## Benchmark Invariants
 
-- Runtime bytecode size includes compiler metadata. Do not strip metadata for
-  the primary size metric.
+- Runtime bytecode size excludes appended compiler metadata. Compile with
+  metadata attachment disabled for the primary size metric.
 - Gas deltas are benchmark data, not correctness failures by themselves.
 - Correctness comes from status, logs, revert data, expected storage values, and
   unexpected storage touches.

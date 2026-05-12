@@ -6,8 +6,8 @@
   "optimizer": false,
   "via_ir": false,
   "runs": 0,
-  "runtime_size_bytes": 3603,
-  "runtime_hash": "0x8dffa73ad42209ec984a777bf52dba14b0758a1d0a9e722184459883559e186b",
+  "runtime_size_bytes": 3549,
+  "runtime_hash": "0xdc7cf410c025787dbcf6281c6817a324ca7726c23a7f03a95b3c39ef704d83e0",
   "immutable_patches": [],
   "warnings": [
     "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> 0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2.sol",

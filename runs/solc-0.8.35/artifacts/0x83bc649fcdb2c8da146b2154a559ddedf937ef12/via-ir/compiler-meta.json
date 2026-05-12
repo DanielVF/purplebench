@@ -6,8 +6,8 @@
   "optimizer": true,
   "via_ir": true,
   "runs": 200,
-  "runtime_size_bytes": 18495,
-  "runtime_hash": "0x88864882d3116c119b35563a4c3a80f2042971563fc3b57dd38a302bd9092239",
+  "runtime_size_bytes": 18442,
+  "runtime_hash": "0x4072adaff79c1438f85811968acbbd628cc005877fecc869a0725b9481a29820",
   "immutable_patches": [],
   "warnings": [
     "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> 0x83bc649fcdb2c8da146b2154a559ddedf937ef12.sol",
@@ -52,5 +52,5 @@
     "Warning: Function state mutability can be restricted to view\n    --> 0x83bc649fcdb2c8da146b2154a559ddedf937ef12.sol:8151:5:\n     |\n8151 |     function _authorizeUpgrade(address newImplementation) internal override {\n     |     ^ (Relevant source part starts here and spans across multiple lines).",
     "Warning: Function state mutability can be restricted to view\n    --> 0x83bc649fcdb2c8da146b2154a559ddedf937ef12.sol:9947:5:\n     |\n9947 |     function _authorizeUpgrade(address newImplementation) internal override {\n     |     ^ (Relevant source part starts here and spans across multiple lines)."
   ],
-  "compile_ms": 5307
+  "compile_ms": 5189
 }
