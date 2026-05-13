@@ -1,0 +1,19 @@
+{
+  "compiler_id": "solc-0.8.36-fakeopcode",
+  "contract": "0xbbbbbbbbbb9cc5e90e3b3af64bdaf62c37eeffcb",
+  "contract_name": "Morpho",
+  "profile": "default",
+  "optimizer": false,
+  "via_ir": false,
+  "runs": 0,
+  "runtime_size_bytes": 27119,
+  "runtime_hash": "0xf2e37bb6c6009ef2bb7c350efc1485c06e140471d60d7690b9c7afff4f1b0374",
+  "immutable_patches": [],
+  "warnings": [
+    "Warning: This is a pre-release compiler version, please do not use it in production.",
+    "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> 0xbbbbbbbbbb9cc5e90e3b3af64bdaf62c37eeffcb.sol",
+    "Warning: Source file does not specify required compiler version!\n--> 0xbbbbbbbbbb9cc5e90e3b3af64bdaf62c37eeffcb.sol",
+    "Warning: Contract code size is 27119 bytes and exceeds 24576 bytes (a limit introduced in Spurious Dragon). This contract may not be deployable on Mainnet. Consider enabling the optimizer (with a low \"runs\" value!), turning off revert strings, or using libraries.\n   --> 0xbbbbbbbbbb9cc5e90e3b3af64bdaf62c37eeffcb.sol:912:1:\n    |\n912 | contract Morpho is IMorphoStaticTyping {\n    | ^ (Relevant source part starts here and spans across multiple lines)."
+  ],
+  "compile_ms": 143
+}

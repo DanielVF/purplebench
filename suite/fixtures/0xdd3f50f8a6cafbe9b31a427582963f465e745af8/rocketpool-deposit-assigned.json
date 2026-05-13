@@ -1,7 +1,6 @@
 {
   "id": "rocketpool-deposit-assigned",
   "chain_id": 1,
-  "evm_spec": "prague",
   "contract": "0xdd3f50f8a6cafbe9b31a427582963f465e745af8",
   "block": {
     "number": "0x1757b0a",
@@ -9,7 +8,8 @@
     "base_fee_per_gas": "0x1ea3a65",
     "gas_limit": "0x3938700",
     "coinbase": "0x396343362be2a4da1ce0c1c210945346fb82aa49",
-    "prevrandao": "0x60b00a023fcbacf1b6cb48a89d8665ab2ace0f105491ec836a895e38f515f5c1"
+    "prevrandao": "0x60b00a023fcbacf1b6cb48a89d8665ab2ace0f105491ec836a895e38f515f5c1",
+    "slot_num": "0xd12e0d"
   },
   "tx": {
     "from": "0x90cf2ae77a4ec34553c70da0828886123323a240",

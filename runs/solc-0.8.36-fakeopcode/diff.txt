@@ -1,0 +1,370 @@
+CORRECTNESS FAILURES
+logs_mismatch 0x00000000... default ens-set-subnode-owner
+  expected Some("0xada294a1e7adc2c989a867aaa2dd0c35090d05214e8063d395baa2fda451d48f") actual 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470
+status_mismatch 0x00000000... default ens-set-subnode-owner
+  expected success=true actual success=false
+logs_mismatch 0xbbbbbbbb... default morpho-supply
+  expected Some("0xad86beca880651e91064abd78b995e2f630ae16c76e33d1fee8964ec4e254d7b") actual 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470
+status_mismatch 0xbbbbbbbb... default morpho-supply
+  expected success=true actual success=false
+storage_mismatch 0x00000000... default ens-set-subnode-owner
+  0x00000000000c2e074ec69a0dfb2997ba6c7d2e1e 0xed6ec0dea623ec7299724900b17adcf9367cf5184cb560c36a7a8c70f652ce53 expected 0x0000000000000000000000007124cf2e59d54e831df6f605775e73248b3c5960 actual 0x0000000000000000000000005e7254558cbe25e4b7831364f902a29ae44e7b75
+storage_mismatch 0xbbbbbbbb... default morpho-supply
+  0x5f7827fdeb7c20b443265fc2f40845b715385ff2 0x79052f885f5a2eef994bc8df33ea3c8ad755997462550ff2074c39cfecfa0a95 expected 0x000000000000000000000000000000000000000000004674190756311f83f64b actual 0x00000000000000000000000000000000000000000000467986392b90edc9864b
+storage_mismatch 0xbbbbbbbb... default morpho-supply
+  0x5f7827fdeb7c20b443265fc2f40845b715385ff2 0x7b6e818701787abbb4d0ccd31b7892ca62c5b73deebe436e3b7ee909592ee58c expected 0x00000000000000000000000000000000000000000021feefdf8d00d94fe4efa3 actual 0x00000000000000000000000000000000000000000021feea725b2b79819f5fa3
+storage_mismatch 0xbbbbbbbb... default morpho-supply
+  0x5f7827fdeb7c20b443265fc2f40845b715385ff2 0x924a4d52e5facd3533f4115781f612d5dbba39330fbdc4d5234d065eb678179d expected 0x0000000000000000000000000000000000000000000000000000000000000000 actual 0x0000000000000000000000000000000000000000000000056d31d55fce459000
+storage_mismatch 0xbbbbbbbb... default morpho-supply
+  0x75741a12b36d181f44f389e0c6b1e0210311e3ff 0x0000000000000000000000000000000000000000000000000000000000000002 expected 0x00000000000000000000000000000000000000000025d801429647fd85680e03 actual 0x00000000000000000000000000000000000000000025d7fbe1cec09c14fea8d3
+storage_mismatch 0xbbbbbbbb... default morpho-supply
+  0x75741a12b36d181f44f389e0c6b1e0210311e3ff 0x0000000000000000000000000000000000000000000000000000000000000016 expected 0x000000000000000000000000000000000000000000262f5e15e8d527480a5032 actual 0x000000000000000000000000000000000000000000262f58a6cffa6d6600628f
+storage_mismatch 0xbbbbbbbb... default morpho-supply
+  0x75741a12b36d181f44f389e0c6b1e0210311e3ff 0x13a046f0b5c960d33ebffdbdcb4e845d8322cace854671d111b7c8f5ccf7f901 expected 0x0000000000000000000000000000000000000000001cdf115bba722c705234dc actual 0x0000000000000000000000000000000000000000001cdf0bfaf2eacaffe8cfac
+storage_mismatch 0xbbbbbbbb... default morpho-supply
+  0x870ac11d48b15db9a138cf899d20f13f79ba00bc 0xbc9271fc4fab608c1053d741c5e798ff1c539a6d7c3b9e235a6c305354414734 expected 0x00000000000000000000000000000000000000000000000000000000114d3f4d actual 0x00000000000000000000000000000000000000000000000000000000114d42d5
+storage_mismatch 0xbbbbbbbb... default morpho-supply
+  0xad64b7e01dc7304796e9b840043d7834ec3a2929 0x0000000000000000000000000000000000000000000000000000000000000006 expected 0x000000000000000000000000000000000000000000000000000000006a03871f actual 0x000000000000000000000000000000000000000000000000000000006a0360a3
+storage_mismatch 0xbbbbbbbb... default morpho-supply
+  0xad64b7e01dc7304796e9b840043d7834ec3a2929 0x0000000000000000000000000000000000000000000000000000000000000007 expected 0x000000000000000000000000000000000000000000001d7120b0080701ea52c7 actual 0x000000000000000000000000000000000000000000001d6ba1b02f3af9d59ce2
+storage_mismatch 0xbbbbbbbb... default morpho-supply
+  0xad64b7e01dc7304796e9b840043d7834ec3a2929 0x52c63247e1f47db19d5ce0460030c497f067ca4cebf71ba98eeadabe20bace02 expected 0x0000000000000000000000000000000000000001bc4f5b3260f0c79b58abc19d actual 0x0000000000000000000000000000000000000001bbfd5be355748c2be94f1a44
+storage_mismatch 0xbbbbbbbb... default morpho-supply
+  0xad64b7e01dc7304796e9b840043d7834ec3a2929 0x5459230bccea90e0605dc147e2eaaa271ffb6e5a268c8e9a5f9c369e8e39e5b4 expected 0x0000000000000000000000000000000000000000001329f8817797e12b10a0d5 actual 0x000000000000000000000000000000000000000000130f1a2cd5425306f6e766
+storage_mismatch 0xbbbbbbbb... default morpho-supply
+  0xad64b7e01dc7304796e9b840043d7834ec3a2929 0xb46168da2e58b1d1518d3c90a1521bdc4fde20813145a312df43eb477fc7a2e8 expected 0x00000000000000000000000000000000000000000051e470b6d9e5e14b42edea actual 0x0000000000000000000000000000000000000000000000000000000000000000
+storage_mismatch 0xbbbbbbbb... default morpho-supply
+  0xbbbbbbbbbb9cc5e90e3b3af64bdaf62c37eeffcb 0x7e71def3355a2f9765b106f2ff869bd3cba7cfa90a8c52ebcab3ea9737ea8b9e expected 0x00000066f1804cdc075970f902da43f6000000000006eac01fbb50eafd92e6a7 actual 0x00000066f12f89edd37882c98d0e875a000000000006eabab017f06e8ec2a8be
+storage_mismatch 0xbbbbbbbb... default morpho-supply
+  0xbbbbbbbbbb9cc5e90e3b3af64bdaf62c37eeffcb 0x7e71def3355a2f9765b106f2ff869bd3cba7cfa90a8c52ebcab3ea9737ea8b9f expected 0x0000005a33d3ae7550880fd9feefb51c000000000006146afe6ef70c51087867 actual 0x0000005a33d3ae7550880fd9feefb51c000000000006146afbfd6befb07dca7e
+storage_mismatch 0xbbbbbbbb... default morpho-supply
+  0xbbbbbbbbbb9cc5e90e3b3af64bdaf62c37eeffcb 0x7e71def3355a2f9765b106f2ff869bd3cba7cfa90a8c52ebcab3ea9737ea8ba0 expected 0x000000000000000000000000000000000000000000000000000000006a03871f actual 0x000000000000000000000000000000000000000000000000000000006a0386cb
+storage_mismatch 0xbbbbbbbb... default morpho-supply
+  0xbbbbbbbbbb9cc5e90e3b3af64bdaf62c37eeffcb 0x9b260b5b0c738d71a873379ea3404eba608a8fffc252254b6c7d50f5b0253d9a expected 0x0000000000000000000000000000000000000066f17f931b4d45b8b8092d24e5 actual 0x0000000000000000000000000000000000000066f12ed02d1964ca8893616849
+storage_mismatch 0xbbbbbbbb... default morpho-supply
+  0xbeef0c075da5d01112ae5cf34d257074fb5ddb2f 0x000000000000000000000000000000000000000000000000000000000000000b expected 0x000000000000000000000000000000000000000000276807be8c02b1d913ebcf actual 0x00000000000000000000000000000000000000000027680261b651e23f43e87b
+storage_mismatch 0xbbbbbbbb... default morpho-supply
+  0xbeef0c075da5d01112ae5cf34d257074fb5ddb2f 0x000000000000000000000000000000000000000000000000000000000000000f expected 0x0000000037de1e10000000006a03871f000000000027e03f8fe887d75a7dec54 actual 0x0000000037de1e10000000006a0386e3000000000027e039fd1706433633df9c
+storage_mismatch 0xbbbbbbbb... default morpho-supply
+  0xbeef0c075da5d01112ae5cf34d257074fb5ddb2f 0xa0172c5189dec15858008a4427649f71ccd16a2a7156bfb07a3a071af4ac5e2c expected 0x000000000000000000000000000000000000000000001d185dc30622ebc56b0f actual 0x000000000000000000000000000000000000000000001d1300ed555351f567bb
+storage_mismatch 0xbbbbbbbb... default morpho-supply
+  0xbeef0c075da5d01112ae5cf34d257074fb5ddb2f 0xfb2748f5b9e93521e31b16061b8093672dc2cf384d26fc0cb07f59f5ea4c0bef expected 0x0000000000000000000000000000000000000000001d21b7b0541f2c28c62794 actual 0x0000000000000000000000000000000000000000001d21b241aebc5dff4441fe
+storage mismatch 0x00000000... default ens-set-subnode-owner 0x00000000000c2e074ec69a0dfb2997ba6c7d2e1e 0xed6ec0dea623ec7299724900b17adcf9367cf5184cb560c36a7a8c70f652ce53
+  expected 0x0000000000000000000000007124cf2e59d54e831df6f605775e73248b3c5960
+  actual   0x0000000000000000000000005e7254558cbe25e4b7831364f902a29ae44e7b75
+storage mismatch 0xbbbbbbbb... default morpho-supply 0x5f7827fdeb7c20b443265fc2f40845b715385ff2 0x79052f885f5a2eef994bc8df33ea3c8ad755997462550ff2074c39cfecfa0a95
+  expected 0x000000000000000000000000000000000000000000004674190756311f83f64b
+  actual   0x00000000000000000000000000000000000000000000467986392b90edc9864b
+storage mismatch 0xbbbbbbbb... default morpho-supply 0x5f7827fdeb7c20b443265fc2f40845b715385ff2 0x7b6e818701787abbb4d0ccd31b7892ca62c5b73deebe436e3b7ee909592ee58c
+  expected 0x00000000000000000000000000000000000000000021feefdf8d00d94fe4efa3
+  actual   0x00000000000000000000000000000000000000000021feea725b2b79819f5fa3
+storage mismatch 0xbbbbbbbb... default morpho-supply 0x5f7827fdeb7c20b443265fc2f40845b715385ff2 0x924a4d52e5facd3533f4115781f612d5dbba39330fbdc4d5234d065eb678179d
+  expected 0x0000000000000000000000000000000000000000000000000000000000000000
+  actual   0x0000000000000000000000000000000000000000000000056d31d55fce459000
+storage mismatch 0xbbbbbbbb... default morpho-supply 0x75741a12b36d181f44f389e0c6b1e0210311e3ff 0x0000000000000000000000000000000000000000000000000000000000000002
+  expected 0x00000000000000000000000000000000000000000025d801429647fd85680e03
+  actual   0x00000000000000000000000000000000000000000025d7fbe1cec09c14fea8d3
+storage mismatch 0xbbbbbbbb... default morpho-supply 0x75741a12b36d181f44f389e0c6b1e0210311e3ff 0x0000000000000000000000000000000000000000000000000000000000000016
+  expected 0x000000000000000000000000000000000000000000262f5e15e8d527480a5032
+  actual   0x000000000000000000000000000000000000000000262f58a6cffa6d6600628f
+storage mismatch 0xbbbbbbbb... default morpho-supply 0x75741a12b36d181f44f389e0c6b1e0210311e3ff 0x13a046f0b5c960d33ebffdbdcb4e845d8322cace854671d111b7c8f5ccf7f901
+  expected 0x0000000000000000000000000000000000000000001cdf115bba722c705234dc
+  actual   0x0000000000000000000000000000000000000000001cdf0bfaf2eacaffe8cfac
+storage mismatch 0xbbbbbbbb... default morpho-supply 0x870ac11d48b15db9a138cf899d20f13f79ba00bc 0xbc9271fc4fab608c1053d741c5e798ff1c539a6d7c3b9e235a6c305354414734
+  expected 0x00000000000000000000000000000000000000000000000000000000114d3f4d
+  actual   0x00000000000000000000000000000000000000000000000000000000114d42d5
+storage mismatch 0xbbbbbbbb... default morpho-supply 0xad64b7e01dc7304796e9b840043d7834ec3a2929 0x0000000000000000000000000000000000000000000000000000000000000006
+  expected 0x000000000000000000000000000000000000000000000000000000006a03871f
+  actual   0x000000000000000000000000000000000000000000000000000000006a0360a3
+storage mismatch 0xbbbbbbbb... default morpho-supply 0xad64b7e01dc7304796e9b840043d7834ec3a2929 0x0000000000000000000000000000000000000000000000000000000000000007
+  expected 0x000000000000000000000000000000000000000000001d7120b0080701ea52c7
+  actual   0x000000000000000000000000000000000000000000001d6ba1b02f3af9d59ce2
+storage mismatch 0xbbbbbbbb... default morpho-supply 0xad64b7e01dc7304796e9b840043d7834ec3a2929 0x52c63247e1f47db19d5ce0460030c497f067ca4cebf71ba98eeadabe20bace02
+  expected 0x0000000000000000000000000000000000000001bc4f5b3260f0c79b58abc19d
+  actual   0x0000000000000000000000000000000000000001bbfd5be355748c2be94f1a44
+storage mismatch 0xbbbbbbbb... default morpho-supply 0xad64b7e01dc7304796e9b840043d7834ec3a2929 0x5459230bccea90e0605dc147e2eaaa271ffb6e5a268c8e9a5f9c369e8e39e5b4
+  expected 0x0000000000000000000000000000000000000000001329f8817797e12b10a0d5
+  actual   0x000000000000000000000000000000000000000000130f1a2cd5425306f6e766
+storage mismatch 0xbbbbbbbb... default morpho-supply 0xad64b7e01dc7304796e9b840043d7834ec3a2929 0xb46168da2e58b1d1518d3c90a1521bdc4fde20813145a312df43eb477fc7a2e8
+  expected 0x00000000000000000000000000000000000000000051e470b6d9e5e14b42edea
+  actual   0x0000000000000000000000000000000000000000000000000000000000000000
+storage mismatch 0xbbbbbbbb... default morpho-supply 0xbbbbbbbbbb9cc5e90e3b3af64bdaf62c37eeffcb 0x7e71def3355a2f9765b106f2ff869bd3cba7cfa90a8c52ebcab3ea9737ea8b9e
+  expected 0x00000066f1804cdc075970f902da43f6000000000006eac01fbb50eafd92e6a7
+  actual   0x00000066f12f89edd37882c98d0e875a000000000006eabab017f06e8ec2a8be
+storage mismatch 0xbbbbbbbb... default morpho-supply 0xbbbbbbbbbb9cc5e90e3b3af64bdaf62c37eeffcb 0x7e71def3355a2f9765b106f2ff869bd3cba7cfa90a8c52ebcab3ea9737ea8b9f
+  expected 0x0000005a33d3ae7550880fd9feefb51c000000000006146afe6ef70c51087867
+  actual   0x0000005a33d3ae7550880fd9feefb51c000000000006146afbfd6befb07dca7e
+storage mismatch 0xbbbbbbbb... default morpho-supply 0xbbbbbbbbbb9cc5e90e3b3af64bdaf62c37eeffcb 0x7e71def3355a2f9765b106f2ff869bd3cba7cfa90a8c52ebcab3ea9737ea8ba0
+  expected 0x000000000000000000000000000000000000000000000000000000006a03871f
+  actual   0x000000000000000000000000000000000000000000000000000000006a0386cb
+storage mismatch 0xbbbbbbbb... default morpho-supply 0xbbbbbbbbbb9cc5e90e3b3af64bdaf62c37eeffcb 0x9b260b5b0c738d71a873379ea3404eba608a8fffc252254b6c7d50f5b0253d9a
+  expected 0x0000000000000000000000000000000000000066f17f931b4d45b8b8092d24e5
+  actual   0x0000000000000000000000000000000000000066f12ed02d1964ca8893616849
+storage mismatch 0xbbbbbbbb... default morpho-supply 0xbeef0c075da5d01112ae5cf34d257074fb5ddb2f 0x000000000000000000000000000000000000000000000000000000000000000b
+  expected 0x000000000000000000000000000000000000000000276807be8c02b1d913ebcf
+  actual   0x00000000000000000000000000000000000000000027680261b651e23f43e87b
+storage mismatch 0xbbbbbbbb... default morpho-supply 0xbeef0c075da5d01112ae5cf34d257074fb5ddb2f 0x000000000000000000000000000000000000000000000000000000000000000f
+  expected 0x0000000037de1e10000000006a03871f000000000027e03f8fe887d75a7dec54
+  actual   0x0000000037de1e10000000006a0386e3000000000027e039fd1706433633df9c
+storage mismatch 0xbbbbbbbb... default morpho-supply 0xbeef0c075da5d01112ae5cf34d257074fb5ddb2f 0xa0172c5189dec15858008a4427649f71ccd16a2a7156bfb07a3a071af4ac5e2c
+  expected 0x000000000000000000000000000000000000000000001d185dc30622ebc56b0f
+  actual   0x000000000000000000000000000000000000000000001d1300ed555351f567bb
+storage mismatch 0xbbbbbbbb... default morpho-supply 0xbeef0c075da5d01112ae5cf34d257074fb5ddb2f 0xfb2748f5b9e93521e31b16061b8093672dc2cf384d26fc0cb07f59f5ea4c0bef
+  expected 0x0000000000000000000000000000000000000000001d21b7b0541f2c28c62794
+  actual   0x0000000000000000000000000000000000000000001d21b241aebc5dff4441fe
+
+GAS REGRESSIONS
++0.2%  0x00000000... default uniswapv4-modify-liquidity  130909 -> 131149
++0.4%  0x00000000... default uniswapv4-usdc-weth-swap  270526 -> 271636
++0.0%  0x00000000... via-ir uniswapv4-modify-liquidity  123105 -> 123122
++0.5%  0x00000000... via-ir uniswapv4-usdc-weth-swap  250488 -> 251695
++0.2%  0x00000000... via-ir-high-runs uniswapv4-modify-liquidity  122462 -> 122653
++3.1%  0x00000000... via-ir-high-runs uniswapv4-usdc-weth-swap  248984 -> 256679
++0.1%  0x00000000... via-ir-low-runs uniswapv4-modify-liquidity  123240 -> 123419
++0.6%  0x00000000... via-ir-low-runs uniswapv4-usdc-weth-swap  251171 -> 252783
++0.1%  0x00000000... default ens-set-subnode-record  266799 -> 266961
++0.1%  0x00000000... via-ir ens-set-subnode-owner  47039 -> 47101
++0.1%  0x00000000... via-ir ens-set-subnode-record  263560 -> 263767
++0.4%  0x00000000... via-ir-high-runs ens-set-subnode-owner  46930 -> 47117
++0.2%  0x00000000... via-ir-high-runs ens-set-subnode-record  263338 -> 263818
++0.1%  0x00000000... via-ir-low-runs ens-set-subnode-owner  47122 -> 47152
++0.0%  0x00000000... via-ir-low-runs ens-set-subnode-record  263788 -> 263905
++0.2%  0x43506849... default usdc-approve  34318 -> 34384
++0.4%  0x43506849... default usdc-transfer  42419 -> 42569
++0.2%  0x43506849... via-ir usdc-approve  33591 -> 33666
++0.3%  0x43506849... via-ir usdc-transfer  41111 -> 41236
++0.3%  0x43506849... via-ir-high-runs usdc-approve  33591 -> 33707
++0.1%  0x43506849... via-ir-high-runs usdc-transfer  41102 -> 41161
++0.2%  0x43506849... via-ir-low-runs usdc-approve  33622 -> 33690
++0.1%  0x43506849... via-ir-low-runs usdc-transfer  41302 -> 41331
++0.2%  0x4e90495f... default poap-safe-transfer-from  133820 -> 134024
++0.2%  0x4e90495f... default poap-transfer-from  113870 -> 114044
++0.1%  0x4e90495f... via-ir poap-safe-transfer-from  132085 -> 132166
++0.1%  0x4e90495f... via-ir poap-transfer-from  112502 -> 112583
++0.1%  0x4e90495f... via-ir-high-runs poap-safe-transfer-from  132074 -> 132217
++0.1%  0x4e90495f... via-ir-high-runs poap-transfer-from  112533 -> 112673
++0.1%  0x4e90495f... via-ir-low-runs poap-safe-transfer-from  132088 -> 132169
++0.1%  0x4e90495f... via-ir-low-runs poap-transfer-from  112502 -> 112583
++0.0%  0x83bc649f... default etherfi-deposit  373370 -> 373538
++0.1%  0x83bc649f... default etherfi-requestWithdraw  172675 -> 172810
++0.0%  0x83bc649f... via-ir etherfi-deposit  367248 -> 367372
++0.0%  0x83bc649f... via-ir etherfi-requestWithdraw  168284 -> 168338
++0.0%  0x83bc649f... via-ir-high-runs etherfi-deposit  366882 -> 366982
++0.1%  0x83bc649f... via-ir-high-runs etherfi-requestWithdraw  168029 -> 168128
++0.0%  0x83bc649f... via-ir-low-runs etherfi-deposit  367284 -> 367363
++0.0%  0x83bc649f... via-ir-low-runs etherfi-requestWithdraw  168343 -> 168367
++0.2%  0x88e6a0c2... default uniswapv3-collect  116106 -> 116292
++0.1%  0x88e6a0c2... default uniswapv3-swap  659638 -> 660319
++0.0%  0x88e6a0c2... optimized-high-runs uniswapv3-collect  112443 -> 112461
++0.1%  0x88e6a0c2... via-ir uniswapv3-collect  112110 -> 112190
++0.1%  0x88e6a0c2... via-ir uniswapv3-swap  643218 -> 643905
++0.1%  0x88e6a0c2... via-ir-high-runs uniswapv3-collect  111945 -> 112086
++0.2%  0x88e6a0c2... via-ir-high-runs uniswapv3-swap  642712 -> 643914
++0.0%  0x88e6a0c2... via-ir-low-runs uniswapv3-collect  112201 -> 112250
++0.1%  0x88e6a0c2... via-ir-low-runs uniswapv3-swap  643470 -> 644411
++0.9%  0x8b0e044e... default eulerswap-dynamic-params  38367 -> 38727
++0.1%  0x8b0e044e... default eulerswap-manager-lookup  27008 -> 27026
++0.0%  0x8b0e044e... optimized-low-runs eulerswap-dynamic-params  35994 -> 36006
++0.2%  0x8b0e044e... via-ir eulerswap-dynamic-params  36105 -> 36175
++0.0%  0x8b0e044e... via-ir eulerswap-manager-lookup  26524 -> 26530
++0.3%  0x8b0e044e... via-ir-high-runs eulerswap-dynamic-params  35790 -> 35910
++0.1%  0x8b0e044e... via-ir-high-runs eulerswap-manager-lookup  26524 -> 26542
++0.0%  0x8b0e044e... via-ir-low-runs eulerswap-manager-lookup  26524 -> 26530
++0.0%  0xbbbbbbbb... default morpho-supply  1873500 -> 1873650
++0.0%  0xbbbbbbbb... optimized-low-runs morpho-supply  1757410 -> 1757536
++0.1%  0xbbbbbbbb... via-ir morpho-supply  1725251 -> 1727773
++0.5%  0xbbbbbbbb... via-ir-high-runs morpho-supply  1721675 -> 1730800
++0.1%  0xbbbbbbbb... via-ir-low-runs morpho-supply  1729076 -> 1731490
++0.1%  0xbc4ca0ed... default bayc-safe-transfer-from  116100 -> 116214
++0.1%  0xbc4ca0ed... default bayc-transfer-from  111876 -> 111984
++0.1%  0xbc4ca0ed... via-ir bayc-safe-transfer-from  114124 -> 114194
++0.1%  0xbc4ca0ed... via-ir bayc-transfer-from  110248 -> 110321
++0.3%  0xbc4ca0ed... via-ir-high-runs bayc-safe-transfer-from  113928 -> 114213
++0.3%  0xbc4ca0ed... via-ir-high-runs bayc-transfer-from  110055 -> 110340
++0.0%  0xbc4ca0ed... via-ir-low-runs bayc-safe-transfer-from  114314 -> 114355
++0.0%  0xbc4ca0ed... via-ir-low-runs bayc-transfer-from  110396 -> 110440
++0.0%  0xc02aaa39... default weth-deposit  45326 -> 45344
++0.2%  0xc02aaa39... default weth-transfer  35500 -> 35566
++0.0%  0xc02aaa39... via-ir weth-deposit  45009 -> 45017
++0.1%  0xc02aaa39... via-ir weth-transfer  34407 -> 34436
++0.0%  0xc02aaa39... via-ir-high-runs weth-deposit  45009 -> 45017
++0.0%  0xc02aaa39... via-ir-high-runs weth-transfer  34371 -> 34386
++0.0%  0xc02aaa39... via-ir-low-runs weth-deposit  45009 -> 45017
++0.1%  0xc02aaa39... via-ir-low-runs weth-transfer  34436 -> 34465
++0.2%  0xd86756db... default oeth-rebase-opt-in  60406 -> 60520
++0.2%  0xd86756db... default oeth-swap  400443 -> 401139
++0.0%  0xd86756db... via-ir oeth-rebase-opt-in  58634 -> 58653
++0.0%  0xd86756db... via-ir oeth-swap  388935 -> 389085
++0.0%  0xd86756db... via-ir-high-runs oeth-rebase-opt-in  58600 -> 58628
++0.1%  0xd86756db... via-ir-high-runs oeth-swap  388674 -> 388886
++0.0%  0xd86756db... via-ir-low-runs oeth-rebase-opt-in  58634 -> 58653
++0.1%  0xd86756db... via-ir-low-runs oeth-swap  388935 -> 389207
++0.1%  0xdac17f95... default tether-approve  49750 -> 49816
++0.2%  0xdac17f95... default tether-transfer  47814 -> 47892
++0.1%  0xdac17f95... via-ir tether-approve  48607 -> 48649
++0.0%  0xdac17f95... via-ir tether-transfer  45576 -> 45596
++0.2%  0xdac17f95... via-ir-high-runs tether-approve  48562 -> 48649
++0.1%  0xdac17f95... via-ir-high-runs tether-transfer  45555 -> 45608
++0.2%  0xdac17f95... via-ir-low-runs tether-approve  48607 -> 48719
++0.0%  0xdac17f95... via-ir-low-runs tether-transfer  45605 -> 45625
++0.1%  0xdd3f50f8... default rocketpool-deposit  214321 -> 214513
++0.1%  0xdd3f50f8... default rocketpool-deposit-assigned  324298 -> 324484
++0.0%  0xdd3f50f8... via-ir rocketpool-deposit  208654 -> 208742
++0.0%  0xdd3f50f8... via-ir rocketpool-deposit-assigned  319949 -> 319962
++0.1%  0xdd3f50f8... via-ir-high-runs rocketpool-deposit  208450 -> 208708
++0.1%  0xdd3f50f8... via-ir-high-runs rocketpool-deposit-assigned  319715 -> 319994
++0.0%  0xdd3f50f8... via-ir-low-runs rocketpool-deposit  209053 -> 209141
++0.0%  0xdd3f50f8... via-ir-low-runs rocketpool-deposit-assigned  320249 -> 320262
++0.2%  0xfe89fd96... default aavev4hub-borrow  258279 -> 258711
++0.2%  0xfe89fd96... default aavev4hub-repay  168673 -> 169069
++0.3%  0xfe89fd96... via-ir aavev4hub-borrow  244047 -> 244698
++0.2%  0xfe89fd96... via-ir aavev4hub-repay  154609 -> 154969
++0.4%  0xfe89fd96... via-ir-high-runs aavev4hub-borrow  243695 -> 244697
++0.5%  0xfe89fd96... via-ir-high-runs aavev4hub-repay  154027 -> 154776
++0.2%  0xfe89fd96... via-ir-low-runs aavev4hub-borrow  244427 -> 244915
++0.2%  0xfe89fd96... via-ir-low-runs aavev4hub-repay  154941 -> 155237
+
+GAS IMPROVEMENTS
+-0.0%  0x00000000... optimized uniswapv4-modify-liquidity  124085 -> 124065
+-0.1%  0x00000000... optimized uniswapv4-usdc-weth-swap  253569 -> 253435
+-0.0%  0x00000000... optimized-low-runs uniswapv4-modify-liquidity  126137 -> 126117
+-0.1%  0x00000000... optimized-low-runs uniswapv4-usdc-weth-swap  257943 -> 257785
+-0.1%  0x00000000... default ens-set-subnode-owner  48899 -> 48855
+-0.0%  0x00000000... optimized-low-runs ens-set-subnode-owner  47377 -> 47371
+-0.0%  0x00000000... optimized-low-runs ens-set-subnode-record  264353 -> 264341
+-0.0%  0x43506849... optimized usdc-transfer  40829 -> 40823
+-0.0%  0x43506849... optimized-low-runs usdc-transfer  41516 -> 41510
+-0.0%  0x4e90495f... optimized poap-safe-transfer-from  131689 -> 131677
+-0.0%  0x4e90495f... optimized poap-transfer-from  112483 -> 112474
+-0.0%  0x4e90495f... optimized-low-runs poap-safe-transfer-from  132268 -> 132256
+-0.0%  0x4e90495f... optimized-low-runs poap-transfer-from  112642 -> 112633
+-0.0%  0x83bc649f... optimized etherfi-deposit  365538 -> 365512
+-0.0%  0x83bc649f... optimized etherfi-requestWithdraw  167881 -> 167864
+-0.0%  0x83bc649f... optimized-low-runs etherfi-deposit  368482 -> 368453
+-0.0%  0x83bc649f... optimized-low-runs etherfi-requestWithdraw  168852 -> 168835
+-0.0%  0x88e6a0c2... optimized uniswapv3-collect  112846 -> 112825
+-0.0%  0x88e6a0c2... optimized uniswapv3-swap  646891 -> 646727
+-0.0%  0x88e6a0c2... optimized-low-runs uniswapv3-collect  113007 -> 112986
+-0.0%  0x88e6a0c2... optimized-low-runs uniswapv3-swap  647024 -> 646842
+-1.5%  0x8b0e044e... via-ir-low-runs eulerswap-dynamic-params  36477 -> 35938
+-0.0%  0xbbbbbbbb... optimized morpho-supply  1729238 -> 1729203
+-0.0%  0xbc4ca0ed... optimized bayc-safe-transfer-from  113446 -> 113426
+-0.0%  0xbc4ca0ed... optimized bayc-transfer-from  110122 -> 110102
+-0.0%  0xbc4ca0ed... optimized-low-runs bayc-safe-transfer-from  114115 -> 114095
+-0.0%  0xbc4ca0ed... optimized-low-runs bayc-transfer-from  110247 -> 110227
+-0.1%  0xc02aaa39... optimized weth-transfer  34687 -> 34664
+-0.1%  0xc02aaa39... optimized-low-runs weth-transfer  34775 -> 34752
+-0.0%  0xd86756db... optimized oeth-swap  390576 -> 390540
+-0.0%  0xd86756db... optimized-low-runs oeth-rebase-opt-in  59120 -> 59117
+-0.0%  0xd86756db... optimized-low-runs oeth-swap  391840 -> 391804
+-0.0%  0xdd3f50f8... optimized rocketpool-deposit  207981 -> 207903
+-0.0%  0xdd3f50f8... optimized rocketpool-deposit-assigned  318886 -> 318814
+-0.0%  0xdd3f50f8... optimized-low-runs rocketpool-deposit  208294 -> 208204
+-0.0%  0xdd3f50f8... optimized-low-runs rocketpool-deposit-assigned  319416 -> 319332
+-0.0%  0xfe89fd96... optimized aavev4hub-borrow  245267 -> 245206
+-0.0%  0xfe89fd96... optimized aavev4hub-repay  156848 -> 156778
+-0.0%  0xfe89fd96... optimized-low-runs aavev4hub-borrow  247925 -> 247816
+-0.1%  0xfe89fd96... optimized-low-runs aavev4hub-repay  158037 -> 157928
+
+RUNTIME BYTECODE SIZE
+-5057 B  0x00000000... default  34463 -> 29406
+-105 B  0x00000000... optimized  19713 -> 19608
+-303 B  0x00000000... optimized-high-runs  26934 -> 26631
+-142 B  0x00000000... optimized-low-runs  20021 -> 19879
++656 B  0x00000000... via-ir  17098 -> 17754
++3723 B  0x00000000... via-ir-high-runs  20642 -> 24365
++776 B  0x00000000... via-ir-low-runs  17013 -> 17789
+-804 B  0x00000000... default  5424 -> 4620
++22 B  0x00000000... optimized-low-runs  2800 -> 2822
++13 B  0x00000000... via-ir  2713 -> 2726
+-151 B  0x00000000... via-ir-high-runs  3507 -> 3356
++2 B  0x00000000... via-ir-low-runs  2625 -> 2627
+-2627 B  0x43506849... default  30496 -> 27869
+-18 B  0x43506849... optimized  15414 -> 15396
+-14 B  0x43506849... optimized-high-runs  24631 -> 24617
+-18 B  0x43506849... optimized-low-runs  15139 -> 15121
+-176 B  0x43506849... via-ir  15453 -> 15277
++531 B  0x43506849... via-ir-high-runs  17259 -> 17790
++216 B  0x43506849... via-ir-low-runs  14652 -> 14868
+-1777 B  0x4e90495f... default  18431 -> 16654
+-8 B  0x4e90495f... optimized  10598 -> 10590
++12 B  0x4e90495f... optimized-high-runs  15465 -> 15477
+-9 B  0x4e90495f... optimized-low-runs  10457 -> 10448
+-126 B  0x4e90495f... via-ir  10335 -> 10209
++169 B  0x4e90495f... via-ir-high-runs  11553 -> 11722
+-119 B  0x4e90495f... via-ir-low-runs  10136 -> 10017
+-2915 B  0x7d4e7420... default  35649 -> 32734
+-47 B  0x7d4e7420... optimized  19126 -> 19079
++10 B  0x7d4e7420... optimized-high-runs  24425 -> 24435
+-108 B  0x7d4e7420... optimized-low-runs  18971 -> 18863
++603 B  0x7d4e7420... via-ir  18665 -> 19268
++616 B  0x7d4e7420... via-ir-high-runs  20574 -> 21190
++651 B  0x7d4e7420... via-ir-low-runs  18122 -> 18773
+-2767 B  0x83bc649f... default  37263 -> 34496
+-89 B  0x83bc649f... optimized  20925 -> 20836
+-1 B  0x83bc649f... optimized-high-runs  28127 -> 28126
+-92 B  0x83bc649f... optimized-low-runs  20674 -> 20582
++164 B  0x83bc649f... via-ir  18442 -> 18606
++1322 B  0x83bc649f... via-ir-high-runs  21933 -> 23255
++163 B  0x83bc649f... via-ir-low-runs  18369 -> 18532
+-3257 B  0x88e6a0c2... default  40032 -> 36775
+-171 B  0x88e6a0c2... optimized  24115 -> 23944
++31 B  0x88e6a0c2... optimized-high-runs  33047 -> 33078
+-187 B  0x88e6a0c2... optimized-low-runs  23838 -> 23651
++583 B  0x88e6a0c2... via-ir  23887 -> 24470
++1479 B  0x88e6a0c2... via-ir-high-runs  27573 -> 29052
++406 B  0x88e6a0c2... via-ir-low-runs  23867 -> 24273
+-3196 B  0x8b0e044e... default  33128 -> 29932
+-128 B  0x8b0e044e... optimized  20614 -> 20486
++1 B  0x8b0e044e... optimized-high-runs  29200 -> 29201
+-96 B  0x8b0e044e... optimized-low-runs  20632 -> 20536
+-72 B  0x8b0e044e... via-ir  19739 -> 19667
+-122 B  0x8b0e044e... via-ir-high-runs  24840 -> 24718
++393 B  0x8b0e044e... via-ir-low-runs  19203 -> 19596
+-3344 B  0xbbbbbbbb... default  30463 -> 27119
+-87 B  0xbbbbbbbb... optimized  16501 -> 16414
+-62 B  0xbbbbbbbb... optimized-low-runs  16415 -> 16353
++491 B  0xbbbbbbbb... via-ir  12746 -> 13237
++934 B  0xbbbbbbbb... via-ir-high-runs  14741 -> 15675
++198 B  0xbbbbbbbb... via-ir-low-runs  12688 -> 12886
+-1374 B  0xbc4ca0ed... default  18567 -> 17193
+-21 B  0xbc4ca0ed... optimized  9840 -> 9819
+-17 B  0xbc4ca0ed... optimized-high-runs  13158 -> 13141
+-21 B  0xbc4ca0ed... optimized-low-runs  9695 -> 9674
+-117 B  0xbc4ca0ed... via-ir  9844 -> 9727
+-702 B  0xbc4ca0ed... via-ir-high-runs  11473 -> 10771
+-99 B  0xbc4ca0ed... via-ir-low-runs  9687 -> 9588
+-608 B  0xc02aaa39... default  3549 -> 2941
+-12 B  0xc02aaa39... optimized  1835 -> 1823
+-12 B  0xc02aaa39... optimized-low-runs  1820 -> 1808
++44 B  0xc02aaa39... via-ir  1725 -> 1769
++130 B  0xc02aaa39... via-ir-high-runs  2048 -> 2178
++41 B  0xc02aaa39... via-ir-low-runs  1718 -> 1759
+-3424 B  0xd86756db... default  19930 -> 16506
+-78 B  0xd86756db... optimized  9557 -> 9479
++25 B  0xd86756db... optimized-high-runs  12808 -> 12833
+-79 B  0xd86756db... optimized-low-runs  9293 -> 9214
++77 B  0xd86756db... via-ir  8495 -> 8572
++578 B  0xd86756db... via-ir-high-runs  9379 -> 9957
++99 B  0xd86756db... via-ir-low-runs  8385 -> 8484
+-1776 B  0xdac17f95... default  10857 -> 9081
+-18 B  0xdac17f95... optimized  5494 -> 5476
+-19 B  0xdac17f95... optimized-low-runs  5424 -> 5405
+-130 B  0xdac17f95... via-ir  4870 -> 4740
+-586 B  0xdac17f95... via-ir-high-runs  6128 -> 5542
+-147 B  0xdac17f95... via-ir-low-runs  4851 -> 4704
+-1344 B  0xdd3f50f8... default  16936 -> 15592
+-206 B  0xdd3f50f8... optimized  10538 -> 10332
+-8 B  0xdd3f50f8... optimized-high-runs  14136 -> 14128
+-232 B  0xdd3f50f8... optimized-low-runs  10467 -> 10235
++30 B  0xdd3f50f8... via-ir  9141 -> 9171
++125 B  0xdd3f50f8... via-ir-high-runs  10813 -> 10938
++30 B  0xdd3f50f8... via-ir-low-runs  9120 -> 9150
+-4534 B  0xfe89fd96... default  40996 -> 36462
+-239 B  0xfe89fd96... optimized  22689 -> 22450
+-7 B  0xfe89fd96... optimized-high-runs  31129 -> 31122
+-274 B  0xfe89fd96... optimized-low-runs  22175 -> 21901
++304 B  0xfe89fd96... via-ir  18704 -> 19008
++1142 B  0xfe89fd96... via-ir-high-runs  23428 -> 24570
+-249 B  0xfe89fd96... via-ir-low-runs  18783 -> 18534
+

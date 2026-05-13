@@ -1,7 +1,6 @@
 {
   "id": "etherfi-deposit",
   "chain_id": 1,
-  "evm_spec": "prague",
   "contract": "0x83bc649fcdb2c8da146b2154a559ddedf937ef12",
   "block": {
     "number": "0x17eb4ab",
@@ -9,7 +8,8 @@
     "base_fee_per_gas": "0xfcf33d1",
     "gas_limit": "0x3938700",
     "coinbase": "0x4838b106fce9647bdf1e7877bf73ce8b0bad5f97",
-    "prevrandao": "0xa3b283f0295e7d43522d3811835ffa22fd9cfcb878724ab29c34d4b9e798d95a"
+    "prevrandao": "0xa3b283f0295e7d43522d3811835ffa22fd9cfcb878724ab29c34d4b9e798d95a",
+    "slot_num": "0xda70c2"
   },
   "tx": {
     "from": "0xe910f866fb934a8985fd39910e6999ffc76acb13",

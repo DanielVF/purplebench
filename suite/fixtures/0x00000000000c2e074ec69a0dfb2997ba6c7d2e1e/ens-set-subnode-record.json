@@ -1,7 +1,6 @@
 {
   "id": "ens-set-subnode-record",
   "chain_id": 1,
-  "evm_spec": "prague",
   "contract": "0x00000000000c2e074ec69a0dfb2997ba6c7d2e1e",
   "block": {
     "number": "0x17eb5b9",
@@ -9,7 +8,8 @@
     "base_fee_per_gas": "0xac08ea2",
     "gas_limit": "0x3938700",
     "coinbase": "0x4838b106fce9647bdf1e7877bf73ce8b0bad5f97",
-    "prevrandao": "0xb2a39785f820feca7379cc2a16be9946f265a7d1d1b8471cea24b9317ea334dd"
+    "prevrandao": "0xb2a39785f820feca7379cc2a16be9946f265a7d1d1b8471cea24b9317ea334dd",
+    "slot_num": "0xda71d0"
   },
   "tx": {
     "from": "0xcd2b12d057c705beaaaf77661fdd52ce5fad9d1a",

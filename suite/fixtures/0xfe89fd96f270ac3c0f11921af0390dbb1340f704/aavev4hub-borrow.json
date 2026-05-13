@@ -1,7 +1,6 @@
 {
   "id": "aavev4hub-borrow",
   "chain_id": 1,
-  "evm_spec": "prague",
   "contract": "0xfe89fd96f270ac3c0f11921af0390dbb1340f704",
   "block": {
     "number": "0x17e28ec",
@@ -9,7 +8,8 @@
     "base_fee_per_gas": "0x46acd5da",
     "gas_limit": "0x3938700",
     "coinbase": "0x4838b106fce9647bdf1e7877bf73ce8b0bad5f97",
-    "prevrandao": "0x74ce367ae9afa004ee39129c56d5fb8f5b5a8cd60fbb21a3906c026f453f8024"
+    "prevrandao": "0x74ce367ae9afa004ee39129c56d5fb8f5b5a8cd60fbb21a3906c026f453f8024",
+    "slot_num": "0xd9e48a"
   },
   "tx": {
     "from": "0xf4a20c177306ed7fce57ea31ba7d0eb903c801e2",

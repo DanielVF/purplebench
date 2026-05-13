@@ -1,7 +1,6 @@
 {
   "id": "bayc-transfer-from",
   "chain_id": 1,
-  "evm_spec": "prague",
   "contract": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
   "block": {
     "number": "0x17eb560",
@@ -9,7 +8,8 @@
     "base_fee_per_gas": "0xbddeefa",
     "gas_limit": "0x3938700",
     "coinbase": "0x4838b106fce9647bdf1e7877bf73ce8b0bad5f97",
-    "prevrandao": "0x9cced5c6bbf74ee5dca268ef990a8034f6c51b2830ec4b54b1f9edce49b3fde5"
+    "prevrandao": "0x9cced5c6bbf74ee5dca268ef990a8034f6c51b2830ec4b54b1f9edce49b3fde5",
+    "slot_num": "0xda7177"
   },
   "tx": {
     "from": "0xed4a88aa2ce359ff0aba15dcf66910e1846ed34b",

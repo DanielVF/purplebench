@@ -18,5 +18,5 @@
     "Warning: Source file does not specify required compiler version! Consider adding \"pragma solidity ^0.8.35;\"\n--> 0x8b0e044e364f2ce913799d53b300e15a6974dc97.sol",
     "Warning: Comparison of variables of contract type is deprecated and scheduled for removal. Use an explicit cast to address type and compare the addresses instead.\n    --> 0x8b0e044e364f2ce913799d53b300e15a6974dc97.sol:4622:51:\n     |\n4622 |                 if (supplyBalance > supplyCash || supplyVault == borrowVault) {\n     |                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^"
   ],
-  "compile_ms": 654
+  "compile_ms": 643
 }

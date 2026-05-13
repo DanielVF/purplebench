@@ -1,7 +1,6 @@
 {
   "id": "usdc-transfer",
   "chain_id": 1,
-  "evm_spec": "prague",
   "contract": "0x43506849d7c04f9138d1a2050bbf3a0c054402dd",
   "block": {
     "number": "0x17eb5c8",
@@ -9,7 +8,8 @@
     "base_fee_per_gas": "0x9f7dffc",
     "gas_limit": "0x3938700",
     "coinbase": "0x4838b106fce9647bdf1e7877bf73ce8b0bad5f97",
-    "prevrandao": "0x09b75099b733d83bb171da6cacca33f65b33fab02fc2848a387b0cc73c739cd5"
+    "prevrandao": "0x09b75099b733d83bb171da6cacca33f65b33fab02fc2848a387b0cc73c739cd5",
+    "slot_num": "0xda71df"
   },
   "tx": {
     "from": "0x5379a8db464bfcb4789bdf472a1df83b42734a22",

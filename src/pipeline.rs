@@ -76,6 +76,7 @@ struct PreparedCompiler {
 struct SimJob {
     run_id: String,
     compiler_id: String,
+    evm_spec: String,
     contract: String,
     profile: String,
     tx_id: String,
@@ -362,6 +363,7 @@ fn build_sim_jobs(
             jobs.push(SimJob {
                 run_id: outcome.row.run_id.clone(),
                 compiler_id: outcome.row.compiler_id.clone(),
+                evm_spec: suite.config.suite.evm_spec.clone(),
                 contract: outcome.row.contract.clone(),
                 profile: outcome.row.profile.clone(),
                 tx_id: tx.id.clone(),
@@ -382,6 +384,7 @@ fn run_sim_job(job: &SimJob) -> revm_runner::SimulationOutput {
                 SimulationInput {
                     run_id: &job.run_id,
                     compiler_id: &job.compiler_id,
+                    evm_spec: &job.evm_spec,
                     contract: &job.contract,
                     profile: &job.profile,
                     tx_id: &job.tx_id,
@@ -800,7 +803,6 @@ fixture = "fixtures/store.json"
             &crate::fixtures::Fixture {
                 id: "store".to_string(),
                 chain_id: 1,
-                evm_spec: "cancun".to_string(),
                 contract: address.to_string(),
                 block: crate::fixtures::BlockFixture {
                     number: "0x1".to_string(),
@@ -812,6 +814,7 @@ fixture = "fixtures/store.json"
                         "0x0000000000000000000000000000000000000000000000000000000000000000"
                             .to_string(),
                     ),
+                    slot_num: None,
                 },
                 tx: crate::fixtures::TxFixture {
                     from: caller.to_string(),
@@ -1026,7 +1029,6 @@ fixture = "fixtures/store.json"
             &crate::fixtures::Fixture {
                 id: "store".to_string(),
                 chain_id: 1,
-                evm_spec: "cancun".to_string(),
                 contract: address.to_string(),
                 block: crate::fixtures::BlockFixture {
                     number: "0x1".to_string(),
@@ -1038,6 +1040,7 @@ fixture = "fixtures/store.json"
                         "0x0000000000000000000000000000000000000000000000000000000000000000"
                             .to_string(),
                     ),
+                    slot_num: None,
                 },
                 tx: crate::fixtures::TxFixture {
                     from: caller.to_string(),

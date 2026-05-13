@@ -27,5 +27,5 @@
     "Warning: Source file does not specify required compiler version! Consider adding \"pragma solidity ^0.8.35;\"\n--> 0xdd3f50f8a6cafbe9b31a427582963f465e745af8.sol",
     "Warning: Visibility for constructor is ignored. If you want the contract to be non-deployable, making it \"abstract\" is sufficient.\n   --> 0xdd3f50f8a6cafbe9b31a427582963f465e745af8.sol:952:5:\n    |\n952 |     constructor (string memory name_, string memory symbol_) public {\n    |     ^ (Relevant source part starts here and spans across multiple lines)."
   ],
-  "compile_ms": 244
+  "compile_ms": 248
 }

@@ -1,0 +1,19 @@
+{
+  "compiler_id": "solc-0.8.36-fakeopcode",
+  "contract": "0xd86756dbb01e75a11aadacb75c8495759ed92033",
+  "contract_name": "OETH",
+  "profile": "via-ir",
+  "optimizer": true,
+  "via_ir": true,
+  "runs": 200,
+  "runtime_size_bytes": 8572,
+  "runtime_hash": "0xbee6fe8e922d5cb0db539f5843eda60ea8cb7bd6cd2cd020d558a99d098baafc",
+  "immutable_patches": [],
+  "warnings": [
+    "Warning: This is a pre-release compiler version, please do not use it in production.",
+    "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> 0xd86756dbb01e75a11aadacb75c8495759ed92033.sol",
+    "Warning: Source file does not specify required compiler version!\n--> 0xd86756dbb01e75a11aadacb75c8495759ed92033.sol",
+    "Warning: This declaration has the same name as another declaration.\n    --> 0xd86756dbb01e75a11aadacb75c8495759ed92033.sol:1692:18:\n     |\n1692 |         returns (uint256 rebasingCredits)\n     |                  ^^^^^^^^^^^^^^^^^^^^^^^\nNote: The other declaration is here:\n    --> 0xd86756dbb01e75a11aadacb75c8495759ed92033.sol:1360:5:\n     |\n1360 |     function rebasingCredits() external view returns (uint256) {\n     |     ^ (Relevant source part starts here and spans across multiple lines)."
+  ],
+  "compile_ms": 1054
+}

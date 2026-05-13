@@ -1,7 +1,6 @@
 {
   "id": "poap-safe-transfer-from",
   "chain_id": 1,
-  "evm_spec": "prague",
   "contract": "0x4e90495f66fb04a5fba401967abd607e2ea0ab46",
   "block": {
     "number": "0x17e9bd1",
@@ -9,7 +8,8 @@
     "base_fee_per_gas": "0xf1a5263",
     "gas_limit": "0x39386c7",
     "coinbase": "0x4838b106fce9647bdf1e7877bf73ce8b0bad5f97",
-    "prevrandao": "0xb3cd7376712ffa422f62fde85f76533d9b43521f5e4119e111b42cf782a20822"
+    "prevrandao": "0xb3cd7376712ffa422f62fde85f76533d9b43521f5e4119e111b42cf782a20822",
+    "slot_num": "0xda57d3"
   },
   "tx": {
     "from": "0x92fab452e2f14c7730f79031906e06326c916946",

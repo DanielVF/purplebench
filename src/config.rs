@@ -161,22 +161,18 @@ pub fn validate_suite(path: &Path) -> Result<String> {
                 suite.config.suite.chain_id
             );
         }
-        if normalize_spec(&fixture.evm_spec) != normalize_spec(&suite.config.suite.evm_spec) {
-            bail!(
-                "fixture {} evm_spec {} does not match suite evm_spec {}",
-                fixture_path.display(),
-                fixture.evm_spec,
-                suite.config.suite.evm_spec
-            );
-        }
-
-        let replay = revm_runner::simulate_original(&fixture)
+        let replay = revm_runner::simulate_original(&fixture, &suite.config.suite.evm_spec)
             .with_context(|| format!("fixture replay failed for {}", fixture_path.display()))?;
         if !replay.transaction.success {
+            let detail = replay
+                .transaction
+                .error
+                .or_else(|| replay.failures.first().map(|failure| failure.error.clone()))
+                .unwrap_or_else(|| "correctness mismatch".to_string());
             bail!(
                 "fixture {} replay failed: {}",
                 fixture_path.display(),
-                replay.transaction.error.unwrap_or_default()
+                detail
             );
         }
         messages.push(format!("replayed fixture {}", fixture_path.display()));
@@ -190,11 +186,14 @@ pub fn validate_suite(path: &Path) -> Result<String> {
     ))
 }
 
-fn normalize_spec(value: &str) -> String {
-    value.to_ascii_lowercase().replace(['_', '-'], "")
-}
-
 fn validate_config_shape(suite: &LoadedSuite, messages: &mut Vec<String>) -> Result<()> {
+    revm_runner::spec_id(&suite.config.suite.evm_spec).with_context(|| {
+        format!(
+            "suite evm_spec `{}` is not supported",
+            suite.config.suite.evm_spec
+        )
+    })?;
+
     if suite.config.optimization_profiles.is_empty() {
         bail!("suite has no optimization_profiles");
     }

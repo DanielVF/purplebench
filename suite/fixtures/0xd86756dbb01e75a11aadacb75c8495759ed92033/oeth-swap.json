@@ -1,7 +1,6 @@
 {
   "id": "oeth-swap",
   "chain_id": 1,
-  "evm_spec": "prague",
   "contract": "0xd86756dbb01e75a11aadacb75c8495759ed92033",
   "block": {
     "number": "0x17e1fdb",
@@ -9,7 +8,8 @@
     "base_fee_per_gas": "0x64075dc5",
     "gas_limit": "0x3938700",
     "coinbase": "0x4838b106fce9647bdf1e7877bf73ce8b0bad5f97",
-    "prevrandao": "0xf726a214a59672ce67ce245f999166cb392e2caf529811381ab406692810fc39"
+    "prevrandao": "0xf726a214a59672ce67ce245f999166cb392e2caf529811381ab406692810fc39",
+    "slot_num": "0xd9db6e"
   },
   "tx": {
     "from": "0xeac6a75e19beb1283352d24c0311de865a867dab",

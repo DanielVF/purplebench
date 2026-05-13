@@ -48,6 +48,7 @@ struct CompilerMeta {
     optimizer: bool,
     via_ir: bool,
     runs: u32,
+    experimental: bool,
     runtime_size_bytes: Option<u64>,
     runtime_hash: Option<String>,
     immutable_patches: Vec<ImmutablePatchMeta>,
@@ -112,6 +113,7 @@ pub fn compile(job: &CompileJob) -> Result<CompileOutcome> {
         optimizer: job.profile.optimizer,
         via_ir: job.profile.via_ir,
         runs: job.profile.runs,
+        experimental: contracts::SOLC_EXPERIMENTAL,
         runtime_size_bytes: Some(output.runtime_size_bytes),
         runtime_hash: Some(output.runtime_hash),
         immutable_patches: output.immutable_patches,
@@ -145,7 +147,12 @@ fn compile_inner(job: &CompileJob) -> Result<CompilerOutput> {
     let source_path = job.suite.contract_source_path(&job.contract);
     let source =
         contracts::load_flattened_source(&source_path, job.suite.config.suite.allow_local_imports)?;
-    let input = contracts::standard_json(&source, &job.profile, &job.contract.libraries);
+    let input = contracts::standard_json(
+        &source,
+        &job.profile,
+        &job.contract.libraries,
+        &job.suite.config.suite.evm_spec,
+    );
 
     let mut child = Command::new(&job.compiler_path)
         .arg("--standard-json")

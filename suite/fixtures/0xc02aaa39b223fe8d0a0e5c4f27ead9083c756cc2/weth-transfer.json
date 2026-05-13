@@ -1,7 +1,6 @@
 {
   "id": "weth-transfer",
   "chain_id": 1,
-  "evm_spec": "prague",
   "contract": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
   "block": {
     "number": "0x17e23de",
@@ -9,7 +8,8 @@
     "base_fee_per_gas": "0x61f1a11c",
     "gas_limit": "0x3938700",
     "coinbase": "0xdadb0d80178819f2319190d340ce9a924f783711",
-    "prevrandao": "0x963e6a39aada573f462f37a22e78930bdb31a2f33407c27ce8afd7767e25bfe4"
+    "prevrandao": "0x963e6a39aada573f462f37a22e78930bdb31a2f33407c27ce8afd7767e25bfe4",
+    "slot_num": "0xd9df74"
   },
   "tx": {
     "from": "0x3651a474027496aa25f8106ef3a8d6f1486a88a6",

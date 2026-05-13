@@ -1,7 +1,6 @@
 {
   "id": "uniswapv3-swap",
   "chain_id": 1,
-  "evm_spec": "prague",
   "contract": "0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640",
   "block": {
     "number": "0x17e29fb",
@@ -9,7 +8,8 @@
     "base_fee_per_gas": "0xb8bd8dd",
     "gas_limit": "0x3938700",
     "coinbase": "0x4838b106fce9647bdf1e7877bf73ce8b0bad5f97",
-    "prevrandao": "0xd306e62a0ae82c1490fc6646ad746dfd368b5c0ccf6df9712d93f58f5069fb5f"
+    "prevrandao": "0xd306e62a0ae82c1490fc6646ad746dfd368b5c0ccf6df9712d93f58f5069fb5f",
+    "slot_num": "0xd9e59a"
   },
   "tx": {
     "from": "0x8ead2db067f931b909c59dfd79878e9f392ca936",

@@ -1,7 +1,6 @@
 {
   "id": "uniswapv4-usdc-weth-swap",
   "chain_id": 1,
-  "evm_spec": "prague",
   "contract": "0x000000000004444c5dc75cb358380d2e3de08a90",
   "block": {
     "number": "0x17eb517",
@@ -9,7 +8,8 @@
     "base_fee_per_gas": "0xc97c3fc",
     "gas_limit": "0x392a1e7",
     "coinbase": "0x4838b106fce9647bdf1e7877bf73ce8b0bad5f97",
-    "prevrandao": "0x529995406865097ffeccaca62c10cf6d926f121d8491d9e1674865f073ed0849"
+    "prevrandao": "0x529995406865097ffeccaca62c10cf6d926f121d8491d9e1674865f073ed0849",
+    "slot_num": "0xda712e"
   },
   "tx": {
     "from": "0x5875db54cd9ae2b2a875e09bb731772297ae9d92",

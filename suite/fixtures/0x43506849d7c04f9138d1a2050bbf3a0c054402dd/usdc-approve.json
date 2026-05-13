@@ -1,7 +1,6 @@
 {
   "id": "usdc-approve",
   "chain_id": 1,
-  "evm_spec": "prague",
   "contract": "0x43506849d7c04f9138d1a2050bbf3a0c054402dd",
   "block": {
     "number": "0x17eb5c3",
@@ -9,7 +8,8 @@
     "base_fee_per_gas": "0x94f86fe",
     "gas_limit": "0x3938700",
     "coinbase": "0x396343362be2a4da1ce0c1c210945346fb82aa49",
-    "prevrandao": "0x81e68437c515ebf9bb53bca799463413bcbcb5c297358e08582a4e0161c008b9"
+    "prevrandao": "0x81e68437c515ebf9bb53bca799463413bcbcb5c297358e08582a4e0161c008b9",
+    "slot_num": "0xda71da"
   },
   "tx": {
     "from": "0x384aaff760e2e8992ba30cfb3d02b46e666ffda6",

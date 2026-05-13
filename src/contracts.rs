@@ -5,6 +5,8 @@ use serde_json::{Value, json};
 
 use crate::{config::OptimizationProfile, util};
 
+pub const SOLC_EXPERIMENTAL: bool = true;
+
 #[derive(Debug, Clone)]
 pub struct LoadedContractSource {
     pub source_name: String,
@@ -35,8 +37,12 @@ pub fn standard_json(
     source: &LoadedContractSource,
     profile: &OptimizationProfile,
     libraries: &BTreeMap<String, String>,
+    evm_spec: &str,
 ) -> Value {
+    let evm_version = solc_evm_version(evm_spec);
     let mut settings = json!({
+        "evmVersion": evm_version,
+        "experimental": SOLC_EXPERIMENTAL,
         "metadata": {
             "appendCBOR": false
         },
@@ -78,6 +84,28 @@ pub fn standard_json(
     })
 }
 
+pub fn solc_evm_version(spec: &str) -> String {
+    match spec.to_ascii_lowercase().replace(['_', '-'], "").as_str() {
+        "frontier" | "frontierthawing" | "homestead" | "daofork" | "dao" => "homestead",
+        "tangerine" | "tangerinewhistle" => "tangerineWhistle",
+        "spurious" | "spuriousdragon" => "spuriousDragon",
+        "byzantium" => "byzantium",
+        "constantinople" => "constantinople",
+        "petersburg" => "petersburg",
+        "istanbul" | "muirglacier" => "istanbul",
+        "berlin" => "berlin",
+        "london" | "arrowglacier" | "grayglacier" => "london",
+        "merge" | "paris" => "paris",
+        "shanghai" => "shanghai",
+        "cancun" => "cancun",
+        "prague" => "prague",
+        "osaka" => "osaka",
+        "amsterdam" | "latest" => "amsterdam",
+        _ => spec,
+    }
+    .to_string()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -94,7 +122,9 @@ mod tests {
             via_ir: false,
             runs: 200,
         };
-        let value = standard_json(&source, &profile, &BTreeMap::new());
+        let value = standard_json(&source, &profile, &BTreeMap::new(), "amsterdam");
+        assert_eq!(value["settings"]["evmVersion"], "amsterdam");
+        assert_eq!(value["settings"]["experimental"], true);
         assert_eq!(value["settings"]["metadata"]["appendCBOR"], false);
         assert_eq!(value["settings"]["optimizer"]["enabled"], true);
         assert_eq!(
@@ -120,7 +150,8 @@ mod tests {
             "L".to_string(),
             "0x1111111111111111111111111111111111111111".to_string(),
         )]);
-        let value = standard_json(&source, &profile, &libraries);
+        let value = standard_json(&source, &profile, &libraries, "spurious-dragon");
+        assert_eq!(value["settings"]["evmVersion"], "spuriousDragon");
         assert_eq!(
             value["settings"]["libraries"]["A.sol"]["L"],
             "0x1111111111111111111111111111111111111111"
@@ -129,5 +160,13 @@ mod tests {
             value["settings"]["outputSelection"]["*"]["*"][3],
             "evm.deployedBytecode.linkReferences"
         );
+    }
+
+    #[test]
+    fn solc_evm_version_maps_suite_aliases() {
+        assert_eq!(solc_evm_version("merge"), "paris");
+        assert_eq!(solc_evm_version("gray-glacier"), "london");
+        assert_eq!(solc_evm_version("tangerine-whistle"), "tangerineWhistle");
+        assert_eq!(solc_evm_version("latest"), "amsterdam");
     }
 }

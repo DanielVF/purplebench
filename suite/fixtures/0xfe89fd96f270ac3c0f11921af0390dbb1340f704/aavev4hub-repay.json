@@ -1,7 +1,6 @@
 {
   "id": "aavev4hub-repay",
   "chain_id": 1,
-  "evm_spec": "prague",
   "contract": "0xfe89fd96f270ac3c0f11921af0390dbb1340f704",
   "block": {
     "number": "0x17e282a",
@@ -9,7 +8,8 @@
     "base_fee_per_gas": "0x145b9f87",
     "gas_limit": "0x3938700",
     "coinbase": "0x396343362be2a4da1ce0c1c210945346fb82aa49",
-    "prevrandao": "0x24c7c006a1e15743fc4673f4a90679f1b3e49b193e0a729e7c528ab2a4ef5f91"
+    "prevrandao": "0x24c7c006a1e15743fc4673f4a90679f1b3e49b193e0a729e7c528ab2a4ef5f91",
+    "slot_num": "0xd9e3c5"
   },
   "tx": {
     "from": "0x4bab54aba4a72893dc58b1f0a9c55d87257b7608",

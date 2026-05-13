@@ -1,7 +1,6 @@
 {
   "id": "uniswapv4-modify-liquidity",
   "chain_id": 1,
-  "evm_spec": "prague",
   "contract": "0x000000000004444c5dc75cb358380d2e3de08a90",
   "block": {
     "number": "0x17eb5f3",
@@ -9,7 +8,8 @@
     "base_fee_per_gas": "0x9607d93",
     "gas_limit": "0x3938700",
     "coinbase": "0x4838b106fce9647bdf1e7877bf73ce8b0bad5f97",
-    "prevrandao": "0x14637ba3f5ec612a3d6fcf4cc4c95564581eb692df5d6ffbc741b9402390ee45"
+    "prevrandao": "0x14637ba3f5ec612a3d6fcf4cc4c95564581eb692df5d6ffbc741b9402390ee45",
+    "slot_num": "0xda720a"
   },
   "tx": {
     "from": "0x3c30a402005a21be170fd74f1fd5cbe990759a8e",

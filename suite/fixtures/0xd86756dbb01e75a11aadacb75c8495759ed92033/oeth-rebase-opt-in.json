@@ -1,7 +1,6 @@
 {
   "id": "oeth-rebase-opt-in",
   "chain_id": 1,
-  "evm_spec": "prague",
   "contract": "0xd86756dbb01e75a11aadacb75c8495759ed92033",
   "block": {
     "number": "0x172ae01",
@@ -9,7 +8,8 @@
     "base_fee_per_gas": "0x284ce5a",
     "gas_limit": "0x3938700",
     "coinbase": "0x4838b106fce9647bdf1e7877bf73ce8b0bad5f97",
-    "prevrandao": "0x88b1549b89b56528a989dd2c16336502fa99cdcfd4337fd211013b1e5dd7a9e1"
+    "prevrandao": "0x88b1549b89b56528a989dd2c16336502fa99cdcfd4337fd211013b1e5dd7a9e1",
+    "slot_num": "0xce5d43"
   },
   "tx": {
     "from": "0xf50f9fb9c3813e13de87447b0894cab4d42b6008",

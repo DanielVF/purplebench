@@ -1,7 +1,6 @@
 {
   "id": "weth-deposit",
   "chain_id": 1,
-  "evm_spec": "prague",
   "contract": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
   "block": {
     "number": "0x17e23ef",
@@ -9,7 +8,8 @@
     "base_fee_per_gas": "0x7ab4a256",
     "gas_limit": "0x3938700",
     "coinbase": "0xdadb0d80178819f2319190d340ce9a924f783711",
-    "prevrandao": "0x3ec53fc2d9d587976ba1b1613b2a024c1ba3b8fd0362649ba9af002cfd10d782"
+    "prevrandao": "0x3ec53fc2d9d587976ba1b1613b2a024c1ba3b8fd0362649ba9af002cfd10d782",
+    "slot_num": "0xd9df85"
   },
   "tx": {
     "from": "0x69e27736b108d63217eae0279aab414716b6dd1f",

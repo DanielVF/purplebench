@@ -31,5 +31,5 @@
     "Warning: Visibility for constructor is ignored. If you want the contract to be non-deployable, making it \"abstract\" is sufficient.\n  --> 0x00000000000c2e074ec69a0dfb2997ba6c7d2e1e.sol:65:5:\n   |\n65 |     constructor() public {\n   |     ^ (Relevant source part starts here and spans across multiple lines).",
     "Warning: Visibility for constructor is ignored. If you want the contract to be non-deployable, making it \"abstract\" is sufficient.\n   --> 0x00000000000c2e074ec69a0dfb2997ba6c7d2e1e.sol:232:5:\n    |\n232 |     constructor(ENS _old) public ENSRegistry() {\n    |     ^ (Relevant source part starts here and spans across multiple lines)."
   ],
-  "compile_ms": 67
+  "compile_ms": 66
 }

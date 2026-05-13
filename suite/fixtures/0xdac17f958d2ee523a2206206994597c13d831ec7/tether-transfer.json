@@ -1,7 +1,6 @@
 {
   "id": "tether-transfer",
   "chain_id": 1,
-  "evm_spec": "prague",
   "contract": "0xdac17f958d2ee523a2206206994597c13d831ec7",
   "block": {
     "number": "0x17eb5c4",
@@ -9,7 +8,8 @@
     "base_fee_per_gas": "0xa4a0356",
     "gas_limit": "0x3938700",
     "coinbase": "0x388c818ca8b9251b393131c08a736a67ccb19297",
-    "prevrandao": "0x029e262af81e51151d90efd2ad297e2835135abda3c5471d892478b95570a8c1"
+    "prevrandao": "0x029e262af81e51151d90efd2ad297e2835135abda3c5471d892478b95570a8c1",
+    "slot_num": "0xda71db"
   },
   "tx": {
     "from": "0x5a7b14e3c6e96e65e53d60af17385db849a3567b",

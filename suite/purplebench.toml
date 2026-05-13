@@ -1,7 +1,7 @@
 [suite]
 name = "mainnet"
 chain_id = 1
-evm_spec = "prague"
+evm_spec = "amsterdam"
 
 [[optimization_profiles]]
 id = "default"

@@ -21,6 +21,8 @@ storage touches.
 
 - Rust and Cargo.
 - A Solidity compiler executable compatible with `--standard-json`.
+- A sibling `../revm` checkout. Purplebench resolves `revm` from
+  `../revm/crates/revm` so experimental opcode support is used during replay.
 - An Ethereum JSON-RPC endpoint only when capturing new fixtures.
 
 Benchmark runs are designed to be offline. `capture` is the only command that
@@ -43,7 +45,10 @@ contract: one very common path and one moderately common path. Most fixtures are
 captured mined transactions; the Chainlink `latestRoundData()` and EulerSwap
 read-path fixtures are generated from access lists for deterministic offline
 replay. Uniswap V4 pools are benchmarked via the PoolManager singleton because
-individual V4 pools are keyed state, not separate pool contracts.
+individual V4 pools are keyed state, not separate pool contracts. The checked-in
+suite targets the local `revm` checkout's Amsterdam opcode table and records a
+consensus `slot_num` for every fixture so compiler builds that emit Amsterdam
+opcodes can replay offline.
 
 Validate the suite and fixtures:
 
@@ -135,6 +140,9 @@ locally. Transactions that depend on earlier transactions from the same block
 may not capture cleanly. If the transaction cannot be replayed successfully, no
 fixture is written.
 
+Fixtures do not store an EVM spec. Offline replay uses `suite.evm_spec`, which
+is also the value passed to solc as `settings.evmVersion`.
+
 Capture and offline replay preserve sender account code and disable the local
 EIP-3607 transaction-validity check, so fixtures can benchmark transactions
 whose `from` address has deployed code.
@@ -154,7 +162,7 @@ Validation checks that:
 - Source filenames match their contract addresses.
 - Imports are absent unless `suite.allow_local_imports = true`.
 - Transaction fixtures reference known contracts.
-- Fixture chain ID and EVM spec match the suite.
+- Fixture chain ID matches the suite.
 - Fixtures replay successfully with their original bytecode.
 
 ### `purplebench run`
@@ -299,13 +307,25 @@ fixture = "fixtures/0x1111111111111111111111111111111111111111/deposit.json"
 
 - `suite.name`: Human-readable suite name stored in run metadata.
 - `suite.chain_id`: Chain ID used for fixture validation and EVM execution.
-- `suite.evm_spec`: EVM hardfork name passed to `revm`.
+- `suite.evm_spec`: EVM hardfork name passed to `revm` replay and to solc
+  standard JSON as `settings.evmVersion`. This is the single EVM spec setting
+  for both fixtures and compilation.
 - `suite.allow_local_imports`: Optional. Defaults to `false`. When false,
   sources must be flattened.
 
-Supported EVM spec names include `frontier`, `homestead`, `byzantium`,
-`istanbul`, `berlin`, `london`, `merge`/`paris`, `shanghai`, `cancun`,
-`prague`, `osaka`/`latest`, and `amsterdam`.
+Supported EVM spec names include `frontier`, `frontier-thawing`, `homestead`,
+`dao-fork`/`dao`, `tangerine`, `spurious-dragon`, `byzantium`,
+`constantinople`, `petersburg`, `istanbul`, `muir-glacier`, `berlin`,
+`london`, `arrow-glacier`, `gray-glacier`, `merge`/`paris`, `shanghai`,
+`cancun`, `prague`, `osaka`, `amsterdam`, and `latest`. `latest` tracks the
+local `revm` checkout's `SpecId::NEXT`; with the current checkout this is
+`amsterdam`.
+
+For Amsterdam replays, Purplebench enables the Amsterdam opcode table but
+disables EIP-7708 transfer logs and EIP-8037 state-gas accounting. This keeps
+historical fixture correctness checks aligned with the recorded transaction
+status, logs, revert data, and storage while still allowing new Amsterdam
+opcodes in compiler output.
 
 ### Optimization Profiles
 
@@ -331,7 +351,10 @@ suite/contracts/0x1111111111111111111111111111111111111111.sol
 Purplebench compiles through Solidity standard JSON and reads
 `evm.deployedBytecode.object` from the configured `contract_name`. Runtime size
 is measured from the deployed bytecode returned by the compiler with appended
-compiler metadata disabled.
+compiler metadata disabled. The suite EVM spec is passed to solc as
+`settings.evmVersion`, using solc spellings for aliases such as `merge` to
+`paris` and `spurious-dragon` to `spuriousDragon`. Purplebench also sets
+`settings.experimental = true` for every compiler invocation.
 
 If a contract has constructor-set Solidity immutables and the runtime is being
 substituted directly into an existing fixture, add a `[contracts.immutables]`
@@ -391,7 +414,6 @@ Fixtures are JSON files with all state required for offline replay.
 {
   "id": "deposit",
   "chain_id": 1,
-  "evm_spec": "cancun",
   "contract": "0x1111111111111111111111111111111111111111",
   "block": {
     "number": "0x1",
@@ -399,7 +421,8 @@ Fixtures are JSON files with all state required for offline replay.
     "base_fee_per_gas": "0x0",
     "gas_limit": "0x1000000",
     "coinbase": "0x0000000000000000000000000000000000000000",
-    "prevrandao": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    "prevrandao": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "slot_num": "0x0"
   },
   "tx": {
     "from": "0x2222222222222222222222222222222222222222",
@@ -453,6 +476,16 @@ Numeric values can be decimal strings or `0x` hex strings. Addresses are
 normalized to lowercase. Storage slots and values are compared as 256-bit
 values.
 
+The fixture format intentionally does not include an EVM spec. Replay uses the
+suite-level `suite.evm_spec`, the same setting used for compiler input.
+
+`block.slot_num` is optional and defaults to `0`. The fixture loader also
+accepts `slot_number` and `slotNumber` aliases. This value is used by Amsterdam
+replays for the `SLOTNUM` opcode. `capture` records it when the RPC block
+response exposes `slotNumber`, `slot_number`, or `slot`. The checked-in mainnet
+fixtures derive it from the block timestamp as
+`(timestamp - 1606824023) / 12`.
+
 The `accounts` map must include every account the replay may read or call,
 including empty accounts such as the zero address when they are touched. Empty
 accounts should use zero nonce, zero balance, `0x` code, and empty storage.
@@ -500,8 +533,9 @@ gas delta, status/logs/revert/storage checks, duration, and errors.
 
 `storage_checks.csv` records each expected storage slot comparison.
 
-`compiler-meta.json` includes an `immutable_patches` array when a contract
-configuration patched Solidity immutables into the compiled runtime.
+`compiler-meta.json` records that experimental mode was enabled and includes an
+`immutable_patches` array when a contract configuration patched Solidity
+immutables into the compiled runtime.
 
 `summary.csv` aggregates runtime size, gas, transaction count, and failure
 counts by profile.

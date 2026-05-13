@@ -1,0 +1,32 @@
+{
+  "compiler_id": "solc-0.8.36-doubleshift20",
+  "contract": "0xdd3f50f8a6cafbe9b31a427582963f465e745af8",
+  "contract_name": "RocketDepositPool",
+  "profile": "via-ir",
+  "optimizer": true,
+  "via_ir": true,
+  "runs": 200,
+  "runtime_size_bytes": 9141,
+  "runtime_hash": "0xee136fd225cd140bdb72d4d75f876af91ae74da081c3e82052d939e5e03f7319",
+  "immutable_patches": [
+    {
+      "name": "rocketTokenRETH",
+      "configured_name": "rocket_token_reth",
+      "value": "0xae78736cd615f374d3085123a210448e74fc6393",
+      "references": 2
+    },
+    {
+      "name": "rocketVault",
+      "configured_name": "rocket_vault",
+      "value": "0x3bdc69c4e5e13e52a65f5583c23efb9636b469d6",
+      "references": 7
+    }
+  ],
+  "warnings": [
+    "Warning: This is a pre-release compiler version, please do not use it in production.",
+    "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> 0xdd3f50f8a6cafbe9b31a427582963f465e745af8.sol",
+    "Warning: Source file does not specify required compiler version!\n--> 0xdd3f50f8a6cafbe9b31a427582963f465e745af8.sol",
+    "Warning: Visibility for constructor is ignored. If you want the contract to be non-deployable, making it \"abstract\" is sufficient.\n   --> 0xdd3f50f8a6cafbe9b31a427582963f465e745af8.sol:952:5:\n    |\n952 |     constructor (string memory name_, string memory symbol_) public {\n    |     ^ (Relevant source part starts here and spans across multiple lines)."
+  ],
+  "compile_ms": 6134
+}

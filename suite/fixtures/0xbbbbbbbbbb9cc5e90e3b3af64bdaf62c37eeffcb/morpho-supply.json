@@ -1,7 +1,6 @@
 {
   "id": "morpho-supply",
   "chain_id": 1,
-  "evm_spec": "prague",
   "contract": "0xbbbbbbbbbb9cc5e90e3b3af64bdaf62c37eeffcb",
   "block": {
     "number": "0x17eb5cf",
@@ -9,7 +8,8 @@
     "base_fee_per_gas": "0x9013729",
     "gas_limit": "0x3938700",
     "coinbase": "0x4838b106fce9647bdf1e7877bf73ce8b0bad5f97",
-    "prevrandao": "0x502dd5773f30a3fe5db570f4ab059c4817fef813e390834f906dc4750a1b43e6"
+    "prevrandao": "0x502dd5773f30a3fe5db570f4ab059c4817fef813e390834f906dc4750a1b43e6",
+    "slot_num": "0xda71e6"
   },
   "tx": {
     "from": "0xb43c1981d57161dcb077ee4bcbb2d376b577a857",

@@ -190,6 +190,7 @@ Generated standard JSON should include:
     }
   },
   "settings": {
+    "experimental": true,
     "optimizer": {
       "enabled": true,
       "runs": 200
@@ -216,13 +217,15 @@ is computed from the exact hex string returned by the compiler.
 Each transaction fixture must contain enough information to replay the sampled
 transaction locally with revm and no network access.
 
+Fixtures do not carry an EVM spec; replay uses the suite-level `evm_spec`, the
+same value passed to solc as `settings.evmVersion`.
+
 Example shape:
 
 ```json
 {
   "id": "deposit",
   "chain_id": 1,
-  "evm_spec": "cancun",
   "contract": "0x1111111111111111111111111111111111111111",
   "block": {
     "number": "0x0121c500",
@@ -365,7 +368,7 @@ runs/<run-id>/artifacts/
 Avoid storing full compiler-generated JSON as the long-term contract input
 format. The source of truth is the flattened `.sol` file plus the suite config.
 Small `compiler-meta.json` files are acceptable as run artifacts if they contain
-only benchmark metadata, selected warnings, hashes, sizes, and timing.
+only benchmark metadata, selected settings, warnings, hashes, sizes, and timing.
 
 ## 9. Simulation Pipeline
 

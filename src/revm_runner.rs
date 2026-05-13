@@ -25,6 +25,7 @@ use crate::{
 pub struct SimulationInput<'a> {
     pub run_id: &'a str,
     pub compiler_id: &'a str,
+    pub evm_spec: &'a str,
     pub contract: &'a str,
     pub profile: &'a str,
     pub tx_id: &'a str,
@@ -155,12 +156,13 @@ impl Database for FixtureDb {
     }
 }
 
-pub fn simulate_original(fixture: &Fixture) -> Result<SimulationOutput> {
+pub fn simulate_original(fixture: &Fixture, evm_spec: &str) -> Result<SimulationOutput> {
     simulate(
         fixture,
         SimulationInput {
             run_id: "validation",
             compiler_id: "fixture",
+            evm_spec,
             contract: &fixture.contract,
             profile: "original",
             tx_id: &fixture.id,
@@ -196,13 +198,16 @@ pub fn simulate(fixture: &Fixture, input: SimulationInput<'_>) -> Result<Simulat
     let db = FixtureDb::from_fixture(fixture, input.runtime_hex)?;
     let block = block_env(fixture)?;
     let tx = tx_env(fixture)?;
-    let spec = spec_id(&fixture.evm_spec)?;
+    let spec = spec_id(input.evm_spec)?;
 
     let ctx = Context::mainnet()
         .modify_cfg_chained(|cfg| {
             cfg.set_spec_and_mainnet_gas_params(spec);
             cfg.chain_id = fixture.chain_id;
             cfg.disable_eip3607 = true;
+            cfg.enable_amsterdam_eip8037 = false;
+            cfg.amsterdam_eip7708_disabled = true;
+            cfg.amsterdam_eip7708_delayed_burn_disabled = true;
         })
         .with_block(block)
         .with_db(db);
@@ -395,6 +400,13 @@ fn block_env(fixture: &Fixture) -> Result<BlockEnv> {
         .as_deref()
         .map(util::parse_b256)
         .transpose()?;
+    block.slot_num = fixture
+        .block
+        .slot_num
+        .as_deref()
+        .map(util::parse_u64)
+        .transpose()?
+        .unwrap_or_default();
     Ok(block)
 }
 
@@ -463,26 +475,26 @@ fn tx_env(fixture: &Fixture) -> Result<TxEnv> {
 pub fn spec_id(spec: &str) -> Result<SpecId> {
     match spec.to_ascii_lowercase().replace(['_', '-'], "").as_str() {
         "frontier" => Ok(SpecId::FRONTIER),
-        "frontierthawing" => Ok(SpecId::FRONTIER_THAWING),
+        "frontierthawing" => Ok(SpecId::FRONTIER),
         "homestead" => Ok(SpecId::HOMESTEAD),
-        "daofork" | "dao" => Ok(SpecId::DAO_FORK),
+        "daofork" | "dao" => Ok(SpecId::HOMESTEAD),
         "tangerine" => Ok(SpecId::TANGERINE),
         "spurious" | "spuriousdragon" => Ok(SpecId::SPURIOUS_DRAGON),
         "byzantium" => Ok(SpecId::BYZANTIUM),
-        "constantinople" => Ok(SpecId::CONSTANTINOPLE),
+        "constantinople" => Ok(SpecId::PETERSBURG),
         "petersburg" => Ok(SpecId::PETERSBURG),
         "istanbul" => Ok(SpecId::ISTANBUL),
-        "muirglacier" => Ok(SpecId::MUIR_GLACIER),
+        "muirglacier" => Ok(SpecId::ISTANBUL),
         "berlin" => Ok(SpecId::BERLIN),
         "london" => Ok(SpecId::LONDON),
-        "arrowglacier" => Ok(SpecId::ARROW_GLACIER),
-        "grayglacier" => Ok(SpecId::GRAY_GLACIER),
+        "arrowglacier" | "grayglacier" => Ok(SpecId::LONDON),
         "merge" | "paris" => Ok(SpecId::MERGE),
         "shanghai" => Ok(SpecId::SHANGHAI),
         "cancun" => Ok(SpecId::CANCUN),
         "prague" => Ok(SpecId::PRAGUE),
-        "osaka" | "latest" => Ok(SpecId::OSAKA),
+        "osaka" => Ok(SpecId::OSAKA),
         "amsterdam" => Ok(SpecId::AMSTERDAM),
+        "latest" => Ok(SpecId::NEXT),
         _ => bail!("unsupported evm_spec `{spec}`"),
     }
 }
@@ -567,7 +579,6 @@ mod tests {
         let fixture = Fixture {
             id: "store".to_string(),
             chain_id: 1,
-            evm_spec: "cancun".to_string(),
             contract: target.clone(),
             block: BlockFixture {
                 number: "0x1".to_string(),
@@ -579,6 +590,7 @@ mod tests {
                     "0x0000000000000000000000000000000000000000000000000000000000000000"
                         .to_string(),
                 ),
+                slot_num: None,
             },
             tx: TxFixture {
                 from: caller,
@@ -605,8 +617,95 @@ mod tests {
             },
         };
 
-        let output = simulate_original(&fixture).unwrap();
+        let output = simulate_original(&fixture, "cancun").unwrap();
         assert!(output.transaction.success, "{output:?}");
         assert_eq!(output.storage_checks.len(), 1);
+    }
+
+    #[test]
+    fn fixture_replay_supports_amsterdam_slotnum_opcode() {
+        let target = "0x1111111111111111111111111111111111111111".to_string();
+        let caller = "0x2222222222222222222222222222222222222222".to_string();
+        let mut accounts = BTreeMap::new();
+        accounts.insert(
+            target.clone(),
+            AccountFixture {
+                nonce: "0x1".to_string(),
+                balance: "0x0".to_string(),
+                code: "0x4b5f5500".to_string(),
+                storage: BTreeMap::from([("0x0".to_string(), "0x0".to_string())]),
+            },
+        );
+        accounts.insert(
+            caller.clone(),
+            AccountFixture {
+                nonce: "0x0".to_string(),
+                balance: "0xffffffffffffffff".to_string(),
+                code: "0x00".to_string(),
+                storage: BTreeMap::new(),
+            },
+        );
+        accounts.insert(
+            "0x0000000000000000000000000000000000000000".to_string(),
+            AccountFixture {
+                nonce: "0x0".to_string(),
+                balance: "0x0".to_string(),
+                code: "0x".to_string(),
+                storage: BTreeMap::new(),
+            },
+        );
+
+        let fixture = Fixture {
+            id: "slotnum".to_string(),
+            chain_id: 1,
+            contract: target.clone(),
+            block: BlockFixture {
+                number: "0x1".to_string(),
+                timestamp: "0x1".to_string(),
+                base_fee_per_gas: "0x0".to_string(),
+                gas_limit: "0x1000000".to_string(),
+                coinbase: "0x0000000000000000000000000000000000000000".to_string(),
+                prevrandao: Some(
+                    "0x0000000000000000000000000000000000000000000000000000000000000000"
+                        .to_string(),
+                ),
+                slot_num: Some("0x2a".to_string()),
+            },
+            tx: TxFixture {
+                from: caller,
+                to: Some(target.clone()),
+                value: "0x0".to_string(),
+                data: "0x".to_string(),
+                gas_limit: "0x186a0".to_string(),
+                gas_price: Some("0x0".to_string()),
+                max_fee_per_gas: None,
+                max_priority_fee_per_gas: None,
+                nonce: Some("0x0".to_string()),
+                access_list: Vec::new(),
+            },
+            block_hashes: BTreeMap::new(),
+            accounts,
+            expected: ExpectedFixture {
+                success: true,
+                revert_data_hash: None,
+                logs_hash: Some(util::keccak_hex(&[])),
+                storage_after: BTreeMap::from([(
+                    target,
+                    BTreeMap::from([("0x0".to_string(), "0x2a".to_string())]),
+                )]),
+            },
+        };
+
+        let output = simulate_original(&fixture, "amsterdam").unwrap();
+        assert!(output.transaction.success, "{output:?}");
+        assert_eq!(
+            output.storage_checks[0].actual,
+            util::format_u256_0x32(U256::from(42))
+        );
+    }
+
+    #[test]
+    fn latest_spec_tracks_revm_next_spec() {
+        assert_eq!(spec_id("latest").unwrap(), SpecId::NEXT);
     }
 }

@@ -93,6 +93,9 @@ pub fn capture(options: CaptureOptions) -> Result<()> {
             cfg.set_spec_and_mainnet_gas_params(spec);
             cfg.chain_id = chain_id;
             cfg.disable_eip3607 = true;
+            cfg.enable_amsterdam_eip8037 = false;
+            cfg.amsterdam_eip7708_disabled = true;
+            cfg.amsterdam_eip7708_delayed_burn_disabled = true;
         })
         .with_block(block_env)
         .with_db(db);
@@ -134,7 +137,6 @@ pub fn capture(options: CaptureOptions) -> Result<()> {
     let fixture = Fixture {
         id: fixture_id.clone(),
         chain_id,
-        evm_spec: spec_name,
         contract: contract.clone(),
         block: block_fixture_from_rpc(&block)?,
         tx: tx_fixture_from_rpc(&target_tx)?,
@@ -155,7 +157,7 @@ pub fn capture(options: CaptureOptions) -> Result<()> {
             .join(format!("{fixture_id}.json"))
     });
     fixtures::validate_fixture_shape(&fixture)?;
-    let replay = revm_runner::simulate_original(&fixture)
+    let replay = revm_runner::simulate_original(&fixture, &spec_name)
         .with_context(|| format!("captured fixture replay failed for {}", out.display()))?;
     if !replay.transaction.success {
         bail!(
@@ -637,6 +639,7 @@ fn block_env_from_rpc(block: &Value, spec: SpecId) -> Result<BlockEnv> {
                 .and_then(Value::as_str)
                 .ok_or_else(|| anyhow!("block missing miner/beneficiary"))?,
         )?,
+        slot_num: rpc_block_slot_num(block)?.unwrap_or_default(),
         prevrandao: block
             .get("prevRandao")
             .or_else(|| block.get("mixHash"))
@@ -678,6 +681,7 @@ fn block_fixture_from_rpc(block: &Value) -> Result<BlockFixture> {
             .or_else(|| block.get("mixHash"))
             .and_then(Value::as_str)
             .map(str::to_string),
+        slot_num: rpc_block_slot_num(block)?.map(format_quantity_u64),
     })
 }
 
@@ -751,6 +755,30 @@ fn quantity_u64(value: Option<&Value>) -> Option<u64> {
     value
         .and_then(Value::as_str)
         .and_then(|value| util::parse_u64(value).ok())
+}
+
+fn optional_quantity_u64(value: Option<&Value>, field: &str) -> Result<Option<u64>> {
+    match value {
+        None | Some(Value::Null) => Ok(None),
+        Some(Value::String(value)) => util::parse_u64(value)
+            .map(Some)
+            .with_context(|| format!("invalid `{field}`")),
+        Some(Value::Number(value)) => value
+            .as_u64()
+            .map(Some)
+            .ok_or_else(|| anyhow!("`{field}` is not a u64")),
+        Some(_) => bail!("`{field}` is not a quantity string or number"),
+    }
+}
+
+fn rpc_block_slot_num(block: &Value) -> Result<Option<u64>> {
+    optional_quantity_u64(
+        block
+            .get("slotNumber")
+            .or_else(|| block.get("slot_number"))
+            .or_else(|| block.get("slot")),
+        "slotNumber",
+    )
 }
 
 fn format_quantity_u64(value: u64) -> String {

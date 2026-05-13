@@ -1,7 +1,6 @@
 {
   "id": "etherfi-requestWithdraw",
   "chain_id": 1,
-  "evm_spec": "prague",
   "contract": "0x83bc649fcdb2c8da146b2154a559ddedf937ef12",
   "block": {
     "number": "0x17e369c",
@@ -9,7 +8,8 @@
     "base_fee_per_gas": "0xc4dbcb2",
     "gas_limit": "0x3938700",
     "coinbase": "0xdadb0d80178819f2319190d340ce9a924f783711",
-    "prevrandao": "0xe264246e7e8ae5e5d41e8835bff477775d8ea16114c079e51abeece6b5362344"
+    "prevrandao": "0xe264246e7e8ae5e5d41e8835bff477775d8ea16114c079e51abeece6b5362344",
+    "slot_num": "0xd9f241"
   },
   "tx": {
     "from": "0x76ac35f211ea38ea258816c3e87749753358fd69",

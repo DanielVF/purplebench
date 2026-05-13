@@ -1,0 +1,19 @@
+{
+  "compiler_id": "solc-0.8.36-doubleshift20",
+  "contract": "0x4e90495f66fb04a5fba401967abd607e2ea0ab46",
+  "contract_name": "Poap",
+  "profile": "optimized-low-runs",
+  "optimizer": true,
+  "via_ir": false,
+  "runs": 1,
+  "runtime_size_bytes": 10439,
+  "runtime_hash": "0xe91957b420b07d0415c96de1c1f919a0a561a530f059b0187fdd8949ebdd63ef",
+  "immutable_patches": [],
+  "warnings": [
+    "Warning: This is a pre-release compiler version, please do not use it in production.",
+    "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> 0x4e90495f66fb04a5fba401967abd607e2ea0ab46.sol",
+    "Warning: Source file does not specify required compiler version!\n--> 0x4e90495f66fb04a5fba401967abd607e2ea0ab46.sol",
+    "Warning: Unreachable code.\n  --> 0x4e90495f66fb04a5fba401967abd607e2ea0ab46.sol:39:5:\n   |\n39 |     initializing = wasInitializing;\n   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+  ],
+  "compile_ms": 2464
+}
