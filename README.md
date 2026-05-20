@@ -26,7 +26,7 @@ storage touches.
 - An Ethereum JSON-RPC endpoint only when capturing new fixtures.
 
 Benchmark runs are designed to be offline. `capture` is the only command that
-uses RPC. `validate`, `run`, `diff`, and `report` read local files only.
+uses RPC. `validate`, `run`, `time`, `diff`, and `report` read local files only.
 
 ## Quick Start
 
@@ -74,6 +74,16 @@ cargo run -- run \
   --runs-dir runs \
   --compile-jobs 8 \
   --sim-jobs 8
+```
+
+Run a compile-time benchmark that prints Markdown to the console:
+
+```sh
+cargo run -- time \
+  --suite suite/purplebench.toml \
+  --runs 20 \
+  --jobs 12 \
+  /path/to/solc-main /path/to/solc-feature-branch
 ```
 
 Compare a run against a baseline:
@@ -223,6 +233,56 @@ available in generated HTML report tables. If the baseline argument is not
 itself a run directory, Purplebench also looks under `--runs-dir` using the
 sanitized argument as the run directory name. This supports baselines written
 with path-shaped compiler IDs such as `/path/to/solc`.
+
+### `purplebench time`
+
+Runs a compile-time benchmark and writes only Markdown tables to stdout.
+
+```sh
+cargo run -- time \
+  --suite suite/purplebench.toml \
+  --runs 20 \
+  --jobs 12 \
+  --print-every 10 \
+  /path/to/solc-main /path/to/solc-feature-branch
+```
+
+The command reads contracts from the suite file; there is no target argument.
+It compiles every configured contract with optimizer enabled, optimizer runs
+set to 200, appended metadata disabled, `settings.experimental = true`, and
+the suite `evm_spec` as solc `settings.evmVersion`. It does not replay
+fixtures and does not write run artifacts, CSV files, diffs, or reports.
+
+The first compiler is the timing baseline. Each later compiler gets one
+Markdown column showing percentage compile-time change against that baseline,
+with a final `Total` row based on summed per-contract mean times. Runs are
+scheduled in randomized order to reduce ordering bias. If compilers produce
+different deployed bytecode for the same contract and IR mode, the command
+fails instead of reporting timing deltas.
+
+Use `--total` to print only the `Total` markdown row for each output snapshot,
+omitting the table header, separator, and per-contract rows.
+
+```sh
+cargo run -- time \
+  --suite suite/purplebench.toml \
+  --total \
+  /path/to/solc-main /path/to/solc-feature-branch
+```
+
+Use `--via-ir` to compile with Solidity via-IR. By default, the timing command
+compiles without via-IR.
+
+Use `--via-ir-both` to run every compiler twice, once without via-IR and once
+with via-IR. The first compiler becomes two baselines, one per IR mode, and
+each later compiler entry is compared against the matching baseline:
+
+```sh
+cargo run -- time \
+  --suite suite/purplebench.toml \
+  --via-ir-both \
+  /path/to/solc-main /path/to/solc-feature-branch
+```
 
 ### `purplebench diff`
 

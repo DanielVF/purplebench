@@ -3,7 +3,7 @@ use std::path::PathBuf;
 use anyhow::{Context, Result, bail};
 use clap::{Args, Parser, Subcommand};
 
-use crate::{capture, config, diff, pipeline, report};
+use crate::{capture, config, diff, pipeline, report, time_bench};
 
 #[derive(Debug, Parser)]
 #[command(name = "purplebench")]
@@ -19,6 +19,7 @@ pub enum Command {
     Capture(CaptureArgs),
     Validate(ValidateArgs),
     Run(RunArgs),
+    Time(TimeArgs),
     Diff(DiffArgs),
     Report(ReportArgs),
 }
@@ -70,6 +71,26 @@ pub struct RunArgs {
 }
 
 #[derive(Debug, Args)]
+pub struct TimeArgs {
+    #[arg(long, default_value = "suite/purplebench.toml")]
+    pub suite: PathBuf,
+    #[arg(long, default_value_t = 20)]
+    pub runs: usize,
+    #[arg(long, default_value_t = 12)]
+    pub jobs: usize,
+    #[arg(long, default_value_t = 10)]
+    pub print_every: usize,
+    #[arg(long)]
+    pub via_ir: bool,
+    #[arg(long)]
+    pub via_ir_both: bool,
+    #[arg(long)]
+    pub total: bool,
+    #[arg(value_name = "COMPILER", required = true)]
+    pub compilers: Vec<String>,
+}
+
+#[derive(Debug, Args)]
 pub struct DiffArgs {
     #[arg(long)]
     pub run: PathBuf,
@@ -101,6 +122,16 @@ pub fn run(cli: Cli) -> Result<()> {
             Ok(())
         }
         Command::Run(args) => run_benchmarks(args),
+        Command::Time(args) => time_bench::run(time_bench::TimeBenchOptions {
+            suite_path: args.suite,
+            compilers: args.compilers,
+            runs: args.runs,
+            jobs: args.jobs,
+            print_every: args.print_every,
+            via_ir: args.via_ir,
+            via_ir_both: args.via_ir_both,
+            total_only: args.total,
+        }),
         Command::Diff(args) => {
             let text = diff::write_diff_for_run(&args.run, &args.baseline)?;
             println!("{text}");

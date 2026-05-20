@@ -10,6 +10,7 @@ mod pipeline;
 mod report;
 mod results;
 mod revm_runner;
+mod time_bench;
 mod util;
 
 use anyhow::Result;
