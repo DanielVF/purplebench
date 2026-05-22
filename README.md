@@ -259,7 +259,8 @@ with a final `Total` row based on summed per-contract mean times. Runs are
 scheduled in randomized order to reduce ordering bias. If compilers produce
 different deployed bytecode for the same contract and IR mode, the command
 fails instead of reporting timing deltas unless `--ignore-bytecode-differences`
-is set.
+is set. Negative percentages are annotated with `✅`, and positive percentages
+are annotated with `❌`.
 
 Use `--total` to print only the `Total` markdown row for each output snapshot,
 omitting the table header, separator, and per-contract rows.

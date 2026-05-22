@@ -792,7 +792,8 @@ fn runtime_change_percentage(
 
 fn format_percentage(value: Option<f64>) -> String {
     match value {
-        Some(value) if value > 0.0 => format!("+{value:.2}%"),
+        Some(value) if value > 0.0 => format!("+{value:.2}% ❌"),
+        Some(value) if value < 0.0 => format!("{value:.2}% ✅"),
         Some(value) => format!("{value:.2}%"),
         None => "N/A".to_string(),
     }
@@ -858,6 +859,14 @@ mod tests {
 
     #[cfg(unix)]
     use std::os::unix::fs::PermissionsExt;
+
+    #[test]
+    fn format_percentage_marks_positive_and_negative_values() {
+        assert_eq!(format_percentage(Some(1.234)), "+1.23% ❌");
+        assert_eq!(format_percentage(Some(-1.234)), "-1.23% ✅");
+        assert_eq!(format_percentage(Some(0.0)), "0.00%");
+        assert_eq!(format_percentage(None), "N/A");
+    }
 
     #[test]
     #[cfg(unix)]
