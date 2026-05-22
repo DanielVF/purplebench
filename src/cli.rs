@@ -86,6 +86,8 @@ pub struct TimeArgs {
     pub via_ir_both: bool,
     #[arg(long)]
     pub total: bool,
+    #[arg(long)]
+    pub ignore_bytecode_differences: bool,
     #[arg(value_name = "COMPILER", required = true)]
     pub compilers: Vec<String>,
 }
@@ -131,6 +133,7 @@ pub fn run(cli: Cli) -> Result<()> {
             via_ir: args.via_ir,
             via_ir_both: args.via_ir_both,
             total_only: args.total,
+            ignore_bytecode_differences: args.ignore_bytecode_differences,
         }),
         Command::Diff(args) => {
             let text = diff::write_diff_for_run(&args.run, &args.baseline)?;
