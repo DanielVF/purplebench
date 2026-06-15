@@ -21,12 +21,22 @@ storage touches.
 
 - Rust and Cargo.
 - A Solidity compiler executable compatible with `--standard-json`.
-- A sibling `../revm` checkout. Purplebench resolves `revm` from
-  `../revm/crates/revm` so experimental opcode support is used during replay.
 - An Ethereum JSON-RPC endpoint only when capturing new fixtures.
 
 Benchmark runs are designed to be offline. `capture` is the only command that
 uses RPC. `validate`, `run`, `time`, `diff`, and `report` read local files only.
+
+By default, Purplebench builds against the published `revm` crate from
+crates.io. To replay with a local custom REVM checkout, use the checked-in Cargo
+patch config:
+
+```sh
+cargo --config .cargo/local-revm.toml run -- validate --suite suite/purplebench.toml
+```
+
+The override expects a sibling `../revm` checkout and patches the top-level
+`revm` crate plus the internal `revm-*` crates. Edit
+`.cargo/local-revm.toml` if your checkout lives somewhere else.
 
 ## Quick Start
 
@@ -46,9 +56,9 @@ captured mined transactions; the Chainlink `latestRoundData()` and EulerSwap
 read-path fixtures are generated from access lists for deterministic offline
 replay. Uniswap V4 pools are benchmarked via the PoolManager singleton because
 individual V4 pools are keyed state, not separate pool contracts. The checked-in
-suite targets the local `revm` checkout's Amsterdam opcode table and records a
-consensus `slot_num` for every fixture so compiler builds that emit Amsterdam
-opcodes can replay offline.
+suite targets REVM's Amsterdam opcode table and records a consensus `slot_num`
+for every fixture so compiler builds that emit Amsterdam opcodes can replay
+offline.
 
 Validate the suite and fixtures:
 
@@ -379,9 +389,10 @@ Supported EVM spec names include `frontier`, `frontier-thawing`, `homestead`,
 `dao-fork`/`dao`, `tangerine`, `spurious-dragon`, `byzantium`,
 `constantinople`, `petersburg`, `istanbul`, `muir-glacier`, `berlin`,
 `london`, `arrow-glacier`, `gray-glacier`, `merge`/`paris`, `shanghai`,
-`cancun`, `prague`, `osaka`, `amsterdam`, and `latest`. `latest` tracks the
-local `revm` checkout's `SpecId::NEXT`; with the current checkout this is
-`amsterdam`.
+`cancun`, `prague`, `osaka`, `amsterdam`, and `latest`. `latest` maps to the
+highest `SpecId` variant exposed by the selected `revm` dependency; with the
+default published crate this is `amsterdam`. A local custom REVM checkout can
+extend that mapping through `.cargo/local-revm.toml`.
 
 For Amsterdam replays, Purplebench enables the Amsterdam opcode table but
 disables EIP-7708 transfer logs and EIP-8037 state-gas accounting. This keeps
