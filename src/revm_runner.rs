@@ -494,9 +494,16 @@ pub fn spec_id(spec: &str) -> Result<SpecId> {
         "prague" => Ok(SpecId::PRAGUE),
         "osaka" => Ok(SpecId::OSAKA),
         "amsterdam" => Ok(SpecId::AMSTERDAM),
-        "latest" => Ok(SpecId::NEXT),
+        "latest" => Ok(latest_spec_id()),
         _ => bail!("unsupported evm_spec `{spec}`"),
     }
+}
+
+fn latest_spec_id() -> SpecId {
+    (0..=u8::MAX)
+        .filter_map(SpecId::try_from_u8)
+        .max()
+        .unwrap_or(SpecId::AMSTERDAM)
 }
 
 fn final_storage_value(
@@ -705,7 +712,8 @@ mod tests {
     }
 
     #[test]
-    fn latest_spec_tracks_revm_next_spec() {
-        assert_eq!(spec_id("latest").unwrap(), SpecId::NEXT);
+    fn latest_spec_tracks_highest_revm_spec() {
+        assert_eq!(spec_id("latest").unwrap(), latest_spec_id());
+        assert_eq!(spec_id("latest").unwrap(), SpecId::AMSTERDAM);
     }
 }
