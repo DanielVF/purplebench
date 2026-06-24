@@ -1,8 +1,0 @@
-run_id,compiler_id,profile,total_runtime_size,total_gas,mean_gas,median_gas,tx_count,compile_failures,sim_failures,storage_failures
-solc-0.8.36-fakeopcode,solc-0.8.36-fakeopcode,default,337380,6141236,227453.1851851852,116292.0,27,0,2,21
-solc-0.8.36-fakeopcode,solc-0.8.36-fakeopcode,optimized,208616,5867364,217309.77777777778,113426.0,27,0,0,0
-solc-0.8.36-fakeopcode,solc-0.8.36-fakeopcode,optimized-high-runs,287848,5850592,216688.59259259258,113271.0,27,0,0,0
-solc-0.8.36-fakeopcode,solc-0.8.36-fakeopcode,optimized-low-runs,206492,5916590,219132.96296296295,114095.0,27,0,0,0
-solc-0.8.36-fakeopcode,solc-0.8.36-fakeopcode,via-ir,194201,5861941,217108.92592592593,114194.0,27,0,0,0
-solc-0.8.36-fakeopcode,solc-0.8.36-fakeopcode,via-ir-high-runs,235079,5868289,217344.03703703705,114213.0,27,0,0,0
-solc-0.8.36-fakeopcode,solc-0.8.36-fakeopcode,via-ir-low-runs,191580,5869417,217385.8148148148,114355.0,27,0,0,0

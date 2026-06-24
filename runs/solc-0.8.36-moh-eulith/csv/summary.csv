@@ -1,8 +1,0 @@
-run_id,compiler_id,profile,total_runtime_size,total_gas,mean_gas,median_gas,tx_count,compile_failures,sim_failures,storage_failures
-solc-0.8.36-moh-eulith,solc-0.8.36-moh-eulith,default,376184,6135010,227222.59259259258,116106.0,27,0,1,20
-solc-0.8.36-moh-eulith,solc-0.8.36-moh-eulith,optimized,203017,5865334,217234.59259259258,113403.0,27,0,0,0
-solc-0.8.36-moh-eulith,solc-0.8.36-moh-eulith,optimized-high-runs,288119,5850574,216687.92592592593,113271.0,27,0,0,0
-solc-0.8.36-moh-eulith,solc-0.8.36-moh-eulith,optimized-low-runs,201105,5912170,218969.25925925927,114036.0,27,0,0,0
-solc-0.8.36-moh-eulith,solc-0.8.36-moh-eulith,via-ir,186227,5853175,216784.25925925927,114119.0,27,0,0,0
-solc-0.8.36-moh-eulith,solc-0.8.36-moh-eulith,via-ir-high-runs,217087,5845537,216501.37037037036,114032.0,27,0,0,0
-solc-0.8.36-moh-eulith,solc-0.8.36-moh-eulith,via-ir-low-runs,183561,5855674,216876.8148148148,114235.0,27,0,0,0

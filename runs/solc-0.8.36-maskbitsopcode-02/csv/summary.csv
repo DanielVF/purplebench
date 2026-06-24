@@ -1,8 +1,0 @@
-run_id,compiler_id,profile,total_runtime_size,total_gas,mean_gas,median_gas,tx_count,compile_failures,sim_failures,storage_failures
-solc-0.8.36-maskbitsopcode-02,solc-0.8.36-maskbitsopcode-02,default,318089,5445630,201690.0,82538.0,27,0,1,20
-solc-0.8.36-maskbitsopcode-02,solc-0.8.36-maskbitsopcode-02,optimized,212269,5017700,185840.74074074073,80579.0,27,0,0,0
-solc-0.8.36-maskbitsopcode-02,solc-0.8.36-maskbitsopcode-02,optimized-high-runs,258491,5011724,185619.40740740742,80521.0,27,0,0,0
-solc-0.8.36-maskbitsopcode-02,solc-0.8.36-maskbitsopcode-02,optimized-low-runs,209520,5064451,187572.25925925927,81158.0,27,0,0,0
-solc-0.8.36-maskbitsopcode-02,solc-0.8.36-maskbitsopcode-02,via-ir,189522,4968984,184036.44444444444,80935.0,27,0,0,0
-solc-0.8.36-maskbitsopcode-02,solc-0.8.36-maskbitsopcode-02,via-ir-high-runs,216835,4963164,183820.88888888888,80816.0,27,0,0,0
-solc-0.8.36-maskbitsopcode-02,solc-0.8.36-maskbitsopcode-02,via-ir-low-runs,188419,4974125,184226.85185185185,80929.0,27,0,0,0
