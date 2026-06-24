@@ -139,6 +139,189 @@ address = "0xdac17f958d2ee523a2206206994597c13d831ec7"
 source = "contracts/0xdac17f958d2ee523a2206206994597c13d831ec7.sol"
 contract_name = "TetherToken"
 
+[[contracts]]
+address = "0x6b175474e89094c44da98b954eedeac495271d0f"
+source = "contracts/0x6b175474e89094c44da98b954eedeac495271d0f.sol"
+contract_name = "MakerDAODai"
+
+[[contracts]]
+address = "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599"
+source = "contracts/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599.sol"
+contract_name = "WrappedBitcoinWBTC"
+
+[[contracts]]
+address = "0x514910771af9ca656af840dff83e8264ecf986ca"
+source = "contracts/0x514910771af9ca656af840dff83e8264ecf986ca.sol"
+contract_name = "ChainlinkLINKLinkToken"
+
+[[contracts]]
+address = "0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0"
+source = "contracts/0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0.sol"
+contract_name = "LidoWstETH"
+
+[[contracts]]
+address = "0x853d955acef822db058eb8505911ed77f175b99e"
+source = "contracts/0x853d955acef822db058eb8505911ed77f175b99e.sol"
+contract_name = "FraxFinanceFRAXStablecoin"
+
+[[contracts]]
+address = "0x7a250d5630b4cf539739df2c5dacb4c659f2488d"
+source = "contracts/0x7a250d5630b4cf539739df2c5dacb4c659f2488d.sol"
+contract_name = "UniswapV2UniswapV2Router02"
+
+[[contracts]]
+address = "0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45"
+source = "contracts/0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45.sol"
+contract_name = "UniswapV3SwapRouter02"
+
+[[contracts]]
+address = "0xc36442b4a4522e871399cd717abdd847ab11fe88"
+source = "contracts/0xc36442b4a4522e871399cd717abdd847ab11fe88.sol"
+contract_name = "UniswapV3NonfungiblePositionManager"
+
+[[contracts]]
+address = "0x000000000022d473030f116ddee9f6b43ac78ba3"
+source = "contracts/0x000000000022d473030f116ddee9f6b43ac78ba3.sol"
+contract_name = "UniswapPermit2"
+
+[[contracts]]
+address = "0xbd216513d74c8cf14cf4747e6aaa6420ff64ee9e"
+source = "contracts/0xbd216513d74c8cf14cf4747e6aaa6420ff64ee9e.sol"
+contract_name = "UniswapV4PositionManager"
+
+[[contracts]]
+address = "0x52f0e24d1c21c8a0cb1e5a5dd6198556bd9e1203"
+source = "contracts/0x52f0e24d1c21c8a0cb1e5a5dd6198556bd9e1203.sol"
+contract_name = "UniswapV4V4Quoter"
+
+[[contracts]]
+address = "0x9008d19f58aabd9ed0d60971565aa8510560ab41"
+source = "contracts/0x9008d19f58aabd9ed0d60971565aa8510560ab41.sol"
+contract_name = "CoWProtocolGPv2Settlement"
+
+[[contracts]]
+address = "0xba12222222228d8ba445958a75a0704d566bf2c8"
+source = "contracts/0xba12222222228d8ba445958a75a0704d566bf2c8.sol"
+contract_name = "BalancerV2Vault"
+
+[[contracts]]
+address = "0xba1333333333a1ba1108e8412f11850a5c319ba9"
+source = "contracts/0xba1333333333a1ba1108e8412f11850a5c319ba9.sol"
+contract_name = "BalancerV3Vault"
+
+[[contracts]]
+address = "0xae563e3f8219521950555f5962419c8919758ea2"
+source = "contracts/0xae563e3f8219521950555f5962419c8919758ea2.sol"
+contract_name = "BalancerV3Router"
+
+[[contracts]]
+address = "0x728a138a4823392c2efa55e028d434f526fe03cf"
+source = "contracts/0x728a138a4823392c2efa55e028d434f526fe03cf.sol"
+contract_name = "AaveV3PoolInstance"
+
+[contracts.libraries]
+BorrowLogic = "0x52da0ce88202d1542543598d1e1e27f0d344726a"
+FlashLoanLogic = "0x6d414cd0d5eaf8c43200ac0c325a7e2ad83b8be6"
+LiquidationLogic = "0x96d5686812e33ab509eccdb38c89d15607b2a413"
+PoolLogic = "0xd70593841c57cbaa04957cc3eace95708e48853b"
+SupplyLogic = "0x584c7d8c4cb05304fe5ac7fbc97f20a10fb07564"
+
+[[contracts]]
+address = "0xff42ce30054dce7dc7c1282a9a497aa58eabce99"
+source = "contracts/0xff42ce30054dce7dc7c1282a9a497aa58eabce99.sol"
+contract_name = "AaveV3PoolConfiguratorInstance"
+
+[contracts.libraries]
+BorrowLogic = "0x52da0ce88202d1542543598d1e1e27f0d344726a"
+FlashLoanLogic = "0x6d414cd0d5eaf8c43200ac0c325a7e2ad83b8be6"
+LiquidationLogic = "0x96d5686812e33ab509eccdb38c89d15607b2a413"
+PoolLogic = "0xd70593841c57cbaa04957cc3eace95708e48853b"
+SupplyLogic = "0x584c7d8c4cb05304fe5ac7fbc97f20a10fb07564"
+
+[[contracts]]
+address = "0xadc45df3cf1584624c97338bef33363bf5b97ada"
+source = "contracts/0xadc45df3cf1584624c97338bef33363bf5b97ada.sol"
+contract_name = "AaveV3ATokenInstance"
+
+[[contracts]]
+address = "0xb27c52c7f84819e3157993489741cb60786ae330"
+source = "contracts/0xb27c52c7f84819e3157993489741cb60786ae330.sol"
+contract_name = "AaveV3VariableDebtTokenInstance"
+
+[[contracts]]
+address = "0x83d491269720ce925f92c6bf9f66b7a0779a293a"
+source = "contracts/0x83d491269720ce925f92c6bf9f66b7a0779a293a.sol"
+contract_name = "CompoundIIICometWithExtendedAssetList"
+
+[[contracts]]
+address = "0x1b0e765f6224c21223aea2af16c1c46e38885a40"
+source = "contracts/0x1b0e765f6224c21223aea2af16c1c46e38885a40.sol"
+contract_name = "CompoundIIICometRewards"
+
+[[contracts]]
+address = "0x5ae329203e00f76891094dcfedd5aca082a50e1b"
+source = "contracts/0x5ae329203e00f76891094dcfedd5aca082a50e1b.sol"
+contract_name = "SparkProtocolPool"
+
+[contracts.libraries]
+BorrowLogic = "0x68fb4530e156ed17cb849d19102892b7af8cbeef"
+BridgeLogic = "0x813c6c11ac19e7e8aa4148d5c6edf31a4a160867"
+EModeLogic = "0xc814b56baaee8574c169cc0226c97466dab68c95"
+FlashLoanLogic = "0xcc3037f5aef5831730a9acb1739d0562117314c0"
+LiquidationLogic = "0xc0816efc31779c697b18b3b68f1dfbede313e1fa"
+PoolLogic = "0xd072ff8184e873a938cb15b20f2ad5cc1a02d8bf"
+SupplyLogic = "0x4c83d30ce4d0f92a867c2006b33d9b102d29f707"
+
+[[contracts]]
+address = "0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b"
+source = "contracts/0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b.sol"
+contract_name = "MakerDAODSSVat"
+
+[[contracts]]
+address = "0x197e90f9fad81970ba7976f33cbd77088e5d7cf7"
+source = "contracts/0x197e90f9fad81970ba7976f33cbd77088e5d7cf7.sol"
+contract_name = "MakerDAODSSPot"
+
+[[contracts]]
+address = "0x19c0976f590d67707e62397c87829d896dc0f1f1"
+source = "contracts/0x19c0976f590d67707e62397c87829d896dc0f1f1.sol"
+contract_name = "MakerDAODSSJug"
+
+[[contracts]]
+address = "0xe42c659dc09109566720ea8b2de186c2be7d94d9"
+source = "contracts/0xe42c659dc09109566720ea8b2de186c2be7d94d9.sol"
+contract_name = "LidoWithdrawalQueueERC721"
+
+[[contracts]]
+address = "0x1455b96780a93e08abfe41243db92e2fcbb0141c"
+source = "contracts/0x1455b96780a93e08abfe41243db92e2fcbb0141c.sol"
+contract_name = "LidoAccountingOracle"
+
+[[contracts]]
+address = "0xa7536c85898dc424c6bfe8592f983661f830656a"
+source = "contracts/0xa7536c85898dc424c6bfe8592f983661f830656a.sol"
+contract_name = "EigenLayerStrategyManager"
+
+[[contracts]]
+address = "0xd22dd829779adbf3869fb224f703452f7f95e9db"
+source = "contracts/0xd22dd829779adbf3869fb224f703452f7f95e9db.sol"
+contract_name = "EigenLayerEigenPodManager"
+
+[[contracts]]
+address = "0xd4416b13d2b3a9abae7acd5d6c2bbdbe25686401"
+source = "contracts/0xd4416b13d2b3a9abae7acd5d6c2bbdbe25686401.sol"
+contract_name = "ENSNameWrapper"
+
+[[contracts]]
+address = "0x253553366da8546fc250f225fe3d25d0c782303b"
+source = "contracts/0x253553366da8546fc250f225fe3d25d0c782303b.sol"
+contract_name = "ENSETHRegistrarController"
+
+[[contracts]]
+address = "0xd9db270c1b5e3bd161e8c8503c55ceabee709552"
+source = "contracts/0xd9db270c1b5e3bd161e8c8503c55ceabee709552.sol"
+contract_name = "SafeGnosisSafe"
+
 [[transactions]]
 id = "weth-deposit"
 contract = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
