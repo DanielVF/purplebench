@@ -738,6 +738,10 @@ fn write_total_row<W: Write>(
             compiler_total,
         )));
     }
+    let row = row
+        .into_iter()
+        .map(|cell| format!("**{cell}**"))
+        .collect::<Vec<_>>();
     write_markdown_row(writer, &row)
 }
 
@@ -899,7 +903,7 @@ mod tests {
         let output = String::from_utf8(output)?;
         assert!(output.contains("| contract | solc-candidate |"), "{output}");
         assert!(output.contains("| Store |"), "{output}");
-        assert!(output.contains("| Total |"), "{output}");
+        assert!(output.contains("| **Total** |"), "{output}");
 
         fs::remove_dir_all(root)?;
         Ok(())
@@ -974,7 +978,8 @@ mod tests {
         let output = String::from_utf8(output)?;
         let lines = output.lines().collect::<Vec<_>>();
         assert_eq!(lines.len(), 1, "{output}");
-        assert!(lines[0].starts_with("| Total |"), "{output}");
+        assert!(lines[0].starts_with("| **Total** | **"), "{output}");
+        assert!(lines[0].ends_with("** |"), "{output}");
         assert!(!output.contains("| contract |"), "{output}");
         assert!(!output.contains("| Store |"), "{output}");
 
@@ -1051,7 +1056,7 @@ mod tests {
 
         let output = String::from_utf8(output)?;
         assert!(output.contains("| Store |"), "{output}");
-        assert!(output.contains("| Total |"), "{output}");
+        assert!(output.contains("| **Total** |"), "{output}");
 
         fs::remove_dir_all(root)?;
         Ok(())
