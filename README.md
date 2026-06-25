@@ -50,15 +50,17 @@ Edit `suite/purplebench.toml`, add flattened contract sources under
 `suite/contracts/`, and add or capture transaction fixtures under
 `suite/fixtures/`.
 
-The checked-in mainnet suite includes two sampled fixtures for each configured
-contract: one very common path and one moderately common path. Most fixtures are
-captured mined transactions; the Chainlink `latestRoundData()` and EulerSwap
-read-path fixtures are generated from access lists for deterministic offline
-replay. Uniswap V4 pools are benchmarked via the PoolManager singleton because
+The checked-in mainnet suite includes sampled replay fixtures for configured
+contracts. Most replay contracts have multiple captured mined transactions,
+including the additional candidate contracts listed in
+`suite/candidate-contracts.md`; the Aave V3 PoolConfigurator currently has one
+captured current-implementation transaction. Most fixtures are captured mined
+transactions; the Chainlink `latestRoundData()` and EulerSwap read-path
+fixtures are generated from access lists for deterministic offline replay.
+Uniswap V4 pools are benchmarked via the PoolManager singleton because
 individual V4 pools are keyed state, not separate pool contracts. The checked-in
-suite targets REVM's Amsterdam opcode table and records a consensus `slot_num`
-for every fixture so compiler builds that emit Amsterdam opcodes can replay
-offline.
+suite targets REVM's Prague opcode table and records a consensus `slot_num` for
+every fixture so compiler builds that emit Prague opcodes can replay offline.
 
 Validate the suite and fixtures:
 
@@ -265,7 +267,7 @@ fixtures and does not write run artifacts, CSV files, diffs, or reports.
 
 The first compiler is the timing baseline. Each later compiler gets one
 Markdown column showing percentage compile-time change against that baseline,
-with a final `Total` row based on summed per-contract mean times. Runs are
+with a final bold `Total` row based on summed per-contract mean times. Runs are
 scheduled in randomized order to reduce ordering bias. If compilers produce
 different deployed bytecode for the same contract and IR mode, the command
 fails instead of reporting timing deltas unless `--ignore-bytecode-differences`

@@ -73,6 +73,7 @@ interface ERC677Receiver {
 abstract contract BasicToken is ERC20Basic {
   using SafeMath for uint256;
 
+  uint public override(ERC20Basic) totalSupply = 10**27;
   mapping(address => uint256) balances;
 
   /**
@@ -220,7 +221,6 @@ abstract contract ERC677Token is ERC677, StandardToken {
 
 contract ChainlinkLINKLinkToken is ERC677Token {
 
-  uint public constant override(ERC20Basic) totalSupply = 10**27;
   string public constant name = 'ChainLink Token';
   uint8 public constant decimals = 18;
   string public constant symbol = 'LINK';

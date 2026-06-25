@@ -29,6 +29,18 @@ descriptions.
 
 Do not leave behavior changes undocumented.
 
+## Fixture and Transaction Test Capture
+
+When adding new transaction tests, collect enough deployed context for the
+replacement runtime to behave like the original deployed contract. In addition
+to account code, balances, nonces, storage, expected logs, revert data, and
+storage outcomes, check whether the target contract has Solidity immutable
+references. If it does, recover the deployed constructor values and configure
+them under `[contracts.immutables]` in `suite/purplebench.toml`. Missing
+immutables can make an otherwise equivalent compiler look incorrect, especially
+for proxy implementations that rely on constructor-set addresses such as pools,
+treasuries, controllers, or domain chain IDs.
+
 ## Benchmark Invariants
 
 - Runtime bytecode size excludes appended compiler metadata. Compile with

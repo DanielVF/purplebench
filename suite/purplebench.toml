@@ -119,6 +119,11 @@ address = "0x7d4e742018fb52e48b08be73d041c18b21de6fb5"
 source = "contracts/0x7d4e742018fb52e48b08be73d041c18b21de6fb5.sol"
 contract_name = "AccessControlledOCR2Aggregator"
 
+[contracts.immutables]
+decimals = "0x8"
+maxAnswer = "0x00000000000000000000ffffffffffffffffffffffffffffffffffffffffffff"
+minAnswer = "0x1"
+
 [[contracts]]
 address = "0x8b0e044e364f2ce913799d53b300e15a6974dc97"
 source = "contracts/0x8b0e044e364f2ce913799d53b300e15a6974dc97.sol"
@@ -159,6 +164,14 @@ address = "0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0"
 source = "contracts/0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0.sol"
 contract_name = "LidoWstETH"
 
+[contracts.immutables]
+_CACHED_CHAIN_ID = "0x1"
+_CACHED_DOMAIN_SEPARATOR = "0xd4a8ff90a402dc7d4fcbf60f5488291263c743ccff180e139f47d139cedfd5fe"
+_HASHED_NAME = "0xb6d02a790ca4952ed9faa11074863de95b4c8bc405a22873605ff97356993b36"
+_HASHED_VERSION = "0xc89efdaa54c0f20c7adf612882df0950f5a951637e0307cdcb4c672f298b8bc6"
+_PERMIT_TYPEHASH = "0x6e71edae12b1b97f4d1f60370fef10105fa2faae0126114a169c64845d6126c9"
+_TYPE_HASH = "0x8b73c3c69bb8fe3d512ecc4cf759cc79239f7b179b0ffacaa9a75d522b39400f"
+
 [[contracts]]
 address = "0x853d955acef822db058eb8505911ed77f175b99e"
 source = "contracts/0x853d955acef822db058eb8505911ed77f175b99e.sol"
@@ -169,15 +182,31 @@ address = "0x7a250d5630b4cf539739df2c5dacb4c659f2488d"
 source = "contracts/0x7a250d5630b4cf539739df2c5dacb4c659f2488d.sol"
 contract_name = "UniswapV2UniswapV2Router02"
 
+[contracts.immutables]
+WETH = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+factory = "0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f"
+
 [[contracts]]
 address = "0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45"
 source = "contracts/0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45.sol"
 contract_name = "UniswapV3SwapRouter02"
 
+[contracts.immutables]
+WETH9 = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+factory = "0x1f98431c8ad98523631ae4a59f267346ea31f984"
+factoryV2 = "0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f"
+positionManager = "0xc36442b4a4522e871399cd717abdd847ab11fe88"
+
 [[contracts]]
 address = "0xc36442b4a4522e871399cd717abdd847ab11fe88"
 source = "contracts/0xc36442b4a4522e871399cd717abdd847ab11fe88.sol"
 contract_name = "UniswapV3NonfungiblePositionManager"
+
+[contracts.immutables]
+WETH9 = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+factory = "0x1f98431c8ad98523631ae4a59f267346ea31f984"
+nameHash = "0x193ae757ecb6ead396a72d38c6cc38e1be93297aa66ffefea29e32ce3045475f"
+versionHash = "0xc89efdaa54c0f20c7adf612882df0950f5a951637e0307cdcb4c672f298b8bc6"
 
 [[contracts]]
 address = "0x000000000022d473030f116ddee9f6b43ac78ba3"
@@ -189,30 +218,78 @@ address = "0xbd216513d74c8cf14cf4747e6aaa6420ff64ee9e"
 source = "contracts/0xbd216513d74c8cf14cf4747e6aaa6420ff64ee9e.sol"
 contract_name = "UniswapV4PositionManager"
 
+[contracts.immutables]
+WETH9 = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+_CACHED_CHAIN_ID = "0x1"
+_CACHED_DOMAIN_SEPARATOR = "0x5a2844e1b5e82beddf818b9dbccf114c9fd858817231799eae82c719362c57e6"
+_HASHED_NAME = "0x7cdd38ae70f02d5eb954d5bafbadb6e6ee2067b58a9dbed8e6c370c9a571913e"
+permit2 = "0x000000000022d473030f116ddee9f6b43ac78ba3"
+poolManager = "0x000000000004444c5dc75cb358380d2e3de08a90"
+tokenDescriptor = "0xd1428ba554f4c8450b763a0b2040a4935c63f06c"
+unsubscribeGasLimit = "0x249f0"
+
 [[contracts]]
 address = "0x52f0e24d1c21c8a0cb1e5a5dd6198556bd9e1203"
 source = "contracts/0x52f0e24d1c21c8a0cb1e5a5dd6198556bd9e1203.sol"
 contract_name = "UniswapV4V4Quoter"
+
+[contracts.immutables]
+poolManager = "0x000000000004444c5dc75cb358380d2e3de08a90"
 
 [[contracts]]
 address = "0x9008d19f58aabd9ed0d60971565aa8510560ab41"
 source = "contracts/0x9008d19f58aabd9ed0d60971565aa8510560ab41.sol"
 contract_name = "CoWProtocolGPv2Settlement"
 
+[contracts.immutables]
+authenticator = "0x2c4c28ddbdac9c5e7055b4c863b72ea0149d8afe"
+domainSeparator = "0xc078f884a2676e1345748b1feace7b0abee5d00ecadb6e574dcdd109a63e8943"
+vault = "0xba12222222228d8ba445958a75a0704d566bf2c8"
+vaultRelayer = "0xc92e8bdf79f0507f65a392b0ab4667716bfe0110"
+
 [[contracts]]
 address = "0xba12222222228d8ba445958a75a0704d566bf2c8"
 source = "contracts/0xba12222222228d8ba445958a75a0704d566bf2c8.sol"
 contract_name = "BalancerV2Vault"
+
+[contracts.immutables]
+_HASHED_NAME = "0x546d0ab49c5920e3fe063e6971dd456a095183a2e20611f1b5815c7a1f43f069"
+_HASHED_VERSION = "0xc89efdaa54c0f20c7adf612882df0950f5a951637e0307cdcb4c672f298b8bc6"
+_TYPE_HASH = "0x8b73c3c69bb8fe3d512ecc4cf759cc79239f7b179b0ffacaa9a75d522b39400f"
+_actionIdDisambiguator = "0xba12222222228d8ba445958a75a0704d566bf2c8"
+_bufferPeriodEndTime = "0x611c01bf"
+_pauseWindowEndTime = "0x60f474bf"
+_protocolFeesCollector = "0xce88686553686da562ce7cea497ce749da109f9f"
+_weth = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
 
 [[contracts]]
 address = "0xba1333333333a1ba1108e8412f11850a5c319ba9"
 source = "contracts/0xba1333333333a1ba1108e8412f11850a5c319ba9.sol"
 contract_name = "BalancerV3Vault"
 
+[contracts.immutables]
+_ADD_LIQUIDITY_CALLED_SLOT = "0x3db93ac236d7287d4b8c711cce6b3cca52815a3bd1fc0fcef99ab26afea5d200"
+_IS_UNLOCKED_SLOT = "0x1369d017453f080f2416efe5ae39c8a4b4655ea0634227aaab0afdb9a9f93f00"
+_MINIMUM_TRADE_AMOUNT = "0xf4240"
+_MINIMUM_WRAP_AMOUNT = "0x2710"
+_NON_ZERO_DELTA_COUNT_SLOT = "0xbcbf50c510014a975eac30806436734486f167c41af035c1645353d475d57100"
+_SESSION_ID_SLOT = "0xa33ab5ae38c334f99ce8d4a88c1634397ed0415a9df15c29dfd3914852f29900"
+_TOKEN_DELTAS_SLOT = "0xf74f46243717369ff9f20877dfc1ba8491e6be48bfe7acc5b65f5ac68f585c00"
+_vaultBufferPeriodDuration = "0xed4e00"
+_vaultBufferPeriodEndTime = "0x6fa8956f"
+_vaultExtension = "0x0e8b07657d719b86e06bf0806d6729e3d528c9a9"
+
 [[contracts]]
 address = "0xae563e3f8219521950555f5962419c8919758ea2"
 source = "contracts/0xae563e3f8219521950555f5962419c8919758ea2.sol"
 contract_name = "BalancerV3Router"
+
+[contracts.immutables]
+_IS_RETURN_ETH_LOCKED_SLOT = "0x609328430f79f2ede73ac914d80ff784aa9f4477668742ea3d9a02706b512300"
+_SENDER_SLOT = "0x03742126af6146ecb751bbca18a39b433abd2a8a5047affb64612c849505be00"
+_permit2 = "0x000000000022d473030f116ddee9f6b43ac78ba3"
+_vault = "0xba1333333333a1ba1108e8412f11850a5c319ba9"
+_weth = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
 
 [[contracts]]
 address = "0x728a138a4823392c2efa55e028d434f526fe03cf"
@@ -225,6 +302,10 @@ FlashLoanLogic = "0x6d414cd0d5eaf8c43200ac0c325a7e2ad83b8be6"
 LiquidationLogic = "0x96d5686812e33ab509eccdb38c89d15607b2a413"
 PoolLogic = "0xd70593841c57cbaa04957cc3eace95708e48853b"
 SupplyLogic = "0x584c7d8c4cb05304fe5ac7fbc97f20a10fb07564"
+
+[contracts.immutables]
+ADDRESSES_PROVIDER = "0x2f39d218133afab8f2b819b1066c7e434ad94e9e"
+RESERVE_INTEREST_RATE_STRATEGY = "0x9ec6f08190dea04a54f8afc53db96134e5e3fdfb"
 
 [[contracts]]
 address = "0xff42ce30054dce7dc7c1282a9a497aa58eabce99"
@@ -243,15 +324,54 @@ address = "0xadc45df3cf1584624c97338bef33363bf5b97ada"
 source = "contracts/0xadc45df3cf1584624c97338bef33363bf5b97ada.sol"
 contract_name = "AaveV3ATokenInstance"
 
+[contracts.immutables]
+_addressesProvider = "0x2f39d218133afab8f2b819b1066c7e434ad94e9e"
+POOL = "0x87870bca3f3fd6335c3f4ce8392d69350b4fa4e2"
+REWARDS_CONTROLLER = "0x8164cc65827dcfe994ab23944cbc90e0aa80bfcb"
+_chainId = "0x1"
+TREASURY = "0x464c71f6c2f760dda6093dcb91c24c39e5d6e18c"
+
 [[contracts]]
 address = "0xb27c52c7f84819e3157993489741cb60786ae330"
 source = "contracts/0xb27c52c7f84819e3157993489741cb60786ae330.sol"
 contract_name = "AaveV3VariableDebtTokenInstance"
 
+[contracts.immutables]
+POOL = "0x87870bca3f3fd6335c3f4ce8392d69350b4fa4e2"
+REWARDS_CONTROLLER = "0x8164cc65827dcfe994ab23944cbc90e0aa80bfcb"
+_chainId = "0x1"
+
 [[contracts]]
 address = "0x83d491269720ce925f92c6bf9f66b7a0779a293a"
 source = "contracts/0x83d491269720ce925f92c6bf9f66b7a0779a293a.sol"
 contract_name = "CompoundIIICometWithExtendedAssetList"
+
+[contracts.immutables]
+accrualDescaleFactor = "0x1"
+assetList = "0xed4aa6696527693db4a4607661f33778acba9653"
+baseBorrowMin = "0x5f5e100"
+baseMinForRewards = "0xe8d4a51000"
+baseScale = "0xf4240"
+baseToken = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
+baseTokenPriceFeed = "0x8fffffd4afb6115b954bd326cbe7b4ba576818f6"
+baseTrackingBorrowSpeed = "0x9436c584da"
+baseTrackingSupplySpeed = "0x9436c584da"
+borrowKink = "0xc7d713b49da0000"
+borrowPerSecondInterestRateBase = "0x1c59cb9f"
+borrowPerSecondInterestRateSlopeHigh = "0x1a942ee5c5"
+borrowPerSecondInterestRateSlopeLow = "0x34807829"
+decimals = "0x6"
+extensionDelegate = "0xa70a0227028ad005f4fc9376a82cd1462e3aaedc"
+governor = "0x6d903f6003cca6255d85cca4d3b5e5146dc33925"
+numAssets = "0xd"
+pauseGuardian = "0xbbf3f1421d886e9b2c5d716b5192ac998af2012c"
+storeFrontPriceFactor = "0x853a0d2313c0000"
+supplyKink = "0xc7d713b49da0000"
+supplyPerSecondInterestRateBase = "0x0"
+supplyPerSecondInterestRateSlopeHigh = "0x17989a464c"
+supplyPerSecondInterestRateSlopeLow = "0x440ab57f"
+targetReserves = "0x12309ce54000"
+trackingIndexScale = "0x38d7ea4c68000"
 
 [[contracts]]
 address = "0x1b0e765f6224c21223aea2af16c1c46e38885a40"
@@ -271,6 +391,9 @@ FlashLoanLogic = "0xcc3037f5aef5831730a9acb1739d0562117314c0"
 LiquidationLogic = "0xc0816efc31779c697b18b3b68f1dfbede313e1fa"
 PoolLogic = "0xd072ff8184e873a938cb15b20f2ad5cc1a02d8bf"
 SupplyLogic = "0x4c83d30ce4d0f92a867c2006b33d9b102d29f707"
+
+[contracts.immutables]
+ADDRESSES_PROVIDER = "0x02c3ea4e34c0cbd694d2adfa2c690eecbc1793ee"
 
 [[contracts]]
 address = "0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b"
@@ -292,30 +415,65 @@ address = "0xe42c659dc09109566720ea8b2de186c2be7d94d9"
 source = "contracts/0xe42c659dc09109566720ea8b2de186c2be7d94d9.sol"
 contract_name = "LidoWithdrawalQueueERC721"
 
+[contracts.immutables]
+NAME = "0x4c69646f3a207374455448205769746864726177616c204e465400000000001a"
+STETH = "0xae7ab96520de3a18e5e111b5eaab095312d7fe84"
+SYMBOL = "0x756e737445544800000000000000000000000000000000000000000000000007"
+WSTETH = "0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0"
+
 [[contracts]]
 address = "0x1455b96780a93e08abfe41243db92e2fcbb0141c"
 source = "contracts/0x1455b96780a93e08abfe41243db92e2fcbb0141c.sol"
 contract_name = "LidoAccountingOracle"
+
+[contracts.immutables]
+GENESIS_TIME = "0x5fc63057"
+LOCATOR = "0xc1d0b3de6792bf6b4b37eccdcc24e45978cfd2eb"
+SECONDS_PER_SLOT = "0xc"
 
 [[contracts]]
 address = "0xa7536c85898dc424c6bfe8592f983661f830656a"
 source = "contracts/0xa7536c85898dc424c6bfe8592f983661f830656a.sol"
 contract_name = "EigenLayerStrategyManager"
 
+[contracts.immutables]
+allocationManager = "0x948a420b8cc1d6bfd0b6087c2e7c344a2cd0bc39"
+delegation = "0x39053d51b77dc0d36036fc1fcc8cb819df8ef37a"
+_VERSION = "0x312e31332e300000000000000000000000000000000000000000000000000006"
+pauserRegistry = "0xb8765ed72235d279c3fb53936e4606db0ef12806"
+
 [[contracts]]
 address = "0xd22dd829779adbf3869fb224f703452f7f95e9db"
 source = "contracts/0xd22dd829779adbf3869fb224f703452f7f95e9db.sol"
 contract_name = "EigenLayerEigenPodManager"
+
+[contracts.immutables]
+pauserRegistry = "0xb8765ed72235d279c3fb53936e4606db0ef12806"
+ethPOS = "0x00000000219ab540356cbb839cbe05303d7705fa"
+eigenPodBeacon = "0x5a2a4f2f3c18f09179b6703e63d9edd165909073"
+delegationManager = "0x39053d51b77dc0d36036fc1fcc8cb819df8ef37a"
 
 [[contracts]]
 address = "0xd4416b13d2b3a9abae7acd5d6c2bbdbe25686401"
 source = "contracts/0xd4416b13d2b3a9abae7acd5d6c2bbdbe25686401.sol"
 contract_name = "ENSNameWrapper"
 
+[contracts.immutables]
+ens = "0x00000000000c2e074ec69a0dfb2997ba6c7d2e1e"
+registrar = "0x57f1887a8bf19b14fc0df6fd9b2acc9af147ea85"
+
 [[contracts]]
 address = "0x253553366da8546fc250f225fe3d25d0c782303b"
 source = "contracts/0x253553366da8546fc250f225fe3d25d0c782303b.sol"
 contract_name = "ENSETHRegistrarController"
+
+[contracts.immutables]
+base = "0x57f1887a8bf19b14fc0df6fd9b2acc9af147ea85"
+maxCommitmentAge = "0x15180"
+minCommitmentAge = "0x3c"
+nameWrapper = "0xd4416b13d2b3a9abae7acd5d6c2bbdbe25686401"
+prices = "0x7542565191d074ce84fbfa92cae13acb84788ca9"
+reverseRegistrar = "0xa58e81fe9b61b5c3fe2afd33cf304c454abfc7cb"
 
 [[contracts]]
 address = "0xd9db270c1b5e3bd161e8c8503c55ceabee709552"
@@ -466,3 +624,490 @@ fixture = "fixtures/0xdac17f958d2ee523a2206206994597c13d831ec7/tether-transfer.j
 id = "tether-approve"
 contract = "0xdac17f958d2ee523a2206206994597c13d831ec7"
 fixture = "fixtures/0xdac17f958d2ee523a2206206994597c13d831ec7/tether-approve.json"
+
+# Additional captured coverage transactions.
+
+[[transactions]]
+id = "chainlink-ocr2-1"
+contract = "0x7d4e742018fb52e48b08be73d041c18b21de6fb5"
+fixture = "fixtures/0x7d4e742018fb52e48b08be73d041c18b21de6fb5/chainlink-ocr2-1.json"
+
+[[transactions]]
+id = "chainlink-ocr2-2"
+contract = "0x7d4e742018fb52e48b08be73d041c18b21de6fb5"
+fixture = "fixtures/0x7d4e742018fb52e48b08be73d041c18b21de6fb5/chainlink-ocr2-2.json"
+
+[[transactions]]
+id = "chainlink-ocr2-3"
+contract = "0x7d4e742018fb52e48b08be73d041c18b21de6fb5"
+fixture = "fixtures/0x7d4e742018fb52e48b08be73d041c18b21de6fb5/chainlink-ocr2-3.json"
+
+[[transactions]]
+id = "maker-dai-1"
+contract = "0x6b175474e89094c44da98b954eedeac495271d0f"
+fixture = "fixtures/0x6b175474e89094c44da98b954eedeac495271d0f/maker-dai-1.json"
+
+[[transactions]]
+id = "maker-dai-2"
+contract = "0x6b175474e89094c44da98b954eedeac495271d0f"
+fixture = "fixtures/0x6b175474e89094c44da98b954eedeac495271d0f/maker-dai-2.json"
+
+[[transactions]]
+id = "maker-dai-3"
+contract = "0x6b175474e89094c44da98b954eedeac495271d0f"
+fixture = "fixtures/0x6b175474e89094c44da98b954eedeac495271d0f/maker-dai-3.json"
+
+[[transactions]]
+id = "wbtc-1"
+contract = "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599"
+fixture = "fixtures/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599/wbtc-1.json"
+
+[[transactions]]
+id = "wbtc-2"
+contract = "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599"
+fixture = "fixtures/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599/wbtc-2.json"
+
+[[transactions]]
+id = "wbtc-3"
+contract = "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599"
+fixture = "fixtures/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599/wbtc-3.json"
+
+[[transactions]]
+id = "link-token-1"
+contract = "0x514910771af9ca656af840dff83e8264ecf986ca"
+fixture = "fixtures/0x514910771af9ca656af840dff83e8264ecf986ca/link-token-1.json"
+
+[[transactions]]
+id = "link-token-2"
+contract = "0x514910771af9ca656af840dff83e8264ecf986ca"
+fixture = "fixtures/0x514910771af9ca656af840dff83e8264ecf986ca/link-token-2.json"
+
+[[transactions]]
+id = "link-token-3"
+contract = "0x514910771af9ca656af840dff83e8264ecf986ca"
+fixture = "fixtures/0x514910771af9ca656af840dff83e8264ecf986ca/link-token-3.json"
+
+[[transactions]]
+id = "wsteth-1"
+contract = "0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0"
+fixture = "fixtures/0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0/wsteth-1.json"
+
+[[transactions]]
+id = "wsteth-2"
+contract = "0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0"
+fixture = "fixtures/0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0/wsteth-2.json"
+
+[[transactions]]
+id = "wsteth-3"
+contract = "0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0"
+fixture = "fixtures/0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0/wsteth-3.json"
+
+[[transactions]]
+id = "frax-1"
+contract = "0x853d955acef822db058eb8505911ed77f175b99e"
+fixture = "fixtures/0x853d955acef822db058eb8505911ed77f175b99e/frax-1.json"
+
+[[transactions]]
+id = "frax-2"
+contract = "0x853d955acef822db058eb8505911ed77f175b99e"
+fixture = "fixtures/0x853d955acef822db058eb8505911ed77f175b99e/frax-2.json"
+
+[[transactions]]
+id = "frax-3"
+contract = "0x853d955acef822db058eb8505911ed77f175b99e"
+fixture = "fixtures/0x853d955acef822db058eb8505911ed77f175b99e/frax-3.json"
+
+[[transactions]]
+id = "uniswap-v2-router-1"
+contract = "0x7a250d5630b4cf539739df2c5dacb4c659f2488d"
+fixture = "fixtures/0x7a250d5630b4cf539739df2c5dacb4c659f2488d/uniswap-v2-router-1.json"
+
+[[transactions]]
+id = "uniswap-v2-router-2"
+contract = "0x7a250d5630b4cf539739df2c5dacb4c659f2488d"
+fixture = "fixtures/0x7a250d5630b4cf539739df2c5dacb4c659f2488d/uniswap-v2-router-2.json"
+
+[[transactions]]
+id = "uniswap-v2-router-3"
+contract = "0x7a250d5630b4cf539739df2c5dacb4c659f2488d"
+fixture = "fixtures/0x7a250d5630b4cf539739df2c5dacb4c659f2488d/uniswap-v2-router-3.json"
+
+[[transactions]]
+id = "uniswap-v3-swap-router-1"
+contract = "0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45"
+fixture = "fixtures/0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45/uniswap-v3-swap-router-1.json"
+
+[[transactions]]
+id = "uniswap-v3-swap-router-2"
+contract = "0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45"
+fixture = "fixtures/0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45/uniswap-v3-swap-router-2.json"
+
+[[transactions]]
+id = "uniswap-v3-swap-router-3"
+contract = "0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45"
+fixture = "fixtures/0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45/uniswap-v3-swap-router-3.json"
+
+[[transactions]]
+id = "uniswap-v3-nft-manager-1"
+contract = "0xc36442b4a4522e871399cd717abdd847ab11fe88"
+fixture = "fixtures/0xc36442b4a4522e871399cd717abdd847ab11fe88/uniswap-v3-nft-manager-1.json"
+
+[[transactions]]
+id = "uniswap-v3-nft-manager-2"
+contract = "0xc36442b4a4522e871399cd717abdd847ab11fe88"
+fixture = "fixtures/0xc36442b4a4522e871399cd717abdd847ab11fe88/uniswap-v3-nft-manager-2.json"
+
+[[transactions]]
+id = "uniswap-v3-nft-manager-3"
+contract = "0xc36442b4a4522e871399cd717abdd847ab11fe88"
+fixture = "fixtures/0xc36442b4a4522e871399cd717abdd847ab11fe88/uniswap-v3-nft-manager-3.json"
+
+[[transactions]]
+id = "permit2-1"
+contract = "0x000000000022d473030f116ddee9f6b43ac78ba3"
+fixture = "fixtures/0x000000000022d473030f116ddee9f6b43ac78ba3/permit2-1.json"
+
+[[transactions]]
+id = "permit2-2"
+contract = "0x000000000022d473030f116ddee9f6b43ac78ba3"
+fixture = "fixtures/0x000000000022d473030f116ddee9f6b43ac78ba3/permit2-2.json"
+
+[[transactions]]
+id = "permit2-3"
+contract = "0x000000000022d473030f116ddee9f6b43ac78ba3"
+fixture = "fixtures/0x000000000022d473030f116ddee9f6b43ac78ba3/permit2-3.json"
+
+[[transactions]]
+id = "uniswap-v4-position-manager-1"
+contract = "0xbd216513d74c8cf14cf4747e6aaa6420ff64ee9e"
+fixture = "fixtures/0xbd216513d74c8cf14cf4747e6aaa6420ff64ee9e/uniswap-v4-position-manager-1.json"
+
+[[transactions]]
+id = "uniswap-v4-position-manager-2"
+contract = "0xbd216513d74c8cf14cf4747e6aaa6420ff64ee9e"
+fixture = "fixtures/0xbd216513d74c8cf14cf4747e6aaa6420ff64ee9e/uniswap-v4-position-manager-2.json"
+
+[[transactions]]
+id = "uniswap-v4-position-manager-3"
+contract = "0xbd216513d74c8cf14cf4747e6aaa6420ff64ee9e"
+fixture = "fixtures/0xbd216513d74c8cf14cf4747e6aaa6420ff64ee9e/uniswap-v4-position-manager-3.json"
+
+[[transactions]]
+id = "uniswap-v4-quoter-1"
+contract = "0x52f0e24d1c21c8a0cb1e5a5dd6198556bd9e1203"
+fixture = "fixtures/0x52f0e24d1c21c8a0cb1e5a5dd6198556bd9e1203/uniswap-v4-quoter-1.json"
+
+[[transactions]]
+id = "uniswap-v4-quoter-2"
+contract = "0x52f0e24d1c21c8a0cb1e5a5dd6198556bd9e1203"
+fixture = "fixtures/0x52f0e24d1c21c8a0cb1e5a5dd6198556bd9e1203/uniswap-v4-quoter-2.json"
+
+[[transactions]]
+id = "uniswap-v4-quoter-3"
+contract = "0x52f0e24d1c21c8a0cb1e5a5dd6198556bd9e1203"
+fixture = "fixtures/0x52f0e24d1c21c8a0cb1e5a5dd6198556bd9e1203/uniswap-v4-quoter-3.json"
+
+[[transactions]]
+id = "cow-settlement-1"
+contract = "0x9008d19f58aabd9ed0d60971565aa8510560ab41"
+fixture = "fixtures/0x9008d19f58aabd9ed0d60971565aa8510560ab41/cow-settlement-1.json"
+
+[[transactions]]
+id = "cow-settlement-2"
+contract = "0x9008d19f58aabd9ed0d60971565aa8510560ab41"
+fixture = "fixtures/0x9008d19f58aabd9ed0d60971565aa8510560ab41/cow-settlement-2.json"
+
+[[transactions]]
+id = "cow-settlement-3"
+contract = "0x9008d19f58aabd9ed0d60971565aa8510560ab41"
+fixture = "fixtures/0x9008d19f58aabd9ed0d60971565aa8510560ab41/cow-settlement-3.json"
+
+[[transactions]]
+id = "balancer-v2-vault-1"
+contract = "0xba12222222228d8ba445958a75a0704d566bf2c8"
+fixture = "fixtures/0xba12222222228d8ba445958a75a0704d566bf2c8/balancer-v2-vault-1.json"
+
+[[transactions]]
+id = "balancer-v2-vault-2"
+contract = "0xba12222222228d8ba445958a75a0704d566bf2c8"
+fixture = "fixtures/0xba12222222228d8ba445958a75a0704d566bf2c8/balancer-v2-vault-2.json"
+
+[[transactions]]
+id = "balancer-v2-vault-3"
+contract = "0xba12222222228d8ba445958a75a0704d566bf2c8"
+fixture = "fixtures/0xba12222222228d8ba445958a75a0704d566bf2c8/balancer-v2-vault-3.json"
+
+[[transactions]]
+id = "balancer-v3-vault-1"
+contract = "0xba1333333333a1ba1108e8412f11850a5c319ba9"
+fixture = "fixtures/0xba1333333333a1ba1108e8412f11850a5c319ba9/balancer-v3-vault-1.json"
+
+[[transactions]]
+id = "balancer-v3-vault-2"
+contract = "0xba1333333333a1ba1108e8412f11850a5c319ba9"
+fixture = "fixtures/0xba1333333333a1ba1108e8412f11850a5c319ba9/balancer-v3-vault-2.json"
+
+[[transactions]]
+id = "balancer-v3-vault-3"
+contract = "0xba1333333333a1ba1108e8412f11850a5c319ba9"
+fixture = "fixtures/0xba1333333333a1ba1108e8412f11850a5c319ba9/balancer-v3-vault-3.json"
+
+[[transactions]]
+id = "balancer-v3-router-1"
+contract = "0xae563e3f8219521950555f5962419c8919758ea2"
+fixture = "fixtures/0xae563e3f8219521950555f5962419c8919758ea2/balancer-v3-router-1.json"
+
+[[transactions]]
+id = "balancer-v3-router-2"
+contract = "0xae563e3f8219521950555f5962419c8919758ea2"
+fixture = "fixtures/0xae563e3f8219521950555f5962419c8919758ea2/balancer-v3-router-2.json"
+
+[[transactions]]
+id = "balancer-v3-router-3"
+contract = "0xae563e3f8219521950555f5962419c8919758ea2"
+fixture = "fixtures/0xae563e3f8219521950555f5962419c8919758ea2/balancer-v3-router-3.json"
+
+[[transactions]]
+id = "aave-v3-pool-1"
+contract = "0x728a138a4823392c2efa55e028d434f526fe03cf"
+fixture = "fixtures/0x728a138a4823392c2efa55e028d434f526fe03cf/aave-v3-pool-1.json"
+
+[[transactions]]
+id = "aave-v3-pool-2"
+contract = "0x728a138a4823392c2efa55e028d434f526fe03cf"
+fixture = "fixtures/0x728a138a4823392c2efa55e028d434f526fe03cf/aave-v3-pool-2.json"
+
+[[transactions]]
+id = "aave-v3-pool-3"
+contract = "0x728a138a4823392c2efa55e028d434f526fe03cf"
+fixture = "fixtures/0x728a138a4823392c2efa55e028d434f526fe03cf/aave-v3-pool-3.json"
+
+[[transactions]]
+id = "aave-v3-configurator-1"
+contract = "0xff42ce30054dce7dc7c1282a9a497aa58eabce99"
+fixture = "fixtures/0xff42ce30054dce7dc7c1282a9a497aa58eabce99/aave-v3-configurator-1.json"
+
+[[transactions]]
+id = "aave-v3-atoken-1"
+contract = "0xadc45df3cf1584624c97338bef33363bf5b97ada"
+fixture = "fixtures/0xadc45df3cf1584624c97338bef33363bf5b97ada/aave-v3-atoken-1.json"
+
+[[transactions]]
+id = "aave-v3-atoken-2"
+contract = "0xadc45df3cf1584624c97338bef33363bf5b97ada"
+fixture = "fixtures/0xadc45df3cf1584624c97338bef33363bf5b97ada/aave-v3-atoken-2.json"
+
+[[transactions]]
+id = "aave-v3-atoken-3"
+contract = "0xadc45df3cf1584624c97338bef33363bf5b97ada"
+fixture = "fixtures/0xadc45df3cf1584624c97338bef33363bf5b97ada/aave-v3-atoken-3.json"
+
+[[transactions]]
+id = "aave-v3-variable-debt-1"
+contract = "0xb27c52c7f84819e3157993489741cb60786ae330"
+fixture = "fixtures/0xb27c52c7f84819e3157993489741cb60786ae330/aave-v3-variable-debt-1.json"
+
+[[transactions]]
+id = "aave-v3-variable-debt-2"
+contract = "0xb27c52c7f84819e3157993489741cb60786ae330"
+fixture = "fixtures/0xb27c52c7f84819e3157993489741cb60786ae330/aave-v3-variable-debt-2.json"
+
+[[transactions]]
+id = "aave-v3-variable-debt-3"
+contract = "0xb27c52c7f84819e3157993489741cb60786ae330"
+fixture = "fixtures/0xb27c52c7f84819e3157993489741cb60786ae330/aave-v3-variable-debt-3.json"
+
+[[transactions]]
+id = "compound-comet-1"
+contract = "0x83d491269720ce925f92c6bf9f66b7a0779a293a"
+fixture = "fixtures/0x83d491269720ce925f92c6bf9f66b7a0779a293a/compound-comet-1.json"
+
+[[transactions]]
+id = "compound-comet-2"
+contract = "0x83d491269720ce925f92c6bf9f66b7a0779a293a"
+fixture = "fixtures/0x83d491269720ce925f92c6bf9f66b7a0779a293a/compound-comet-2.json"
+
+[[transactions]]
+id = "compound-comet-3"
+contract = "0x83d491269720ce925f92c6bf9f66b7a0779a293a"
+fixture = "fixtures/0x83d491269720ce925f92c6bf9f66b7a0779a293a/compound-comet-3.json"
+
+[[transactions]]
+id = "compound-rewards-1"
+contract = "0x1b0e765f6224c21223aea2af16c1c46e38885a40"
+fixture = "fixtures/0x1b0e765f6224c21223aea2af16c1c46e38885a40/compound-rewards-1.json"
+
+[[transactions]]
+id = "compound-rewards-2"
+contract = "0x1b0e765f6224c21223aea2af16c1c46e38885a40"
+fixture = "fixtures/0x1b0e765f6224c21223aea2af16c1c46e38885a40/compound-rewards-2.json"
+
+[[transactions]]
+id = "compound-rewards-3"
+contract = "0x1b0e765f6224c21223aea2af16c1c46e38885a40"
+fixture = "fixtures/0x1b0e765f6224c21223aea2af16c1c46e38885a40/compound-rewards-3.json"
+
+[[transactions]]
+id = "spark-pool-1"
+contract = "0x5ae329203e00f76891094dcfedd5aca082a50e1b"
+fixture = "fixtures/0x5ae329203e00f76891094dcfedd5aca082a50e1b/spark-pool-1.json"
+
+[[transactions]]
+id = "spark-pool-2"
+contract = "0x5ae329203e00f76891094dcfedd5aca082a50e1b"
+fixture = "fixtures/0x5ae329203e00f76891094dcfedd5aca082a50e1b/spark-pool-2.json"
+
+[[transactions]]
+id = "spark-pool-3"
+contract = "0x5ae329203e00f76891094dcfedd5aca082a50e1b"
+fixture = "fixtures/0x5ae329203e00f76891094dcfedd5aca082a50e1b/spark-pool-3.json"
+
+[[transactions]]
+id = "maker-vat-1"
+contract = "0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b"
+fixture = "fixtures/0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b/maker-vat-1.json"
+
+[[transactions]]
+id = "maker-vat-2"
+contract = "0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b"
+fixture = "fixtures/0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b/maker-vat-2.json"
+
+[[transactions]]
+id = "maker-vat-3"
+contract = "0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b"
+fixture = "fixtures/0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b/maker-vat-3.json"
+
+[[transactions]]
+id = "maker-pot-1"
+contract = "0x197e90f9fad81970ba7976f33cbd77088e5d7cf7"
+fixture = "fixtures/0x197e90f9fad81970ba7976f33cbd77088e5d7cf7/maker-pot-1.json"
+
+[[transactions]]
+id = "maker-pot-2"
+contract = "0x197e90f9fad81970ba7976f33cbd77088e5d7cf7"
+fixture = "fixtures/0x197e90f9fad81970ba7976f33cbd77088e5d7cf7/maker-pot-2.json"
+
+[[transactions]]
+id = "maker-pot-3"
+contract = "0x197e90f9fad81970ba7976f33cbd77088e5d7cf7"
+fixture = "fixtures/0x197e90f9fad81970ba7976f33cbd77088e5d7cf7/maker-pot-3.json"
+
+[[transactions]]
+id = "maker-jug-1"
+contract = "0x19c0976f590d67707e62397c87829d896dc0f1f1"
+fixture = "fixtures/0x19c0976f590d67707e62397c87829d896dc0f1f1/maker-jug-1.json"
+
+[[transactions]]
+id = "maker-jug-2"
+contract = "0x19c0976f590d67707e62397c87829d896dc0f1f1"
+fixture = "fixtures/0x19c0976f590d67707e62397c87829d896dc0f1f1/maker-jug-2.json"
+
+[[transactions]]
+id = "maker-jug-3"
+contract = "0x19c0976f590d67707e62397c87829d896dc0f1f1"
+fixture = "fixtures/0x19c0976f590d67707e62397c87829d896dc0f1f1/maker-jug-3.json"
+
+[[transactions]]
+id = "lido-withdrawal-queue-1"
+contract = "0xe42c659dc09109566720ea8b2de186c2be7d94d9"
+fixture = "fixtures/0xe42c659dc09109566720ea8b2de186c2be7d94d9/lido-withdrawal-queue-1.json"
+
+[[transactions]]
+id = "lido-withdrawal-queue-2"
+contract = "0xe42c659dc09109566720ea8b2de186c2be7d94d9"
+fixture = "fixtures/0xe42c659dc09109566720ea8b2de186c2be7d94d9/lido-withdrawal-queue-2.json"
+
+[[transactions]]
+id = "lido-withdrawal-queue-3"
+contract = "0xe42c659dc09109566720ea8b2de186c2be7d94d9"
+fixture = "fixtures/0xe42c659dc09109566720ea8b2de186c2be7d94d9/lido-withdrawal-queue-3.json"
+
+[[transactions]]
+id = "lido-accounting-oracle-1"
+contract = "0x1455b96780a93e08abfe41243db92e2fcbb0141c"
+fixture = "fixtures/0x1455b96780a93e08abfe41243db92e2fcbb0141c/lido-accounting-oracle-1.json"
+
+[[transactions]]
+id = "lido-accounting-oracle-2"
+contract = "0x1455b96780a93e08abfe41243db92e2fcbb0141c"
+fixture = "fixtures/0x1455b96780a93e08abfe41243db92e2fcbb0141c/lido-accounting-oracle-2.json"
+
+[[transactions]]
+id = "lido-accounting-oracle-3"
+contract = "0x1455b96780a93e08abfe41243db92e2fcbb0141c"
+fixture = "fixtures/0x1455b96780a93e08abfe41243db92e2fcbb0141c/lido-accounting-oracle-3.json"
+
+[[transactions]]
+id = "eigen-strategy-manager-1"
+contract = "0xa7536c85898dc424c6bfe8592f983661f830656a"
+fixture = "fixtures/0xa7536c85898dc424c6bfe8592f983661f830656a/eigen-strategy-manager-1.json"
+
+[[transactions]]
+id = "eigen-strategy-manager-2"
+contract = "0xa7536c85898dc424c6bfe8592f983661f830656a"
+fixture = "fixtures/0xa7536c85898dc424c6bfe8592f983661f830656a/eigen-strategy-manager-2.json"
+
+[[transactions]]
+id = "eigen-strategy-manager-3"
+contract = "0xa7536c85898dc424c6bfe8592f983661f830656a"
+fixture = "fixtures/0xa7536c85898dc424c6bfe8592f983661f830656a/eigen-strategy-manager-3.json"
+
+[[transactions]]
+id = "eigen-pod-manager-1"
+contract = "0xd22dd829779adbf3869fb224f703452f7f95e9db"
+fixture = "fixtures/0xd22dd829779adbf3869fb224f703452f7f95e9db/eigen-pod-manager-1.json"
+
+[[transactions]]
+id = "eigen-pod-manager-2"
+contract = "0xd22dd829779adbf3869fb224f703452f7f95e9db"
+fixture = "fixtures/0xd22dd829779adbf3869fb224f703452f7f95e9db/eigen-pod-manager-2.json"
+
+[[transactions]]
+id = "eigen-pod-manager-3"
+contract = "0xd22dd829779adbf3869fb224f703452f7f95e9db"
+fixture = "fixtures/0xd22dd829779adbf3869fb224f703452f7f95e9db/eigen-pod-manager-3.json"
+
+[[transactions]]
+id = "ens-name-wrapper-1"
+contract = "0xd4416b13d2b3a9abae7acd5d6c2bbdbe25686401"
+fixture = "fixtures/0xd4416b13d2b3a9abae7acd5d6c2bbdbe25686401/ens-name-wrapper-1.json"
+
+[[transactions]]
+id = "ens-name-wrapper-2"
+contract = "0xd4416b13d2b3a9abae7acd5d6c2bbdbe25686401"
+fixture = "fixtures/0xd4416b13d2b3a9abae7acd5d6c2bbdbe25686401/ens-name-wrapper-2.json"
+
+[[transactions]]
+id = "ens-name-wrapper-3"
+contract = "0xd4416b13d2b3a9abae7acd5d6c2bbdbe25686401"
+fixture = "fixtures/0xd4416b13d2b3a9abae7acd5d6c2bbdbe25686401/ens-name-wrapper-3.json"
+
+[[transactions]]
+id = "ens-registrar-controller-1"
+contract = "0x253553366da8546fc250f225fe3d25d0c782303b"
+fixture = "fixtures/0x253553366da8546fc250f225fe3d25d0c782303b/ens-registrar-controller-1.json"
+
+[[transactions]]
+id = "ens-registrar-controller-2"
+contract = "0x253553366da8546fc250f225fe3d25d0c782303b"
+fixture = "fixtures/0x253553366da8546fc250f225fe3d25d0c782303b/ens-registrar-controller-2.json"
+
+[[transactions]]
+id = "ens-registrar-controller-3"
+contract = "0x253553366da8546fc250f225fe3d25d0c782303b"
+fixture = "fixtures/0x253553366da8546fc250f225fe3d25d0c782303b/ens-registrar-controller-3.json"
+
+[[transactions]]
+id = "safe-gnosis-safe-1"
+contract = "0xd9db270c1b5e3bd161e8c8503c55ceabee709552"
+fixture = "fixtures/0xd9db270c1b5e3bd161e8c8503c55ceabee709552/safe-gnosis-safe-1.json"
+
+[[transactions]]
+id = "safe-gnosis-safe-2"
+contract = "0xd9db270c1b5e3bd161e8c8503c55ceabee709552"
+fixture = "fixtures/0xd9db270c1b5e3bd161e8c8503c55ceabee709552/safe-gnosis-safe-2.json"
+
+[[transactions]]
+id = "safe-gnosis-safe-3"
+contract = "0xd9db270c1b5e3bd161e8c8503c55ceabee709552"
+fixture = "fixtures/0xd9db270c1b5e3bd161e8c8503c55ceabee709552/safe-gnosis-safe-3.json"

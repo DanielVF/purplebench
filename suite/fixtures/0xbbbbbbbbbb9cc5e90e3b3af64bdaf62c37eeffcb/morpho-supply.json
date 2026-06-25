@@ -16,7 +16,7 @@
     "to": "0xad64b7e01dc7304796e9b840043d7834ec3a2929",
     "value": "0x0",
     "data": "0x6e553f650000000000000000000000000000000000000000000000056d31d55fce459000000000000000000000000000c85fabceab767388f97c34f34b35f59164fa0d3b",
-    "gas_limit": "0x1d4c00",
+    "gas_limit": "0x300000",
     "gas_price": "0x13f2cd38",
     "max_fee_per_gas": null,
     "max_priority_fee_per_gas": null,
