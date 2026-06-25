@@ -628,486 +628,486 @@ fixture = "fixtures/0xdac17f958d2ee523a2206206994597c13d831ec7/tether-approve.js
 # Additional captured coverage transactions.
 
 [[transactions]]
-id = "chainlink-ocr2-1"
+id = "chainlink-ocr2-transmit-1"
 contract = "0x7d4e742018fb52e48b08be73d041c18b21de6fb5"
-fixture = "fixtures/0x7d4e742018fb52e48b08be73d041c18b21de6fb5/chainlink-ocr2-1.json"
+fixture = "fixtures/0x7d4e742018fb52e48b08be73d041c18b21de6fb5/chainlink-ocr2-transmit-1.json"
 
 [[transactions]]
-id = "chainlink-ocr2-2"
+id = "chainlink-ocr2-transmit-2"
 contract = "0x7d4e742018fb52e48b08be73d041c18b21de6fb5"
-fixture = "fixtures/0x7d4e742018fb52e48b08be73d041c18b21de6fb5/chainlink-ocr2-2.json"
+fixture = "fixtures/0x7d4e742018fb52e48b08be73d041c18b21de6fb5/chainlink-ocr2-transmit-2.json"
 
 [[transactions]]
-id = "chainlink-ocr2-3"
+id = "chainlink-ocr2-transmit-3"
 contract = "0x7d4e742018fb52e48b08be73d041c18b21de6fb5"
-fixture = "fixtures/0x7d4e742018fb52e48b08be73d041c18b21de6fb5/chainlink-ocr2-3.json"
+fixture = "fixtures/0x7d4e742018fb52e48b08be73d041c18b21de6fb5/chainlink-ocr2-transmit-3.json"
 
 [[transactions]]
-id = "maker-dai-1"
+id = "maker-dai-transfer-1"
 contract = "0x6b175474e89094c44da98b954eedeac495271d0f"
-fixture = "fixtures/0x6b175474e89094c44da98b954eedeac495271d0f/maker-dai-1.json"
+fixture = "fixtures/0x6b175474e89094c44da98b954eedeac495271d0f/maker-dai-transfer-1.json"
 
 [[transactions]]
-id = "maker-dai-2"
+id = "maker-dai-swap-2"
 contract = "0x6b175474e89094c44da98b954eedeac495271d0f"
-fixture = "fixtures/0x6b175474e89094c44da98b954eedeac495271d0f/maker-dai-2.json"
+fixture = "fixtures/0x6b175474e89094c44da98b954eedeac495271d0f/maker-dai-swap-2.json"
 
 [[transactions]]
-id = "maker-dai-3"
+id = "maker-dai-transfer-3"
 contract = "0x6b175474e89094c44da98b954eedeac495271d0f"
-fixture = "fixtures/0x6b175474e89094c44da98b954eedeac495271d0f/maker-dai-3.json"
+fixture = "fixtures/0x6b175474e89094c44da98b954eedeac495271d0f/maker-dai-transfer-3.json"
 
 [[transactions]]
-id = "wbtc-1"
+id = "wbtc-transfer-1"
 contract = "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599"
-fixture = "fixtures/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599/wbtc-1.json"
+fixture = "fixtures/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599/wbtc-transfer-1.json"
 
 [[transactions]]
-id = "wbtc-2"
+id = "wbtc-transfer-2"
 contract = "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599"
-fixture = "fixtures/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599/wbtc-2.json"
+fixture = "fixtures/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599/wbtc-transfer-2.json"
 
 [[transactions]]
-id = "wbtc-3"
+id = "wbtc-transfer-3"
 contract = "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599"
-fixture = "fixtures/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599/wbtc-3.json"
+fixture = "fixtures/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599/wbtc-transfer-3.json"
 
 [[transactions]]
-id = "link-token-1"
+id = "link-token-transfer-1"
 contract = "0x514910771af9ca656af840dff83e8264ecf986ca"
-fixture = "fixtures/0x514910771af9ca656af840dff83e8264ecf986ca/link-token-1.json"
+fixture = "fixtures/0x514910771af9ca656af840dff83e8264ecf986ca/link-token-transfer-1.json"
 
 [[transactions]]
-id = "link-token-2"
+id = "link-token-transfer-2"
 contract = "0x514910771af9ca656af840dff83e8264ecf986ca"
-fixture = "fixtures/0x514910771af9ca656af840dff83e8264ecf986ca/link-token-2.json"
+fixture = "fixtures/0x514910771af9ca656af840dff83e8264ecf986ca/link-token-transfer-2.json"
 
 [[transactions]]
-id = "link-token-3"
+id = "link-token-transfer-3"
 contract = "0x514910771af9ca656af840dff83e8264ecf986ca"
-fixture = "fixtures/0x514910771af9ca656af840dff83e8264ecf986ca/link-token-3.json"
+fixture = "fixtures/0x514910771af9ca656af840dff83e8264ecf986ca/link-token-transfer-3.json"
 
 [[transactions]]
-id = "wsteth-1"
+id = "wsteth-wrap-1"
 contract = "0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0"
-fixture = "fixtures/0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0/wsteth-1.json"
+fixture = "fixtures/0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0/wsteth-wrap-1.json"
 
 [[transactions]]
-id = "wsteth-2"
+id = "wsteth-wrap-2"
 contract = "0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0"
-fixture = "fixtures/0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0/wsteth-2.json"
+fixture = "fixtures/0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0/wsteth-wrap-2.json"
 
 [[transactions]]
-id = "wsteth-3"
+id = "wsteth-unwrap-3"
 contract = "0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0"
-fixture = "fixtures/0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0/wsteth-3.json"
+fixture = "fixtures/0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0/wsteth-unwrap-3.json"
 
 [[transactions]]
-id = "frax-1"
+id = "frax-approve-1"
 contract = "0x853d955acef822db058eb8505911ed77f175b99e"
-fixture = "fixtures/0x853d955acef822db058eb8505911ed77f175b99e/frax-1.json"
+fixture = "fixtures/0x853d955acef822db058eb8505911ed77f175b99e/frax-approve-1.json"
 
 [[transactions]]
-id = "frax-2"
+id = "frax-approve-2"
 contract = "0x853d955acef822db058eb8505911ed77f175b99e"
-fixture = "fixtures/0x853d955acef822db058eb8505911ed77f175b99e/frax-2.json"
+fixture = "fixtures/0x853d955acef822db058eb8505911ed77f175b99e/frax-approve-2.json"
 
 [[transactions]]
-id = "frax-3"
+id = "frax-approve-3"
 contract = "0x853d955acef822db058eb8505911ed77f175b99e"
-fixture = "fixtures/0x853d955acef822db058eb8505911ed77f175b99e/frax-3.json"
+fixture = "fixtures/0x853d955acef822db058eb8505911ed77f175b99e/frax-approve-3.json"
 
 [[transactions]]
-id = "uniswap-v2-router-1"
+id = "uniswap-v2-router-swap-exact-eth-for-tokens-1"
 contract = "0x7a250d5630b4cf539739df2c5dacb4c659f2488d"
-fixture = "fixtures/0x7a250d5630b4cf539739df2c5dacb4c659f2488d/uniswap-v2-router-1.json"
+fixture = "fixtures/0x7a250d5630b4cf539739df2c5dacb4c659f2488d/uniswap-v2-router-swap-exact-eth-for-tokens-1.json"
 
 [[transactions]]
-id = "uniswap-v2-router-2"
+id = "uniswap-v2-router-swap-exact-tokens-for-eth-supporting-fee-on-transfer-tokens-2"
 contract = "0x7a250d5630b4cf539739df2c5dacb4c659f2488d"
-fixture = "fixtures/0x7a250d5630b4cf539739df2c5dacb4c659f2488d/uniswap-v2-router-2.json"
+fixture = "fixtures/0x7a250d5630b4cf539739df2c5dacb4c659f2488d/uniswap-v2-router-swap-exact-tokens-for-eth-supporting-fee-on-transfer-tokens-2.json"
 
 [[transactions]]
-id = "uniswap-v2-router-3"
+id = "uniswap-v2-router-swap-exact-eth-for-tokens-supporting-fee-on-transfer-tokens-3"
 contract = "0x7a250d5630b4cf539739df2c5dacb4c659f2488d"
-fixture = "fixtures/0x7a250d5630b4cf539739df2c5dacb4c659f2488d/uniswap-v2-router-3.json"
+fixture = "fixtures/0x7a250d5630b4cf539739df2c5dacb4c659f2488d/uniswap-v2-router-swap-exact-eth-for-tokens-supporting-fee-on-transfer-tokens-3.json"
 
 [[transactions]]
-id = "uniswap-v3-swap-router-1"
+id = "uniswap-v3-swap-router-multicall-1"
 contract = "0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45"
-fixture = "fixtures/0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45/uniswap-v3-swap-router-1.json"
+fixture = "fixtures/0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45/uniswap-v3-swap-router-multicall-1.json"
 
 [[transactions]]
-id = "uniswap-v3-swap-router-2"
+id = "uniswap-v3-swap-router-multicall-2"
 contract = "0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45"
-fixture = "fixtures/0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45/uniswap-v3-swap-router-2.json"
+fixture = "fixtures/0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45/uniswap-v3-swap-router-multicall-2.json"
 
 [[transactions]]
-id = "uniswap-v3-swap-router-3"
+id = "uniswap-v3-swap-router-multicall-3"
 contract = "0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45"
-fixture = "fixtures/0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45/uniswap-v3-swap-router-3.json"
+fixture = "fixtures/0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45/uniswap-v3-swap-router-multicall-3.json"
 
 [[transactions]]
-id = "uniswap-v3-nft-manager-1"
+id = "uniswap-v3-nft-manager-mint-1"
 contract = "0xc36442b4a4522e871399cd717abdd847ab11fe88"
-fixture = "fixtures/0xc36442b4a4522e871399cd717abdd847ab11fe88/uniswap-v3-nft-manager-1.json"
+fixture = "fixtures/0xc36442b4a4522e871399cd717abdd847ab11fe88/uniswap-v3-nft-manager-mint-1.json"
 
 [[transactions]]
-id = "uniswap-v3-nft-manager-2"
+id = "uniswap-v3-nft-manager-mint-2"
 contract = "0xc36442b4a4522e871399cd717abdd847ab11fe88"
-fixture = "fixtures/0xc36442b4a4522e871399cd717abdd847ab11fe88/uniswap-v3-nft-manager-2.json"
+fixture = "fixtures/0xc36442b4a4522e871399cd717abdd847ab11fe88/uniswap-v3-nft-manager-mint-2.json"
 
 [[transactions]]
-id = "uniswap-v3-nft-manager-3"
+id = "uniswap-v3-nft-manager-multicall-3"
 contract = "0xc36442b4a4522e871399cd717abdd847ab11fe88"
-fixture = "fixtures/0xc36442b4a4522e871399cd717abdd847ab11fe88/uniswap-v3-nft-manager-3.json"
+fixture = "fixtures/0xc36442b4a4522e871399cd717abdd847ab11fe88/uniswap-v3-nft-manager-multicall-3.json"
 
 [[transactions]]
-id = "permit2-1"
+id = "permit2-transfer-from-1"
 contract = "0x000000000022d473030f116ddee9f6b43ac78ba3"
-fixture = "fixtures/0x000000000022d473030f116ddee9f6b43ac78ba3/permit2-1.json"
+fixture = "fixtures/0x000000000022d473030f116ddee9f6b43ac78ba3/permit2-transfer-from-1.json"
 
 [[transactions]]
-id = "permit2-2"
+id = "permit2-approve-2"
 contract = "0x000000000022d473030f116ddee9f6b43ac78ba3"
-fixture = "fixtures/0x000000000022d473030f116ddee9f6b43ac78ba3/permit2-2.json"
+fixture = "fixtures/0x000000000022d473030f116ddee9f6b43ac78ba3/permit2-approve-2.json"
 
 [[transactions]]
-id = "permit2-3"
+id = "permit2-approve-3"
 contract = "0x000000000022d473030f116ddee9f6b43ac78ba3"
-fixture = "fixtures/0x000000000022d473030f116ddee9f6b43ac78ba3/permit2-3.json"
+fixture = "fixtures/0x000000000022d473030f116ddee9f6b43ac78ba3/permit2-approve-3.json"
 
 [[transactions]]
-id = "uniswap-v4-position-manager-1"
+id = "uniswap-v4-position-manager-multicall-1"
 contract = "0xbd216513d74c8cf14cf4747e6aaa6420ff64ee9e"
-fixture = "fixtures/0xbd216513d74c8cf14cf4747e6aaa6420ff64ee9e/uniswap-v4-position-manager-1.json"
+fixture = "fixtures/0xbd216513d74c8cf14cf4747e6aaa6420ff64ee9e/uniswap-v4-position-manager-multicall-1.json"
 
 [[transactions]]
-id = "uniswap-v4-position-manager-2"
+id = "uniswap-v4-position-manager-multicall-2"
 contract = "0xbd216513d74c8cf14cf4747e6aaa6420ff64ee9e"
-fixture = "fixtures/0xbd216513d74c8cf14cf4747e6aaa6420ff64ee9e/uniswap-v4-position-manager-2.json"
+fixture = "fixtures/0xbd216513d74c8cf14cf4747e6aaa6420ff64ee9e/uniswap-v4-position-manager-multicall-2.json"
 
 [[transactions]]
-id = "uniswap-v4-position-manager-3"
+id = "uniswap-v4-position-manager-modify-liquidities-3"
 contract = "0xbd216513d74c8cf14cf4747e6aaa6420ff64ee9e"
-fixture = "fixtures/0xbd216513d74c8cf14cf4747e6aaa6420ff64ee9e/uniswap-v4-position-manager-3.json"
+fixture = "fixtures/0xbd216513d74c8cf14cf4747e6aaa6420ff64ee9e/uniswap-v4-position-manager-modify-liquidities-3.json"
 
 [[transactions]]
-id = "uniswap-v4-quoter-1"
+id = "uniswap-v4-quoter-quote-exact-input-1"
 contract = "0x52f0e24d1c21c8a0cb1e5a5dd6198556bd9e1203"
-fixture = "fixtures/0x52f0e24d1c21c8a0cb1e5a5dd6198556bd9e1203/uniswap-v4-quoter-1.json"
+fixture = "fixtures/0x52f0e24d1c21c8a0cb1e5a5dd6198556bd9e1203/uniswap-v4-quoter-quote-exact-input-1.json"
 
 [[transactions]]
-id = "uniswap-v4-quoter-2"
+id = "uniswap-v4-quoter-quote-exact-input-2"
 contract = "0x52f0e24d1c21c8a0cb1e5a5dd6198556bd9e1203"
-fixture = "fixtures/0x52f0e24d1c21c8a0cb1e5a5dd6198556bd9e1203/uniswap-v4-quoter-2.json"
+fixture = "fixtures/0x52f0e24d1c21c8a0cb1e5a5dd6198556bd9e1203/uniswap-v4-quoter-quote-exact-input-2.json"
 
 [[transactions]]
-id = "uniswap-v4-quoter-3"
+id = "uniswap-v4-quoter-quote-exact-input-3"
 contract = "0x52f0e24d1c21c8a0cb1e5a5dd6198556bd9e1203"
-fixture = "fixtures/0x52f0e24d1c21c8a0cb1e5a5dd6198556bd9e1203/uniswap-v4-quoter-3.json"
+fixture = "fixtures/0x52f0e24d1c21c8a0cb1e5a5dd6198556bd9e1203/uniswap-v4-quoter-quote-exact-input-3.json"
 
 [[transactions]]
-id = "cow-settlement-1"
+id = "cow-settlement-settle-1"
 contract = "0x9008d19f58aabd9ed0d60971565aa8510560ab41"
-fixture = "fixtures/0x9008d19f58aabd9ed0d60971565aa8510560ab41/cow-settlement-1.json"
+fixture = "fixtures/0x9008d19f58aabd9ed0d60971565aa8510560ab41/cow-settlement-settle-1.json"
 
 [[transactions]]
-id = "cow-settlement-2"
+id = "cow-settlement-settle-2"
 contract = "0x9008d19f58aabd9ed0d60971565aa8510560ab41"
-fixture = "fixtures/0x9008d19f58aabd9ed0d60971565aa8510560ab41/cow-settlement-2.json"
+fixture = "fixtures/0x9008d19f58aabd9ed0d60971565aa8510560ab41/cow-settlement-settle-2.json"
 
 [[transactions]]
-id = "cow-settlement-3"
+id = "cow-settlement-settle-3"
 contract = "0x9008d19f58aabd9ed0d60971565aa8510560ab41"
-fixture = "fixtures/0x9008d19f58aabd9ed0d60971565aa8510560ab41/cow-settlement-3.json"
+fixture = "fixtures/0x9008d19f58aabd9ed0d60971565aa8510560ab41/cow-settlement-settle-3.json"
 
 [[transactions]]
-id = "balancer-v2-vault-1"
+id = "balancer-v2-vault-multicall-1"
 contract = "0xba12222222228d8ba445958a75a0704d566bf2c8"
-fixture = "fixtures/0xba12222222228d8ba445958a75a0704d566bf2c8/balancer-v2-vault-1.json"
+fixture = "fixtures/0xba12222222228d8ba445958a75a0704d566bf2c8/balancer-v2-vault-multicall-1.json"
 
 [[transactions]]
-id = "balancer-v2-vault-2"
+id = "balancer-v2-vault-exec-2"
 contract = "0xba12222222228d8ba445958a75a0704d566bf2c8"
-fixture = "fixtures/0xba12222222228d8ba445958a75a0704d566bf2c8/balancer-v2-vault-2.json"
+fixture = "fixtures/0xba12222222228d8ba445958a75a0704d566bf2c8/balancer-v2-vault-exec-2.json"
 
 [[transactions]]
-id = "balancer-v2-vault-3"
+id = "balancer-v2-vault-swap-3"
 contract = "0xba12222222228d8ba445958a75a0704d566bf2c8"
-fixture = "fixtures/0xba12222222228d8ba445958a75a0704d566bf2c8/balancer-v2-vault-3.json"
+fixture = "fixtures/0xba12222222228d8ba445958a75a0704d566bf2c8/balancer-v2-vault-swap-3.json"
 
 [[transactions]]
-id = "balancer-v3-vault-1"
+id = "balancer-v3-vault-settle-1"
 contract = "0xba1333333333a1ba1108e8412f11850a5c319ba9"
-fixture = "fixtures/0xba1333333333a1ba1108e8412f11850a5c319ba9/balancer-v3-vault-1.json"
+fixture = "fixtures/0xba1333333333a1ba1108e8412f11850a5c319ba9/balancer-v3-vault-settle-1.json"
 
 [[transactions]]
-id = "balancer-v3-vault-2"
+id = "balancer-v3-vault-swap-2"
 contract = "0xba1333333333a1ba1108e8412f11850a5c319ba9"
-fixture = "fixtures/0xba1333333333a1ba1108e8412f11850a5c319ba9/balancer-v3-vault-2.json"
+fixture = "fixtures/0xba1333333333a1ba1108e8412f11850a5c319ba9/balancer-v3-vault-swap-2.json"
 
 [[transactions]]
-id = "balancer-v3-vault-3"
+id = "balancer-v3-vault-swap-3"
 contract = "0xba1333333333a1ba1108e8412f11850a5c319ba9"
-fixture = "fixtures/0xba1333333333a1ba1108e8412f11850a5c319ba9/balancer-v3-vault-3.json"
+fixture = "fixtures/0xba1333333333a1ba1108e8412f11850a5c319ba9/balancer-v3-vault-swap-3.json"
 
 [[transactions]]
-id = "balancer-v3-router-1"
+id = "balancer-v3-router-permit-batch-and-call-1"
 contract = "0xae563e3f8219521950555f5962419c8919758ea2"
-fixture = "fixtures/0xae563e3f8219521950555f5962419c8919758ea2/balancer-v3-router-1.json"
+fixture = "fixtures/0xae563e3f8219521950555f5962419c8919758ea2/balancer-v3-router-permit-batch-and-call-1.json"
 
 [[transactions]]
-id = "balancer-v3-router-2"
+id = "balancer-v3-router-permit-batch-and-call-2"
 contract = "0xae563e3f8219521950555f5962419c8919758ea2"
-fixture = "fixtures/0xae563e3f8219521950555f5962419c8919758ea2/balancer-v3-router-2.json"
+fixture = "fixtures/0xae563e3f8219521950555f5962419c8919758ea2/balancer-v3-router-permit-batch-and-call-2.json"
 
 [[transactions]]
-id = "balancer-v3-router-3"
+id = "balancer-v3-router-permit-batch-and-call-3"
 contract = "0xae563e3f8219521950555f5962419c8919758ea2"
-fixture = "fixtures/0xae563e3f8219521950555f5962419c8919758ea2/balancer-v3-router-3.json"
+fixture = "fixtures/0xae563e3f8219521950555f5962419c8919758ea2/balancer-v3-router-permit-batch-and-call-3.json"
 
 [[transactions]]
-id = "aave-v3-pool-1"
+id = "aave-v3-pool-repay-1"
 contract = "0x728a138a4823392c2efa55e028d434f526fe03cf"
-fixture = "fixtures/0x728a138a4823392c2efa55e028d434f526fe03cf/aave-v3-pool-1.json"
+fixture = "fixtures/0x728a138a4823392c2efa55e028d434f526fe03cf/aave-v3-pool-repay-1.json"
 
 [[transactions]]
-id = "aave-v3-pool-2"
+id = "aave-v3-pool-supply-2"
 contract = "0x728a138a4823392c2efa55e028d434f526fe03cf"
-fixture = "fixtures/0x728a138a4823392c2efa55e028d434f526fe03cf/aave-v3-pool-2.json"
+fixture = "fixtures/0x728a138a4823392c2efa55e028d434f526fe03cf/aave-v3-pool-supply-2.json"
 
 [[transactions]]
-id = "aave-v3-pool-3"
+id = "aave-v3-pool-supply-3"
 contract = "0x728a138a4823392c2efa55e028d434f526fe03cf"
-fixture = "fixtures/0x728a138a4823392c2efa55e028d434f526fe03cf/aave-v3-pool-3.json"
+fixture = "fixtures/0x728a138a4823392c2efa55e028d434f526fe03cf/aave-v3-pool-supply-3.json"
 
 [[transactions]]
-id = "aave-v3-configurator-1"
+id = "aave-v3-configurator-set-reserve-factor-1"
 contract = "0xff42ce30054dce7dc7c1282a9a497aa58eabce99"
-fixture = "fixtures/0xff42ce30054dce7dc7c1282a9a497aa58eabce99/aave-v3-configurator-1.json"
+fixture = "fixtures/0xff42ce30054dce7dc7c1282a9a497aa58eabce99/aave-v3-configurator-set-reserve-factor-1.json"
 
 [[transactions]]
-id = "aave-v3-atoken-1"
+id = "aave-v3-atoken-deposit-eth-1"
 contract = "0xadc45df3cf1584624c97338bef33363bf5b97ada"
-fixture = "fixtures/0xadc45df3cf1584624c97338bef33363bf5b97ada/aave-v3-atoken-1.json"
+fixture = "fixtures/0xadc45df3cf1584624c97338bef33363bf5b97ada/aave-v3-atoken-deposit-eth-1.json"
 
 [[transactions]]
-id = "aave-v3-atoken-2"
+id = "aave-v3-atoken-send-2"
 contract = "0xadc45df3cf1584624c97338bef33363bf5b97ada"
-fixture = "fixtures/0xadc45df3cf1584624c97338bef33363bf5b97ada/aave-v3-atoken-2.json"
+fixture = "fixtures/0xadc45df3cf1584624c97338bef33363bf5b97ada/aave-v3-atoken-send-2.json"
 
 [[transactions]]
-id = "aave-v3-atoken-3"
+id = "aave-v3-atoken-deposit-eth-3"
 contract = "0xadc45df3cf1584624c97338bef33363bf5b97ada"
-fixture = "fixtures/0xadc45df3cf1584624c97338bef33363bf5b97ada/aave-v3-atoken-3.json"
+fixture = "fixtures/0xadc45df3cf1584624c97338bef33363bf5b97ada/aave-v3-atoken-deposit-eth-3.json"
 
 [[transactions]]
-id = "aave-v3-variable-debt-1"
+id = "aave-v3-variable-debt-borrow-1"
 contract = "0xb27c52c7f84819e3157993489741cb60786ae330"
-fixture = "fixtures/0xb27c52c7f84819e3157993489741cb60786ae330/aave-v3-variable-debt-1.json"
+fixture = "fixtures/0xb27c52c7f84819e3157993489741cb60786ae330/aave-v3-variable-debt-borrow-1.json"
 
 [[transactions]]
-id = "aave-v3-variable-debt-2"
+id = "aave-v3-variable-debt-borrow-2"
 contract = "0xb27c52c7f84819e3157993489741cb60786ae330"
-fixture = "fixtures/0xb27c52c7f84819e3157993489741cb60786ae330/aave-v3-variable-debt-2.json"
+fixture = "fixtures/0xb27c52c7f84819e3157993489741cb60786ae330/aave-v3-variable-debt-borrow-2.json"
 
 [[transactions]]
-id = "aave-v3-variable-debt-3"
+id = "aave-v3-variable-debt-repay-3"
 contract = "0xb27c52c7f84819e3157993489741cb60786ae330"
-fixture = "fixtures/0xb27c52c7f84819e3157993489741cb60786ae330/aave-v3-variable-debt-3.json"
+fixture = "fixtures/0xb27c52c7f84819e3157993489741cb60786ae330/aave-v3-variable-debt-repay-3.json"
 
 [[transactions]]
-id = "compound-comet-1"
+id = "compound-comet-withdraw-1"
 contract = "0x83d491269720ce925f92c6bf9f66b7a0779a293a"
-fixture = "fixtures/0x83d491269720ce925f92c6bf9f66b7a0779a293a/compound-comet-1.json"
+fixture = "fixtures/0x83d491269720ce925f92c6bf9f66b7a0779a293a/compound-comet-withdraw-1.json"
 
 [[transactions]]
-id = "compound-comet-2"
+id = "compound-comet-withdraw-2"
 contract = "0x83d491269720ce925f92c6bf9f66b7a0779a293a"
-fixture = "fixtures/0x83d491269720ce925f92c6bf9f66b7a0779a293a/compound-comet-2.json"
+fixture = "fixtures/0x83d491269720ce925f92c6bf9f66b7a0779a293a/compound-comet-withdraw-2.json"
 
 [[transactions]]
-id = "compound-comet-3"
+id = "compound-comet-withdraw-3"
 contract = "0x83d491269720ce925f92c6bf9f66b7a0779a293a"
-fixture = "fixtures/0x83d491269720ce925f92c6bf9f66b7a0779a293a/compound-comet-3.json"
+fixture = "fixtures/0x83d491269720ce925f92c6bf9f66b7a0779a293a/compound-comet-withdraw-3.json"
 
 [[transactions]]
-id = "compound-rewards-1"
+id = "compound-rewards-claim-1"
 contract = "0x1b0e765f6224c21223aea2af16c1c46e38885a40"
-fixture = "fixtures/0x1b0e765f6224c21223aea2af16c1c46e38885a40/compound-rewards-1.json"
+fixture = "fixtures/0x1b0e765f6224c21223aea2af16c1c46e38885a40/compound-rewards-claim-1.json"
 
 [[transactions]]
-id = "compound-rewards-2"
+id = "compound-rewards-claim-2"
 contract = "0x1b0e765f6224c21223aea2af16c1c46e38885a40"
-fixture = "fixtures/0x1b0e765f6224c21223aea2af16c1c46e38885a40/compound-rewards-2.json"
+fixture = "fixtures/0x1b0e765f6224c21223aea2af16c1c46e38885a40/compound-rewards-claim-2.json"
 
 [[transactions]]
-id = "compound-rewards-3"
+id = "compound-rewards-claim-3"
 contract = "0x1b0e765f6224c21223aea2af16c1c46e38885a40"
-fixture = "fixtures/0x1b0e765f6224c21223aea2af16c1c46e38885a40/compound-rewards-3.json"
+fixture = "fixtures/0x1b0e765f6224c21223aea2af16c1c46e38885a40/compound-rewards-claim-3.json"
 
 [[transactions]]
-id = "spark-pool-1"
+id = "spark-pool-withdraw-1"
 contract = "0x5ae329203e00f76891094dcfedd5aca082a50e1b"
-fixture = "fixtures/0x5ae329203e00f76891094dcfedd5aca082a50e1b/spark-pool-1.json"
+fixture = "fixtures/0x5ae329203e00f76891094dcfedd5aca082a50e1b/spark-pool-withdraw-1.json"
 
 [[transactions]]
-id = "spark-pool-2"
+id = "spark-pool-borrow-2"
 contract = "0x5ae329203e00f76891094dcfedd5aca082a50e1b"
-fixture = "fixtures/0x5ae329203e00f76891094dcfedd5aca082a50e1b/spark-pool-2.json"
+fixture = "fixtures/0x5ae329203e00f76891094dcfedd5aca082a50e1b/spark-pool-borrow-2.json"
 
 [[transactions]]
-id = "spark-pool-3"
+id = "spark-pool-borrow-3"
 contract = "0x5ae329203e00f76891094dcfedd5aca082a50e1b"
-fixture = "fixtures/0x5ae329203e00f76891094dcfedd5aca082a50e1b/spark-pool-3.json"
+fixture = "fixtures/0x5ae329203e00f76891094dcfedd5aca082a50e1b/spark-pool-borrow-3.json"
 
 [[transactions]]
-id = "maker-vat-1"
+id = "maker-vat-hope-1"
 contract = "0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b"
-fixture = "fixtures/0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b/maker-vat-1.json"
+fixture = "fixtures/0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b/maker-vat-hope-1.json"
 
 [[transactions]]
-id = "maker-vat-2"
+id = "maker-vat-hope-2"
 contract = "0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b"
-fixture = "fixtures/0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b/maker-vat-2.json"
+fixture = "fixtures/0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b/maker-vat-hope-2.json"
 
 [[transactions]]
-id = "maker-vat-3"
+id = "maker-vat-hope-3"
 contract = "0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b"
-fixture = "fixtures/0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b/maker-vat-3.json"
+fixture = "fixtures/0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b/maker-vat-hope-3.json"
 
 [[transactions]]
-id = "maker-pot-1"
+id = "maker-pot-drip-1"
 contract = "0x197e90f9fad81970ba7976f33cbd77088e5d7cf7"
-fixture = "fixtures/0x197e90f9fad81970ba7976f33cbd77088e5d7cf7/maker-pot-1.json"
+fixture = "fixtures/0x197e90f9fad81970ba7976f33cbd77088e5d7cf7/maker-pot-drip-1.json"
 
 [[transactions]]
-id = "maker-pot-2"
+id = "maker-pot-drip-2"
 contract = "0x197e90f9fad81970ba7976f33cbd77088e5d7cf7"
-fixture = "fixtures/0x197e90f9fad81970ba7976f33cbd77088e5d7cf7/maker-pot-2.json"
+fixture = "fixtures/0x197e90f9fad81970ba7976f33cbd77088e5d7cf7/maker-pot-drip-2.json"
 
 [[transactions]]
-id = "maker-pot-3"
+id = "maker-pot-drip-3"
 contract = "0x197e90f9fad81970ba7976f33cbd77088e5d7cf7"
-fixture = "fixtures/0x197e90f9fad81970ba7976f33cbd77088e5d7cf7/maker-pot-3.json"
+fixture = "fixtures/0x197e90f9fad81970ba7976f33cbd77088e5d7cf7/maker-pot-drip-3.json"
 
 [[transactions]]
-id = "maker-jug-1"
+id = "maker-jug-drip-1"
 contract = "0x19c0976f590d67707e62397c87829d896dc0f1f1"
-fixture = "fixtures/0x19c0976f590d67707e62397c87829d896dc0f1f1/maker-jug-1.json"
+fixture = "fixtures/0x19c0976f590d67707e62397c87829d896dc0f1f1/maker-jug-drip-1.json"
 
 [[transactions]]
-id = "maker-jug-2"
+id = "maker-jug-drip-2"
 contract = "0x19c0976f590d67707e62397c87829d896dc0f1f1"
-fixture = "fixtures/0x19c0976f590d67707e62397c87829d896dc0f1f1/maker-jug-2.json"
+fixture = "fixtures/0x19c0976f590d67707e62397c87829d896dc0f1f1/maker-jug-drip-2.json"
 
 [[transactions]]
-id = "maker-jug-3"
+id = "maker-jug-drip-3"
 contract = "0x19c0976f590d67707e62397c87829d896dc0f1f1"
-fixture = "fixtures/0x19c0976f590d67707e62397c87829d896dc0f1f1/maker-jug-3.json"
+fixture = "fixtures/0x19c0976f590d67707e62397c87829d896dc0f1f1/maker-jug-drip-3.json"
 
 [[transactions]]
-id = "lido-withdrawal-queue-1"
+id = "lido-withdrawal-queue-request-withdrawals-1"
 contract = "0xe42c659dc09109566720ea8b2de186c2be7d94d9"
-fixture = "fixtures/0xe42c659dc09109566720ea8b2de186c2be7d94d9/lido-withdrawal-queue-1.json"
+fixture = "fixtures/0xe42c659dc09109566720ea8b2de186c2be7d94d9/lido-withdrawal-queue-request-withdrawals-1.json"
 
 [[transactions]]
-id = "lido-withdrawal-queue-2"
+id = "lido-withdrawal-queue-request-withdrawals-with-permit-2"
 contract = "0xe42c659dc09109566720ea8b2de186c2be7d94d9"
-fixture = "fixtures/0xe42c659dc09109566720ea8b2de186c2be7d94d9/lido-withdrawal-queue-2.json"
+fixture = "fixtures/0xe42c659dc09109566720ea8b2de186c2be7d94d9/lido-withdrawal-queue-request-withdrawals-with-permit-2.json"
 
 [[transactions]]
-id = "lido-withdrawal-queue-3"
+id = "lido-withdrawal-queue-request-withdrawals-with-permit-3"
 contract = "0xe42c659dc09109566720ea8b2de186c2be7d94d9"
-fixture = "fixtures/0xe42c659dc09109566720ea8b2de186c2be7d94d9/lido-withdrawal-queue-3.json"
+fixture = "fixtures/0xe42c659dc09109566720ea8b2de186c2be7d94d9/lido-withdrawal-queue-request-withdrawals-with-permit-3.json"
 
 [[transactions]]
-id = "lido-accounting-oracle-1"
+id = "lido-accounting-oracle-submit-report-extra-data-list-1"
 contract = "0x1455b96780a93e08abfe41243db92e2fcbb0141c"
-fixture = "fixtures/0x1455b96780a93e08abfe41243db92e2fcbb0141c/lido-accounting-oracle-1.json"
+fixture = "fixtures/0x1455b96780a93e08abfe41243db92e2fcbb0141c/lido-accounting-oracle-submit-report-extra-data-list-1.json"
 
 [[transactions]]
-id = "lido-accounting-oracle-2"
+id = "lido-accounting-oracle-submit-report-extra-data-list-2"
 contract = "0x1455b96780a93e08abfe41243db92e2fcbb0141c"
-fixture = "fixtures/0x1455b96780a93e08abfe41243db92e2fcbb0141c/lido-accounting-oracle-2.json"
+fixture = "fixtures/0x1455b96780a93e08abfe41243db92e2fcbb0141c/lido-accounting-oracle-submit-report-extra-data-list-2.json"
 
 [[transactions]]
-id = "lido-accounting-oracle-3"
+id = "lido-accounting-oracle-submit-report-extra-data-empty-3"
 contract = "0x1455b96780a93e08abfe41243db92e2fcbb0141c"
-fixture = "fixtures/0x1455b96780a93e08abfe41243db92e2fcbb0141c/lido-accounting-oracle-3.json"
+fixture = "fixtures/0x1455b96780a93e08abfe41243db92e2fcbb0141c/lido-accounting-oracle-submit-report-extra-data-empty-3.json"
 
 [[transactions]]
-id = "eigen-strategy-manager-1"
+id = "eigen-strategy-manager-deposit-into-strategy-1"
 contract = "0xa7536c85898dc424c6bfe8592f983661f830656a"
-fixture = "fixtures/0xa7536c85898dc424c6bfe8592f983661f830656a/eigen-strategy-manager-1.json"
+fixture = "fixtures/0xa7536c85898dc424c6bfe8592f983661f830656a/eigen-strategy-manager-deposit-into-strategy-1.json"
 
 [[transactions]]
-id = "eigen-strategy-manager-2"
+id = "eigen-strategy-manager-deposit-into-strategy-2"
 contract = "0xa7536c85898dc424c6bfe8592f983661f830656a"
-fixture = "fixtures/0xa7536c85898dc424c6bfe8592f983661f830656a/eigen-strategy-manager-2.json"
+fixture = "fixtures/0xa7536c85898dc424c6bfe8592f983661f830656a/eigen-strategy-manager-deposit-into-strategy-2.json"
 
 [[transactions]]
-id = "eigen-strategy-manager-3"
+id = "eigen-strategy-manager-deposit-into-strategy-3"
 contract = "0xa7536c85898dc424c6bfe8592f983661f830656a"
-fixture = "fixtures/0xa7536c85898dc424c6bfe8592f983661f830656a/eigen-strategy-manager-3.json"
+fixture = "fixtures/0xa7536c85898dc424c6bfe8592f983661f830656a/eigen-strategy-manager-deposit-into-strategy-3.json"
 
 [[transactions]]
-id = "eigen-pod-manager-1"
+id = "eigen-pod-manager-create-pod-1"
 contract = "0xd22dd829779adbf3869fb224f703452f7f95e9db"
-fixture = "fixtures/0xd22dd829779adbf3869fb224f703452f7f95e9db/eigen-pod-manager-1.json"
+fixture = "fixtures/0xd22dd829779adbf3869fb224f703452f7f95e9db/eigen-pod-manager-create-pod-1.json"
 
 [[transactions]]
-id = "eigen-pod-manager-2"
+id = "eigen-pod-manager-create-pod-2"
 contract = "0xd22dd829779adbf3869fb224f703452f7f95e9db"
-fixture = "fixtures/0xd22dd829779adbf3869fb224f703452f7f95e9db/eigen-pod-manager-2.json"
+fixture = "fixtures/0xd22dd829779adbf3869fb224f703452f7f95e9db/eigen-pod-manager-create-pod-2.json"
 
 [[transactions]]
-id = "eigen-pod-manager-3"
+id = "eigen-pod-manager-create-pod-3"
 contract = "0xd22dd829779adbf3869fb224f703452f7f95e9db"
-fixture = "fixtures/0xd22dd829779adbf3869fb224f703452f7f95e9db/eigen-pod-manager-3.json"
+fixture = "fixtures/0xd22dd829779adbf3869fb224f703452f7f95e9db/eigen-pod-manager-create-pod-3.json"
 
 [[transactions]]
-id = "ens-name-wrapper-1"
+id = "ens-name-wrapper-safe-transfer-from-1"
 contract = "0xd4416b13d2b3a9abae7acd5d6c2bbdbe25686401"
-fixture = "fixtures/0xd4416b13d2b3a9abae7acd5d6c2bbdbe25686401/ens-name-wrapper-1.json"
+fixture = "fixtures/0xd4416b13d2b3a9abae7acd5d6c2bbdbe25686401/ens-name-wrapper-safe-transfer-from-1.json"
 
 [[transactions]]
-id = "ens-name-wrapper-2"
+id = "ens-name-wrapper-set-subnode-record-2"
 contract = "0xd4416b13d2b3a9abae7acd5d6c2bbdbe25686401"
-fixture = "fixtures/0xd4416b13d2b3a9abae7acd5d6c2bbdbe25686401/ens-name-wrapper-2.json"
+fixture = "fixtures/0xd4416b13d2b3a9abae7acd5d6c2bbdbe25686401/ens-name-wrapper-set-subnode-record-2.json"
 
 [[transactions]]
-id = "ens-name-wrapper-3"
+id = "ens-name-wrapper-safe-transfer-from-3"
 contract = "0xd4416b13d2b3a9abae7acd5d6c2bbdbe25686401"
-fixture = "fixtures/0xd4416b13d2b3a9abae7acd5d6c2bbdbe25686401/ens-name-wrapper-3.json"
+fixture = "fixtures/0xd4416b13d2b3a9abae7acd5d6c2bbdbe25686401/ens-name-wrapper-safe-transfer-from-3.json"
 
 [[transactions]]
-id = "ens-registrar-controller-1"
+id = "ens-registrar-controller-register-1"
 contract = "0x253553366da8546fc250f225fe3d25d0c782303b"
-fixture = "fixtures/0x253553366da8546fc250f225fe3d25d0c782303b/ens-registrar-controller-1.json"
+fixture = "fixtures/0x253553366da8546fc250f225fe3d25d0c782303b/ens-registrar-controller-register-1.json"
 
 [[transactions]]
-id = "ens-registrar-controller-2"
+id = "ens-registrar-controller-register-2"
 contract = "0x253553366da8546fc250f225fe3d25d0c782303b"
-fixture = "fixtures/0x253553366da8546fc250f225fe3d25d0c782303b/ens-registrar-controller-2.json"
+fixture = "fixtures/0x253553366da8546fc250f225fe3d25d0c782303b/ens-registrar-controller-register-2.json"
 
 [[transactions]]
-id = "ens-registrar-controller-3"
+id = "ens-registrar-controller-register-3"
 contract = "0x253553366da8546fc250f225fe3d25d0c782303b"
-fixture = "fixtures/0x253553366da8546fc250f225fe3d25d0c782303b/ens-registrar-controller-3.json"
+fixture = "fixtures/0x253553366da8546fc250f225fe3d25d0c782303b/ens-registrar-controller-register-3.json"
 
 [[transactions]]
-id = "safe-gnosis-safe-1"
+id = "safe-gnosis-safe-exec-transaction-1"
 contract = "0xd9db270c1b5e3bd161e8c8503c55ceabee709552"
-fixture = "fixtures/0xd9db270c1b5e3bd161e8c8503c55ceabee709552/safe-gnosis-safe-1.json"
+fixture = "fixtures/0xd9db270c1b5e3bd161e8c8503c55ceabee709552/safe-gnosis-safe-exec-transaction-1.json"
 
 [[transactions]]
-id = "safe-gnosis-safe-2"
+id = "safe-gnosis-safe-exec-transaction-2"
 contract = "0xd9db270c1b5e3bd161e8c8503c55ceabee709552"
-fixture = "fixtures/0xd9db270c1b5e3bd161e8c8503c55ceabee709552/safe-gnosis-safe-2.json"
+fixture = "fixtures/0xd9db270c1b5e3bd161e8c8503c55ceabee709552/safe-gnosis-safe-exec-transaction-2.json"
 
 [[transactions]]
-id = "safe-gnosis-safe-3"
+id = "safe-gnosis-safe-exec-transaction-3"
 contract = "0xd9db270c1b5e3bd161e8c8503c55ceabee709552"
-fixture = "fixtures/0xd9db270c1b5e3bd161e8c8503c55ceabee709552/safe-gnosis-safe-3.json"
+fixture = "fixtures/0xd9db270c1b5e3bd161e8c8503c55ceabee709552/safe-gnosis-safe-exec-transaction-3.json"
